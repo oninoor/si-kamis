@@ -61,8 +61,8 @@
                 <div class="col-md-6 col-lg-5">
                     <div class="login-box bg-white box-shadow border-radius-10">
                         <div class="login-title">
-                            <h2 class="text-center text-primary">Masuk untuk akses SI-KAMIS</h2>
-                            
+                            <h2 class="text-center text-primary">Masuk untuk akses RME</h2>
+
                         </div>
                         <form action="<?= base_url('Auth/login') ?>" method="POST">
                             <div class="input-group custom">
@@ -241,6 +241,26 @@
 
         <?php elseif ($this->session->flashdata('logout')) : ?>
             toastr.success("Berhasil logout", "Selamat!", {
+                positionClass: "toast-top-right",
+                timeOut: 3000,
+                closeButton: !0,
+                debug: !1,
+                newestOnTop: !0,
+                progressBar: !0,
+                preventDuplicates: !0,
+                onclick: null,
+                showDuration: "300",
+                hideDuration: "1000",
+                extendedTimeOut: "1000",
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut",
+                tapToDismiss: !1
+            })
+
+        <?php elseif ($this->session->flashdata('login_dulu')) : ?>
+            toastr.warning("Silahkan login terlebih dahulu", "Catatan!", {
                 positionClass: "toast-top-right",
                 timeOut: 3000,
                 closeButton: !0,

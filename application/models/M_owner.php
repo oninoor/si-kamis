@@ -23,4 +23,14 @@ class M_owner extends CI_Model
         $this->status = 0;
         $this->db->insert($this->users, $this);
     }
+
+    public function update_petugas()
+    {
+        $post = $this->input->post();
+        $this->nama_lengkap = $post['nama_lengkap'];
+        $this->alamat = $post['alamat'];
+        $this->no_telp = $post['no_telp'];
+        $this->role = $post['role'];
+        $this->db->update($this->users, $this, ['id' => $post['id']]);
+    }
 }

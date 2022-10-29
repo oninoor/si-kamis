@@ -175,6 +175,13 @@
                             </a>
                         </li>
                     <?php } ?>
+                    <?php if ($this->session->userdata('role') == '2') { ?>
+                        <li class="dropdown">
+                            <a href="<?= base_url('Loket') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-dashboard"></span><span class="mtext">Dashboard</span>
+                            </a>
+                        </li>
+                    <?php } ?>
                     <?php if ($this->session->userdata('role') == '0') { ?>
                         <li class="dropdown">
                             <a href="<?= base_url('Owner/petugas') ?>" class="dropdown-toggle no-arrow">
@@ -183,19 +190,40 @@
                         </li>
                     <?php } ?>
                     <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle no-arrow">
+                        <a href="<?= base_url('Loket/pasien') ?>" class="dropdown-toggle no-arrow">
                             <span class="micon fa fa-user"></span><span class="mtext">Data Pasien / Users</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="calendar.html" class="dropdown-toggle no-arrow">
-                            <span class="micon fa fa-list"></span><span class="mtext">Pendaftaran</span>
-                        </a>
-                    </li>
+                    <?php if ($this->session->userdata('role') == '2') { ?>
+                        <li>
+                            <a href="calendar.html" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-edit"></span><span class="mtext">Pendaftaran</span>
+                            </a>
+                        </li>
+                    <?php } ?>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle no-arrow">
-                            <span class="micon fa fa-stethoscope"></span><span class="mtext">Pengobatan / Kunjungan</span>
+                            <span class="micon fa fa-stethoscope"></span><span class="mtext">Kunjungan</span>
                         </a>
+                    </li>
+                    <?php if ($this->session->userdata('role') == '2') { ?>
+                        <li>
+                            <a href="calendar.html" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-dollar"></span><span class="mtext">Pembayaran</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon fa fa-folder"></span><span class="mtext">Laporan</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="form-basic.html">Laporan Kunjungan</a></li>
+                            <li><a href="advanced-components.html">Laporan Pembayaran</a></li>
+                            <li><a href="form-wizard.html">Laporan Transaksi Obat</a></li>
+                            <li><a href="html5-editor.html">Laporan Obat</a></li>
+                            <li><a href="form-pickers.html">Laporan Diagnosa</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>

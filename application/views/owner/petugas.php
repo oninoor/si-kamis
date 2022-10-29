@@ -35,6 +35,7 @@
                                 <th>Nama</th>
                                 <th>Username</th>
                                 <th>Posisi</th>
+                                <th>Alamat</th>
                                 <th>Status</th>
                                 <th class="datatable-nosort">Action</th>
                             </tr>
@@ -62,6 +63,7 @@
                                         }
                                         ?>
                                     </td>
+                                    <td><?= $view->alamat ?></td>
                                     <td>
                                         <?php
                                         if ($view->status == 0) {
@@ -78,8 +80,8 @@
                                             <?php } else if ($view->status == 1) { ?>
                                                 <a href="<?= base_url('Owner/nonaktifkan_petugas/' . $view->id) ?>" title="Non Aktifkan" class="badge bg-danger nonaktifkan-akun" style="color: white;"><i class="fa fa-power-off"></i></a>
                                             <?php } ?>
-                                            <a href="" title="Edit" class="badge bg-primary" style="color: white;"><i class="fa fa-edit"></i></a>
-                                            <a href="" title="Hapus" class="badge bg-danger" style="color: white;"><i class="fa fa-trash"></i></a>
+                                            <a href="<?= base_url('Owner/edit_petugas/' . $view->id) ?>" title="Edit" class="badge bg-primary" style="color: white;"><i class="fa fa-edit"></i></a>
+                                            <a href="<?= base_url('Owner/hapus_petugas/' . $view->id) ?>" title="Hapus" class="badge bg-danger hapus-data" style="color: white;"><i class="fa fa-trash"></i></a>
                                         <?php } ?>
                                     </td>
                                 </tr>
@@ -93,7 +95,7 @@
 </div>
 <script>
     <?php if ($this->session->flashdata('success_insert')) : ?>
-        toastr.success("Data petugas berhasil ditambahkan", "Berhasil!", {
+        toastr.success("Data berhasil ditambahkan", "Berhasil!", {
             positionClass: "toast-top-right",
             timeOut: 4000,
             closeButton: !0,
@@ -152,8 +154,8 @@
             tapToDismiss: !1
         })
 
-    <?php elseif ($this->session->flashdata('password_salah')) : ?>
-        toastr.warning("Silahkan masukkan password yang benar", "Password anda salah!", {
+    <?php elseif ($this->session->flashdata('success_delete')) : ?>
+        toastr.success("Data berhasil dihapus", "Berhasil!", {
             positionClass: "toast-top-right",
             timeOut: 3000,
             closeButton: !0,
@@ -172,48 +174,8 @@
             tapToDismiss: !1
         })
 
-    <?php elseif ($this->session->flashdata('akun_nonaktif')) : ?>
-        toastr.warning("Akun anda belum aktif", "Catatan!", {
-            positionClass: "toast-top-right",
-            timeOut: 3000,
-            closeButton: !0,
-            debug: !1,
-            newestOnTop: !0,
-            progressBar: !0,
-            preventDuplicates: !0,
-            onclick: null,
-            showDuration: "300",
-            hideDuration: "1000",
-            extendedTimeOut: "1000",
-            showEasing: "swing",
-            hideEasing: "linear",
-            showMethod: "fadeIn",
-            hideMethod: "fadeOut",
-            tapToDismiss: !1
-        })
-
-    <?php elseif ($this->session->flashdata('berhasil_login')) : ?>
-        toastr.success("Berhasil login", "Selamat!", {
-            positionClass: "toast-top-right",
-            timeOut: 3000,
-            closeButton: !0,
-            debug: !1,
-            newestOnTop: !0,
-            progressBar: !0,
-            preventDuplicates: !0,
-            onclick: null,
-            showDuration: "300",
-            hideDuration: "1000",
-            extendedTimeOut: "1000",
-            showEasing: "swing",
-            hideEasing: "linear",
-            showMethod: "fadeIn",
-            hideMethod: "fadeOut",
-            tapToDismiss: !1
-        })
-
-    <?php elseif ($this->session->flashdata('logout')) : ?>
-        toastr.success("Berhasil logout", "Selamat!", {
+    <?php elseif ($this->session->flashdata('success_update')) : ?>
+        toastr.success("Data berhasil diperbarui", "Berhasil!", {
             positionClass: "toast-top-right",
             timeOut: 3000,
             closeButton: !0,
@@ -265,6 +227,26 @@
             confirmButtonColor: '#FFA500',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Non Aktifkan Akun!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.location.href = link;
+            }
+        })
+
+    })
+
+    $('.hapus-data').on('click', function(e) {
+        e.preventDefault();
+        const link = $(this).attr('href');
+
+        Swal.fire({
+            title: 'Apakah anda yakin ?',
+            text: "Akun petugas akan dihapus!",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#898989',
+            confirmButtonText: 'Hapus Akun!'
         }).then((result) => {
             if (result.isConfirmed) {
                 document.location.href = link;
