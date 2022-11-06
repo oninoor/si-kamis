@@ -49,7 +49,7 @@ class Auth extends CI_Controller
                                 $this->session->set_flashdata('berhasil_login', true);
                                 redirect('Owner');
                             }
-                            if ($users->role == 1) {
+                            else if ($users->role == 1) {
                                 $this->session->set_flashdata('berhasil_login', true);
                                 redirect('Admin');
                             }
@@ -58,8 +58,15 @@ class Auth extends CI_Controller
                                 $this->session->set_flashdata('berhasil_login', true);
                                 redirect('Loket');
                             }
-                            //jika apoteker 
+                            //jika dokter
                             else if ($users->role == 3) {
+                                $this->session->set_flashdata('berhasil_login', true);
+                                redirect('Dokter');
+                            }
+                            //jika petugas obat
+                            else if ($users->role == 4) {
+                                $this->session->set_flashdata('berhasil_login', true);
+                                redirect('Obat');
                             }
                         }
                         //kondisi jika status 0

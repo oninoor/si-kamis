@@ -9,7 +9,10 @@ class Owner extends CI_Controller
         parent::__construct();
         $this->load->model('M_owner', 'owner');
         $this->load->library('form_validation');
-        if (empty($this->session->userdata('role' == 0))) {
+        if (empty($this->session->userdata('role') == 0)) {
+            $this->session->unset_userdata('id');
+            $this->session->unset_userdata('no_rm');
+            $this->session->unset_userdata('nama_lengkap');
             $this->session->set_flashdata('login_dulu', true);
             redirect('Auth');
         }
@@ -92,7 +95,7 @@ class Owner extends CI_Controller
         }
     }
 
-    public function hapus_petugas($id) 
+    public function hapus_petugas($id)
     {
         $this->db->delete('users', ['id' => $id]);
         $this->session->set_flashdata('success_delete', true);

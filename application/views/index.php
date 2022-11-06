@@ -61,6 +61,8 @@
 				<div class="col-md-6 col-lg-5">
 					<div class="login-title">
 						<h2 class="text-center text-primary">Selamat Datang </h2>
+						<h2 class="text-center text-primary">Rekam Medis Elektronik</h2>
+						<h2 class="text-center text-primary">dr. Alfi Yudisianto</h2>
 						<p class="text-center text-primary">Silahkan pilih akun anda</p>
 					</div>
 					<div class="login-box bg-white box-shadow border-radius-10">

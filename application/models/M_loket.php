@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class M_loket extends CI_Model
 {
     private $pasien = 'pasien';
+    private $kunjungan = 'kunjungan';
 
     public function get_pasien()
     {
@@ -31,6 +32,18 @@ class M_loket extends CI_Model
     {
         $hasil = $this->db->query('SELECT MAX(no_rm) as no_rm from pasien')->row();
         return $hasil->no_rm;
+    }
+
+    public function max_kode_kunjungan()
+    {
+        $hasil = $this->db->query('SELECT MAX(kd_kunjungan) as kode from kunjungan')->row();
+        return $hasil->kode;
+    }
+
+    public function max_no_antri()
+    {
+        $date = date('Y-m-d');
+        return $this->db->query("SELECT max(no_antrian) as maxs FROM kunjungan WHERE tanggal = '$date' order by no_antrian desc limit 1")->row();
     }
 
     public function save_pasien()
@@ -81,12 +94,12 @@ class M_loket extends CI_Model
         $this->tempat_lahir = $post['tempat_lahir'];
         $this->alamat = $post['alamat'];
         $this->kota = $post['kota'];
-        if(!empty($post['kecamatan'])) {
+        if (!empty($post['kecamatan'])) {
             $this->kecamatan = $post['kecamatan'];
         } else {
             $this->kecamatan = $post['old_kecamatan'];
         }
-        if(!empty($post['desa'])) {
+        if (!empty($post['desa'])) {
             $this->desa = $post['desa'];
         } else {
             $this->desa = $post['old_desa'];
@@ -98,5 +111,71 @@ class M_loket extends CI_Model
         $this->hubungan = $post['hubungan'];
         // var_dump($this);
         $this->db->update($this->pasien, $this, ['id' => $post['id']]);
+    }
+
+    public function get_pendaftaran()
+    {
+        $this->db->select('kunjungan.*, 
+                            pasien.no_rm, 
+                            pasien.nama_lengkap, 
+                            users.nama_lengkap AS nama_dokter
+                            ');
+        $this->db->from('kunjungan');
+        $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
+        $this->db->join('users', 'kunjungan.dokter = users.id');
+        $this->db->where('kunjungan.status', 0);
+        $this->db->order_by('kunjungan.kd_kunjungan', 'asc');
+        return $this->db->get()->result();
+    }
+
+    public function get_kunjungan()
+    {
+        $this->db->select('kunjungan.*, 
+                            pasien.no_rm, 
+                            pasien.nama_lengkap, 
+                            users.nama_lengkap AS nama_dokter
+                            ');
+        $this->db->from('kunjungan');
+        $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
+        $this->db->join('users', 'kunjungan.dokter = users.id');
+        $this->db->where('kunjungan.status >', 0);
+        $this->db->order_by('kunjungan.kd_kunjungan', 'asc');
+        return $this->db->get()->result();
+    }
+
+    public function detail_kunjungan($id)
+    {
+        $this->db->select('kunjungan.*,
+                            pasien.nama_lengkap,
+                            pasien.alamat,
+                            pasien.no_telp,
+                            users.nama_lengkap as nama_dokter
+                            ');
+        $this->db->from('kunjungan');
+        $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
+        $this->db->join('users', 'kunjungan.dokter = users.id');
+        $this->db->where('kd_kunjungan', $id);
+        return $this->db->get()->row();
+    }
+
+    public function save_pendaftaran()
+    {
+        $post = $this->input->post();
+        $this->kd_kunjungan = $post['kd_kunjungan'];
+        $this->no_rekmed = $post['no_rekmed'];
+        $this->pasien = $post['pasien'];
+        $this->dokter = $post['dokter'];
+        $this->tanggal = $post['tanggal'];
+        $this->no_antrian = $post['no_antrian'];
+        $this->tinggi_badan = $post['tinggi_badan'];
+        $this->berat_badan = $post['berat_badan'];
+        $this->suhu = $post['suhu'];
+        $this->tekanan_darah_sistole = $post['tekanan_darah_sistole'];
+        $this->tekanan_darah_diastole = $post['tekanan_darah_diastole'];
+        $this->nadi = $post['nadi'];
+        $this->gejala = $post['gejala'];
+        $this->petugas_loket = $post['petugas_loket'];
+        $this->status = 0;
+        $this->db->insert($this->kunjungan, $this);
     }
 }

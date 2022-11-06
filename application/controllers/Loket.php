@@ -10,6 +10,9 @@ class Loket extends CI_Controller
         $this->load->model('M_loket', 'model');
         $this->load->library('form_validation');
         if (empty($this->session->userdata('role') == 2)) {
+            $this->session->unset_userdata('id');
+            $this->session->unset_userdata('no_rm');
+            $this->session->unset_userdata('nama_lengkap');
             $this->session->set_flashdata('login_dulu', true);
             redirect('Auth');
         }
@@ -65,7 +68,6 @@ class Loket extends CI_Controller
             $this->session->set_flashdata('success_insert', true);
             redirect('Loket/pasien');
         }
-        
     }
 
     public function wilayah()
@@ -156,5 +158,81 @@ class Loket extends CI_Controller
         $var['cetak'] = 'Petugas Loket | Pasien';
         $var['view'] = $this->db->get_where('pasien', ['id' => $id])->row();
         $this->load->view('cetak/data_pasien', $var);
+    }
+
+    public function pendaftaran()
+    {
+        $var['title'] = 'Petugas Loket | Pendaftaran';
+        $var['pendaftaran'] = $this->model->get_pendaftaran();
+        $this->load->view('loket/pendaftaran', $var);
+    }
+
+    public function tambah_pendaftaran()
+    {
+        $var['title'] = 'Petugas Loket | Tambah Pendaftaran';
+        $last_kode = $this->model->max_kode_kunjungan();
+        $cek_kode = substr($last_kode, 5, 6);
+        $kode_plus = $cek_kode + 1;
+        $kode_fix = sprintf("%06s", $kode_plus);
+        $var['kode_kunjungan'] = $kode_fix;
+        $var['pasien'] = $this->db->get('pasien')->result();
+        $var['dokter'] = $this->db->get_where('users', ['role' => 3])->result();
+        $this->load->view('loket/add_pendaftaran', $var);
+    }
+
+    public function max_no_antri()
+    {
+        $data = $this->model->max_no_antri();
+        // var_dump($data);
+        echo json_encode($data);
+    }
+
+    public function save_pendaftaran()
+    {
+        $this->form_validation->set_rules('no_rekmed', 'no rekam medis', 'required|trim', ['required' => 'pasien harus diisi']);
+        $this->form_validation->set_rules('dokter', 'dokter', 'required|trim', ['required' => 'dokter harus diisi']);
+        $this->form_validation->set_rules('tanggal', 'tanggal', 'required|trim', ['required' => 'tanggal harus diisi']);
+        $this->form_validation->set_rules('tinggi_badan', 'tinggi badan', 'required|trim', ['required' => 'tinggi badan harus diisi']);
+        $this->form_validation->set_rules('berat_badan', 'berat badan', 'required|trim', ['required' => 'berat badan harus diisi']);
+        $this->form_validation->set_rules('suhu', 'suhu', 'required|trim', ['required' => 'suhu harus diisi']);
+        $this->form_validation->set_rules('tekanan_darah_sistole', 'tekanan darah sistole', 'required|trim', ['required' => 'tekanan darah sistole harus diisi']);
+        $this->form_validation->set_rules('tekanan_darah_diastole', 'tekanan darah diastole', 'required|trim', ['required' => 'tekanan darah diastole harus diisi']);
+        $this->form_validation->set_rules('nadi', 'nadi', 'required|trim', ['required' => 'nadi harus diisi']);
+        $this->form_validation->set_rules('gejala', 'gejala', 'required|trim', ['required' => 'gejala harus diisi']);
+        if ($this->form_validation->run() == false) {
+            $this->tambah_pendaftaran();
+        } else {
+            $this->model->save_pendaftaran();
+            $this->session->set_flashdata('success_insert', true);
+            redirect('Loket/pendaftaran');
+        }
+    }
+
+    public function hapus_pendaftaran($id)
+    {
+        $this->db->delete('kunjungan', ['kd_kunjungan' => $id]);
+        $this->session->set_flashdata('success_delete', true);
+        redirect('Loket/pendaftaran');
+    }
+
+    public function masuk_pemeriksaan($id)
+    {
+        $this->db->set('status', 1)->where('kd_kunjungan', $id)->update('kunjungan');
+        $this->session->set_flashdata('success_pemeriksaan', true);
+        redirect('Loket/pendaftaran');
+    }
+
+    public function kunjungan()
+    {
+        $var['title'] = 'Petugas Loket | Kunjungan';
+        $var['kunjungan'] = $this->model->get_kunjungan();
+        $this->load->view('loket/kunjungan', $var);
+    }
+
+    public function detail_kunjungan($id)
+    {
+        $var['title'] = 'Petugas Loket | Detail Kunjungan';
+        $var['view'] = $this->model->detail_kunjungan($id);
+        $this->load->view('loket/detail_kunjungan', $var);
     }
 }
