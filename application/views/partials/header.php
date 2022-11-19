@@ -23,7 +23,7 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/src/plugins/datatables/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/select2-4.0.6-rc.1/dist/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/vendors/styles/style.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/toastr/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="<?= base_url() ?>assets/sweetalert2-all.js"></script>
@@ -168,15 +168,11 @@
                                 <span class="micon fa fa-dashboard"></span><span class="mtext">Dashboard</span>
                             </a>
                         </li>
-                    <?php } ?>
-                    <?php if ($this->session->userdata('role') == '0') { ?>
                         <li class="dropdown">
                             <a href="<?= base_url('Owner/petugas') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-users"></span><span class="mtext">Petugas</span>
                             </a>
                         </li>
-                    <?php } ?>
-                    <?php if ($this->session->userdata('role') == '0') { ?>
                         <li class="dropdown">
                             <a href="<?= base_url('Owner/pasien') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-user"></span><span class="mtext">Data Pasien</span>
@@ -189,25 +185,24 @@
                                 <span class="micon fa fa-dashboard"></span><span class="mtext">Dashboard</span>
                             </a>
                         </li>
-                    <?php } ?>
-                    <?php if ($this->session->userdata('role') == '1') { ?>
                         <li class="dropdown">
                             <a href="<?= base_url('Admin/data_pasien') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-user"></span><span class="mtext">Data Pasien</span>
                             </a>
                         </li>
-                    <?php } ?>
-                    <?php if ($this->session->userdata('role') == '1') { ?>
                         <li class="dropdown">
                             <a href="<?= base_url('Admin/data_kunjungan') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-stethoscope"></span><span class="mtext">Data Kunjungan</span>
                             </a>
                         </li>
-                    <?php } ?>
-                    <?php if ($this->session->userdata('role') == '1') { ?>
                         <li class="dropdown">
                             <a href="<?= base_url('Admin/diagnosis') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-list"></span><span class="mtext">Data Diagnosis</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="<?= base_url('Admin/tindakan') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-list"></span><span class="mtext">Data Tindakan</span>
                             </a>
                         </li>
                     <?php } ?>
@@ -217,41 +212,65 @@
                                 <span class="micon fa fa-dashboard"></span><span class="mtext">Dashboard</span>
                             </a>
                         </li>
-                    <?php } ?>
-                    <?php if ($this->session->userdata('role') == '2') { ?>
                         <li class="dropdown">
                             <a href="<?= base_url('Loket/pasien') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-user"></span><span class="mtext">Data Pasien</span>
                             </a>
                         </li>
-                    <?php } ?>
-                    <?php if ($this->session->userdata('role') == '2') { ?>
                         <li>
                             <a href="<?= base_url('Loket/pendaftaran') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-edit"></span><span class="mtext">Pendaftaran</span>
                             </a>
                         </li>
-                    <?php } ?>
-                    <?php if ($this->session->userdata('role') == '2') { ?>
                         <li class="dropdown">
                             <a href="<?= base_url('Loket/kunjungan') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-stethoscope"></span><span class="mtext">Kunjungan</span>
                             </a>
                         </li>
-                    <?php } ?>
-                    <?php if ($this->session->userdata('role') == '2') { ?>
                         <li>
                             <a href="calendar.html" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-dollar"></span><span class="mtext">Pembayaran</span>
                             </a>
                         </li>
-                        <?php if ($this->session->userdata('role') == '3') { ?>
-                            <li class="dropdown">
-                                <a href="<?= base_url('Dokter/kunjungan') ?>" class="dropdown-toggle no-arrow">
-                                    <span class="micon fa fa-stethoscope"></span><span class="mtext">Kunjungan Pengobatan</span>
-                                </a>
-                            </li>
-                        <?php } ?>
+                    <?php } ?>
+                    <?php if ($this->session->userdata('role') == '3') { ?>
+                        <li class="dropdown">
+                            <a href="<?= base_url('Dokter') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-dashboard"></span><span class="mtext">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="<?= base_url('Dokter/kunjungan') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-stethoscope"></span><span class="mtext">Kunjungan Pengobatan</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="<?= base_url('Dokter/kunjungan') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-history"></span><span class="mtext">Riwayat Rekam Medis</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($this->session->userdata('role') == '4') { ?>
+                        <li class="dropdown">
+                            <a href="<?= base_url('Obat') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-dashboard"></span><span class="mtext">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="<?= base_url('Obat/obat') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fas fa-pills"></span><span class="mtext">Data Obat</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="<?= base_url('Obat/layanan_obat') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-medkit"></span><span class="mtext">Layanan Obat</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="<?= base_url('Obat/riwayat_layanan_obat') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-history"></span><span class="mtext">Riwayat Layanan Obat</span>
+                            </a>
+                        </li>
                     <?php } ?>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">

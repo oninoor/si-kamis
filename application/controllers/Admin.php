@@ -79,4 +79,89 @@ class Admin extends CI_Controller
             redirect('Admin/diagnosis');
         }
     }
+
+    public function edit_diagnosis($id)
+    {
+        $var['title'] = 'Admin | Edit Diagnosis';
+        $var['edit'] = $this->db->get_where('diagnosis', ['id' => $id])->row();
+        $this->load->view('admin/edit_diagnosis', $var);
+    }
+
+    public function update_diagnosis()
+    {
+        $id = $this->input->post('id');
+        $this->form_validation->set_rules('nama_diagnosis', 'nama', 'required|trim', ['required' => 'diagnosis harus diisi']);
+        $this->form_validation->set_rules('diagnosis_icd_10', 'diagnosis icd 10', 'required|trim', ['required' => 'diagnosis icd 10 harus diisi']);
+        $this->form_validation->set_rules('kode_diagnosis_icd_10', 'kode diagnosis icd 10', 'required|trim', ['required' => 'kode diagnosis icd 10 harus diisi']);
+        if ($this->form_validation->run() == false) {
+            $this->edit_diagnosis($id);
+        } else {
+            $this->model->update_diagnosis();
+            $this->session->set_flashdata('success_update', true);
+            redirect('Admin/diagnosis');
+        }
+    }
+
+    public function hapus_diagnosis($id)
+    {
+        $this->db->delete('diagnosis', ['id' => $id]);
+        $this->session->set_flashdata('success_delete', true);
+        redirect('Admin/diagnosis');
+    }
+
+    public function tindakan()
+    {
+        $var['title'] = 'Admin | Tindakan';
+        $var['tindakan'] = $this->model->get_tindakan();
+        $this->load->view('admin/tindakan', $var);
+    }
+
+    public function tambah_tindakan()
+    {
+        $var['title'] = 'Admin | Tambah Tindakan';
+        $this->load->view('admin/add_tindakan', $var);
+    }
+
+    public function save_tindakan()
+    {
+        $this->form_validation->set_rules('tindakan', 'tindakan', 'required|trim', ['required' => 'tindakan harus diisi']);
+        $this->form_validation->set_rules('tindakan_icd_9cm', 'tindakan icd 9cm', 'required|trim', ['required' => 'tindakan icd 9cm harus diisi']);
+        $this->form_validation->set_rules('kode_tindakan_icd_9cm', 'kode tindakan icd 9cm', 'required|trim', ['required' => 'kode tindakan icd 9cm harus diisi']);
+        if ($this->form_validation->run() == false) {
+            $this->tambah_tindakan();
+        } else {
+            $this->model->save_tindakan();
+            $this->session->set_flashdata('success_insert', true);
+            redirect('Admin/tindakan');
+        }
+    }
+
+    public function edit_tindakan($id)
+    {
+        $var['title'] = 'Admin | Edit Tindakan';
+        $var['edit'] = $this->db->get_where('tindakan', ['id' => $id])->row();
+        $this->load->view('admin/edit_tindakan', $var);
+    }
+
+    public function update_tindakan()
+    {
+        $id = $this->input->post('id');
+        $this->form_validation->set_rules('tindakan', 'tindakan', 'required|trim', ['required' => 'tindakan harus diisi']);
+        $this->form_validation->set_rules('tindakan_icd_9cm', 'tindakan icd 9cm', 'required|trim', ['required' => 'tindakan icd 9cm harus diisi']);
+        $this->form_validation->set_rules('kode_tindakan_icd_9cm', 'kode tindakan icd 9cm', 'required|trim', ['required' => 'kode tindakan icd 9cm harus diisi']);
+        if ($this->form_validation->run() == false) {
+            $this->edit_tindakan($id);
+        } else {
+            $this->model->update_tindakan();
+            $this->session->set_flashdata('success_update', true);
+            redirect('Admin/tindakan');
+        }
+    }
+
+    public function hapus_tindakan($id)
+    {
+        $this->db->delete('tindakan', ['id' => $id]);
+        $this->session->set_flashdata('success_delete', true);
+        redirect('Admin/tindakan');
+    }
 }

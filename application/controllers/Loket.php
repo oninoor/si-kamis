@@ -126,7 +126,7 @@ class Loket extends CI_Controller
         $this->form_validation->set_rules('nik', 'nik', 'required|trim|exact_length[16]|numeric', ['required' => 'NIK harus diisi', 'exact_length' => 'NIK harus 16 angka', 'numeric' => 'NIK harus berupa angka']);
         $this->form_validation->set_rules('no_bpjs', 'bpjs', 'exact_length[11]|numeric', ['exact_length' => 'No BPJS harus 11 angka', 'numeric' => 'No BPJS harus berupa angka']);
         $this->form_validation->set_rules('nama_lengkap', 'nama', 'required|trim', ['required' => 'nama lengkap harus diisi']);
-        $this->form_validation->set_rules('jenis_kelamin', 'jenis kelamin', 'required|trim', ['required' => 'jenis_kelamin harus diisi']);
+        $this->form_validation->set_rules('jenis_kelamin', 'jenis kelamin', 'required|trim', ['required' => 'jenis kelamin harus diisi']);
         $this->form_validation->set_rules('tempat_lahir', 'tempat lahir', 'required|trim', ['required' => 'tempat lahir harus diisi']);
         $this->form_validation->set_rules('tgl', 'tanggal', 'required|trim', ['required' => 'tanggal harus diisi']);
         $this->form_validation->set_rules('bln', 'bulan', 'required|trim', ['required' => 'bulan harus diisi']);

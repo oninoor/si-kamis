@@ -7,12 +7,12 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="title">
-                            <h4>Tambah Diagnosis</h4>
+                            <h4>Edit Diagnosis</h4>
                         </div>
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="">Data Diagnosis</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Form Tambah Diagnosis</li>
+                                <li class="breadcrumb-item active" aria-current="page">Form Edit Diagnosis</li>
                             </ol>
                         </nav>
                     </div>
@@ -25,24 +25,25 @@
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix">
                     <div class="pull-left">
-                        <h4 class="text-blue h4">Form Tambah Diagnosis</h4>
+                        <h4 class="text-blue h4">Form Edit Diagnosis</h4>
                         <p class="mb-30">tanda <span style="color: red;">*</span> wajib di isi</p>
                     </div>
                 </div>
-                <form method="POST" action="<?= base_url('Admin/save_diagnosis') ?>">
+                <form method="POST" action="<?= base_url('Admin/update_diagnosis') ?>">
                     <div class="form-group">
                         <label>Diagnosis <span style="color: red;">*</span></label>
-                        <input class="form-control" type="text" name="nama_diagnosis" placeholder="Diagnosis">
+                        <input type="hidden" value="<?= $edit->id ?>" name="id">
+                        <input class="form-control" value="<?= $edit->nama_diagnosis ?>" type="text" name="nama_diagnosis" placeholder="Diagnosis">
                         <?= form_error('nama_diagnosis', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label>Diagnosis ICD 10 <span style="color: red;">*</span></label>
-                        <input class="form-control" type="text" name="diagnosis_icd_10" placeholder="Diagnosis ICD 10">
+                        <input class="form-control" type="text" value="<?= $edit->diagnosis_icd_10 ?>" name="diagnosis_icd_10" placeholder="Diagnosis ICD 10">
                         <?= form_error('diagnosis_icd_10', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label>Kode Diagnosis ICD 10</label>
-                        <input class="form-control" type="text" name="kode_diagnosis_icd_10" placeholder="Kode Diagnosis ICD 10">
+                        <input class="form-control" type="text" value="<?= $edit->kode_diagnosis_icd_10 ?>" name="kode_diagnosis_icd_10" placeholder="Kode Diagnosis ICD 10">
                         <?= form_error('kode_diagnosis_icd_10', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <hr>
