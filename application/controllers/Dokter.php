@@ -106,4 +106,18 @@ class Dokter extends CI_Controller
         $var['view2'] =  $this->model->resume_medis_2($id);
         $this->load->view('dokter/resume_medis', $var);
     }
+
+    public function diagnosis()
+    {
+        $var['title'] = 'Dokter | Data Diagnosis';
+        $var['diagnosis'] = $this->model->get_diagnosis();
+        $this->load->view('dokter/diagnosis', $var);
+    }
+
+    public function tindakan()
+    {
+        $var['title'] = 'Dokter | Data Tindakan';
+        $var['tindakan'] = $this->model->get_tindakan();
+        $this->load->view('dokter/tindakan', $var);
+    }
 }

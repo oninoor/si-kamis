@@ -46,9 +46,12 @@ class Loket extends CI_Controller
     public function save_pasien()
     {
         $this->form_validation->set_rules('nik', 'nik', 'required|trim|is_unique[pasien.nik]|exact_length[16]|numeric', ['required' => 'NIK harus diisi', 'is_unique' => 'NIK telah terdaftar', 'exact_length' => 'NIK harus 16 angka', 'numeric' => 'NIK harus berupa angka']);
-        $this->form_validation->set_rules('no_bpjs', 'bpjs', 'exact_length[11]|numeric', ['exact_length' => 'No BPJS harus 11 angka', 'numeric' => 'No BPJS harus berupa angka']);
+        $this->form_validation->set_rules('jenis_pasien', 'jenis pasien', 'required|trim', ['required' => 'jenis pasien harus diisi']);
+        if ($this->input->post('jenis_pasien') == 'bpjs') {
+            $this->form_validation->set_rules('no_bpjs', 'bpjs', 'required|trim|exact_length[11]|numeric', ['required' => 'no bpjs harus diisi', 'exact_length' => 'No BPJS harus 11 angka', 'numeric' => 'No BPJS harus berupa angka']);
+        }
         $this->form_validation->set_rules('nama_lengkap', 'nama', 'required|trim', ['required' => 'nama lengkap harus diisi']);
-        $this->form_validation->set_rules('jenis_kelamin', 'jenis kelamin', 'required|trim', ['required' => 'jenis_kelamin harus diisi']);
+        $this->form_validation->set_rules('jenis_kelamin', 'jenis kelamin', 'required|trim', ['required' => 'jenis kelamin harus diisi']);
         $this->form_validation->set_rules('tempat_lahir', 'tempat lahir', 'required|trim', ['required' => 'tempat lahir harus diisi']);
         $this->form_validation->set_rules('tgl', 'tanggal', 'required|trim', ['required' => 'tanggal harus diisi']);
         $this->form_validation->set_rules('bln', 'bulan', 'required|trim', ['required' => 'bulan harus diisi']);
@@ -124,7 +127,10 @@ class Loket extends CI_Controller
     {
         $id = $this->input->post('id');
         $this->form_validation->set_rules('nik', 'nik', 'required|trim|exact_length[16]|numeric', ['required' => 'NIK harus diisi', 'exact_length' => 'NIK harus 16 angka', 'numeric' => 'NIK harus berupa angka']);
-        $this->form_validation->set_rules('no_bpjs', 'bpjs', 'exact_length[11]|numeric', ['exact_length' => 'No BPJS harus 11 angka', 'numeric' => 'No BPJS harus berupa angka']);
+        $this->form_validation->set_rules('jenis_pasien', 'jenis pasien', 'required|trim', ['required' => 'jenis pasien harus diisi']);
+        if ($this->input->post('jenis_pasien') == 'bpjs') {
+            $this->form_validation->set_rules('no_bpjs', 'bpjs', 'required|trim|exact_length[11]|numeric', ['required' => 'no bpjs harus diisi', 'exact_length' => 'No BPJS harus 11 angka', 'numeric' => 'No BPJS harus berupa angka']);
+        }
         $this->form_validation->set_rules('nama_lengkap', 'nama', 'required|trim', ['required' => 'nama lengkap harus diisi']);
         $this->form_validation->set_rules('jenis_kelamin', 'jenis kelamin', 'required|trim', ['required' => 'jenis kelamin harus diisi']);
         $this->form_validation->set_rules('tempat_lahir', 'tempat lahir', 'required|trim', ['required' => 'tempat lahir harus diisi']);

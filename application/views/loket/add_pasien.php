@@ -1,4 +1,5 @@
 <?php $this->load->view('partials/header') ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <div class="main-container">
     <div class="pd-ltr-20 xs-pd-20-10">
@@ -41,7 +42,13 @@
                         <?= form_error('nik', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
-                        <label>No BPJS</label>
+                        <label>Jenis Pasien <span style="color: red;">*</span></label><br>
+                        <input type="radio" class="jenis-pasien-umum" name="jenis_pasien" value="umum"> Umum
+                        <input type="radio" class="jenis-pasien-bpjs" name="jenis_pasien" value="bpjs"> BPJS <br>
+                        <?= form_error('jenis_pasien', '<small class="text-danger pl-3">', '</small>'); ?>
+                    </div>
+                    <div class="form-group nomor-bpjs">
+                        <label>No BPJS <span style="color: red;">*</span></label>
                         <input class="form-control" type="text" name="no_bpjs" placeholder="No BPJS">
                         <?= form_error('no_bpjs', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
@@ -53,7 +60,7 @@
                     <div class="form-group">
                         <label for="job-description">Jenis Kelamin <span class="text-danger">*</span></label><br>
                         <input type="radio" name="jenis_kelamin" value="Laki-laki"> Laki laki
-                        <input type="radio" name="jenis_kelamin" value="Perempuan"> Perempuan
+                        <input type="radio" name="jenis_kelamin" value="Perempuan"> Perempuan <br>
                         <?= form_error('jenis_kelamin', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
@@ -168,9 +175,31 @@
 <?php $this->load->view('partials/footer') ?>
 <script>
     $(document).ready(function() {
+
+        $('.nomor-bpjs').hide();
+
+        let radio_bpjs = $("input[type=radio].jenis-pasien-bpjs");
+
+        
+        $('.jenis-pasien-bpjs').click(function() {
+            if ($(this).is(':checked')) {
+                $('.nomor-bpjs').show();
+            }
+        })
+
+        $('.jenis-pasien-umum').click(function() {
+            if ($(this).is(':checked')) {
+                $('.nomor-bpjs').hide();
+            }
+        })
+
         //untuk memanggil plugin select2
         $('#role').select2({
             placeholder: 'Pilih Pendidikan Terakhir',
+        });
+
+        $('#jenis_pasien').select2({
+            placeholder: 'Pilih Jenis Pasien',
         });
 
         $('#tgl').select2({
@@ -195,6 +224,7 @@
             placeholder: 'Pilih Desa / Kelurahan',
             language: "id"
         });
+
 
         //saat pilihan provinsi di pilih maka mengambil data di data-wilayah menggunakan ajax
         $("#kota").change(function() {

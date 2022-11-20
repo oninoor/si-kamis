@@ -59,6 +59,7 @@ class M_loket extends CI_Model
         $this->no_bpjs = $post['no_bpjs'];
         $this->nama_lengkap = $post['nama_lengkap'];
         $this->jenis_kelamin = $post['jenis_kelamin'];
+        $this->jenis_pasien = $post['jenis_pasien'];
         $this->alergi_obat = $post['alergi_obat'];
         $this->tgl_lahir = $tgl_lahir;
         $this->tempat_lahir = $post['tempat_lahir'];
@@ -89,6 +90,7 @@ class M_loket extends CI_Model
         $this->no_bpjs = $post['no_bpjs'];
         $this->nama_lengkap = $post['nama_lengkap'];
         $this->jenis_kelamin = $post['jenis_kelamin'];
+        $this->jenis_pasien = $post['jenis_pasien'];
         $this->alergi_obat = $post['alergi_obat'];
         $this->tgl_lahir = $tgl_lahir;
         $this->tempat_lahir = $post['tempat_lahir'];

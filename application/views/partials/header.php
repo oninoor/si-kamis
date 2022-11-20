@@ -240,6 +240,16 @@
                             </a>
                         </li>
                         <li class="dropdown">
+                            <a href="<?= base_url('Dokter/diagnosis') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-list"></span><span class="mtext">Data Diagnosis</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="<?= base_url('Dokter/tindakan') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-list"></span><span class="mtext">Data Tindakan</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
                             <a href="<?= base_url('Dokter/kunjungan') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-stethoscope"></span><span class="mtext">Kunjungan Pengobatan</span>
                             </a>

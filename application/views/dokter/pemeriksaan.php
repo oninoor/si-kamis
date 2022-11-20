@@ -136,24 +136,29 @@
                         <?= form_error('kode_diagnosis1_icd_10', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
-                        <label>Diagnosis 2 </label>
-                        <select name="kd_diagnosa2" id="diagnosis2" class="form-control">
-                            <option></option>
-                            <?php foreach ($diagnosis as $view) { ?>
-                                <option value="<?= $view->id ?>"><?= $view->nama_diagnosis ?></option>
-                            <?php } ?>
-                        </select>
-                        <?= form_error('kd_diagnosa2', '<small class="text-danger pl-3">', '</small>'); ?>
+                        <button type="button" class="btn btn-sm btn-primary tampilkan-diagnosa-2">Form diagnosis 2</button>
                     </div>
-                    <div class="form-group">
-                        <label>Diagnosis 2 ICD 10 </label>
-                        <input class="form-control" readonly type="text" name="diagnosis2_icd_10" id="diagnosis2_icd_10" placeholder="">
-                        <?= form_error('diagnosis2_icd_10', '<small class="text-danger pl-3">', '</small>'); ?>
-                    </div>
-                    <div class="form-group">
-                        <label>Kode Diagnosis 2 ICD 10 </label>
-                        <input class="form-control" readonly type="text" name="kode_diagnosis2_icd_10" id="kode_diagnosis2_icd_10" placeholder="">
-                        <?= form_error('kode_diagnosis2_icd_10', '<small class="text-danger pl-3">', '</small>'); ?>
+                    <div class="form-diagnosis-2">
+                        <div class="form-group">
+                            <label>Diagnosis 2 </label>
+                            <select name="kd_diagnosa2" id="diagnosis2" class="form-control">
+                                <option></option>
+                                <?php foreach ($diagnosis as $view) { ?>
+                                    <option value="<?= $view->id ?>"><?= $view->nama_diagnosis ?></option>
+                                <?php } ?>
+                            </select>
+                            <?= form_error('kd_diagnosa2', '<small class="text-danger pl-3">', '</small>'); ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Diagnosis 2 ICD 10 </label>
+                            <input class="form-control" readonly type="text" name="diagnosis2_icd_10" id="diagnosis2_icd_10" placeholder="">
+                            <?= form_error('diagnosis2_icd_10', '<small class="text-danger pl-3">', '</small>'); ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Kode Diagnosis 2 ICD 10 </label>
+                            <input class="form-control" readonly type="text" name="kode_diagnosis2_icd_10" id="kode_diagnosis2_icd_10" placeholder="">
+                            <?= form_error('kode_diagnosis2_icd_10', '<small class="text-danger pl-3">', '</small>'); ?>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Tindak Lanjut Pasien <span style="color: red;">*</span></label>
@@ -179,13 +184,14 @@
 <?php $this->load->view('partials/footer') ?>
 <script>
     $(document).ready(function() {
-        //untuk memanggil plugin select2
-        $('#diagnosis').select2({
-            placeholder: 'Pilih Diagnosis 1',
-        });
 
         $('#diagnosis2').select2({
             placeholder: 'Pilih Diagnosis 2',
+        });
+
+        //untuk memanggil plugin select2
+        $('#diagnosis').select2({
+            placeholder: 'Pilih Diagnosis 1',
         });
 
         $('#bln').select2({
@@ -205,6 +211,15 @@
         $('#desa').select2({
             placeholder: 'Pilih Desa / Kelurahan',
             language: "id"
+        });
+
+
+        //hide diagnosa 2
+        $('.form-diagnosis-2').hide();
+
+        $('.tampilkan-diagnosa-2').click(function() {
+            $('.form-diagnosis-2').show();
+            $('.tampilkan-diagnosa-2').hide();
         });
     });
 
