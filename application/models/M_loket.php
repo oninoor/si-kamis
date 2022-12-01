@@ -265,4 +265,9 @@ class M_loket extends CI_Model
         $this->db->join('users', 'kunjungan.petugas_loket = users.id');
         return $this->db->get()->result();
     }
+
+    public function get_detail_pembayaran()
+    {
+        
+    }
 }
