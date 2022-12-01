@@ -42,6 +42,7 @@ class M_loket extends CI_Model
 
     public function max_no_antri()
     {
+        date_default_timezone_set('Asia/Jakarta');
         $date = date('Y-m-d');
         return $this->db->query("SELECT max(no_antrian) as maxs FROM kunjungan WHERE tanggal = '$date' order by no_antrian desc limit 1")->row();
     }
@@ -165,7 +166,7 @@ class M_loket extends CI_Model
         $post = $this->input->post();
         $this->kd_kunjungan = $post['kd_kunjungan'];
         $this->no_rekmed = $post['no_rekmed'];
-        $this->pasien = $post['pasien'];
+        // $this->pasien = $post['pasien'];
         $this->dokter = $post['dokter'];
         $this->tanggal = $post['tanggal'];
         $this->no_antrian = $post['no_antrian'];
@@ -176,8 +177,92 @@ class M_loket extends CI_Model
         $this->tekanan_darah_diastole = $post['tekanan_darah_diastole'];
         $this->nadi = $post['nadi'];
         $this->gejala = $post['gejala'];
+        $this->alergi = $post['alergi'];
         $this->petugas_loket = $post['petugas_loket'];
         $this->status = 0;
         $this->db->insert($this->kunjungan, $this);
+    }
+
+    public function update_pendaftaran()
+    {
+        $post = $this->input->post();
+        $this->no_rekmed = $post['no_rekmed'];
+        $this->dokter = $post['dokter'];
+        $this->tinggi_badan = $post['tinggi_badan'];
+        $this->berat_badan = $post['berat_badan'];
+        $this->suhu = $post['suhu'];
+        $this->tekanan_darah_sistole = $post['tekanan_darah_sistole'];
+        $this->tekanan_darah_diastole = $post['tekanan_darah_diastole'];
+        $this->nadi = $post['nadi'];
+        $this->gejala = $post['gejala'];
+        $this->alergi = $post['alergi'];
+        $this->db->update($this->kunjungan, $this, ['kd_kunjungan' => $post['kd_kunjungan']]);
+    }
+
+    public function get_pembayaran()
+    {
+        $this->db->select('trans.*,
+                            kunjungan.kd_kunjungan,
+                            kunjungan.no_rekmed,
+                            kunjungan.dokter,
+                            kunjungan.status,
+                            pasien.nama_lengkap as nama_pasien,
+                            users.nama_lengkap as nama_petugas,
+                            ');
+        $this->db->from('transaksi_obat trans');
+        $this->db->join('kunjungan', 'trans.kode_kunjungan = kunjungan.kd_kunjungan');
+        $this->db->join('users', 'trans.petugas_obat = users.id');
+        $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
+        $this->db->where('kunjungan.status', 3);
+        $this->db->order_by('trans.id', 'asc');
+        return $this->db->get()->result();
+    }
+
+    public function get_transaksi($id)
+    {
+        $this->db->select('trans.*,
+                            kunjungan.kd_kunjungan,
+                            kunjungan.no_rekmed,
+                            kunjungan.tindak_lanjut,
+                            kunjungan.terapi_obat,
+                            kunjungan.tanggal,
+                            kunjungan.petugas_loket,
+                            pasien.nama_lengkap as nama_pasien,
+                            pasien.jenis_pasien,
+                            users.nama_lengkap as nama_petugas
+                            ');
+        $this->db->from('transaksi_obat trans');
+        $this->db->join('kunjungan', 'trans.kode_kunjungan = kunjungan.kd_kunjungan');
+        $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
+        $this->db->join('users', 'kunjungan.petugas_loket = users.id');
+        $this->db->where('trans.id', $id);
+        return $this->db->get()->row();
+    }
+
+    public function last_idpayment()
+    {
+        $sql = $this->db->select('id');
+        $sql = $this->db->from('payment');
+        $sql = $this->db->order_by('id', 'desc');
+        $sql = $this->db->limit(1);
+        $sql = $this->db->get();
+
+        return $sql->result();
+    }
+
+    public function riwayat_pembayaran()
+    {
+        $this->db->select('payment.*,
+                            trans.kode_kunjungan,
+                            kunjungan.no_rekmed,
+                            kunjungan.petugas_loket,
+                            pasien.nama_lengkap as nama_pasien,
+                            users.nama_lengkap as nama_petugas');
+        $this->db->from('payment');
+        $this->db->join('transaksi_obat trans', 'payment.id_trans = trans.id');
+        $this->db->join('kunjungan', 'trans.kode_kunjungan = kunjungan.kd_kunjungan');
+        $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
+        $this->db->join('users', 'kunjungan.petugas_loket = users.id');
+        return $this->db->get()->result();
     }
 }

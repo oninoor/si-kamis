@@ -31,7 +31,7 @@
                     </div>
                 </div>
 
-                <form action="<?= base_url('Apoteker/save_transaksi') ?>" method="POST">
+                <form action="<?= base_url('Obat/save_transaksi') ?>" method="POST">
                     <div class="row">
                         <div class="col-md-4">
                             <label for="">Nama Pasien</label>
@@ -123,7 +123,6 @@
                                     <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Nama Obat</th>
-                                        <th scope="col">Umum</th>
                                         <th scope="col">Harga</th>
                                         <th scope="col">Qty</th>
                                         <th scope="col">Sub Total</th>
@@ -163,6 +162,8 @@
 
                     <div class="mt-3">
                         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Simpan Transaksi</button>
+                        <a href="" class="btn btn-success"><i class="fa fa-print"></i> Cetak Resep</a>
+                        <a href="<?= base_url("Obat/non_transaksi?kd_kunjungan=" . $view->kd_kunjungan . "&tgl_trans=" . $tgl_trans . "&petugas_obat=" . $this->session->userdata('nama_lengkap')) ?>" class="btn btn-success"><i class="fa fa-arrow-circle-o-right"></i> Lanjutkan Ke Pembayaran</a>
                     </div>
                     <!-- <span id="datanya"></span> -->
                 </form>
@@ -201,9 +202,62 @@
     </div>
 </div>
 <script>
+    <?php if ($this->session->flashdata('stok_habis')) : ?>
+        toastr.warning("Data stok kosong", "Catatan!", {
+            positionClass: "toast-top-right",
+            timeOut: 4000,
+            closeButton: !0,
+            debug: !1,
+            newestOnTop: !0,
+            progressBar: !0,
+            preventDuplicates: !0,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+            tapToDismiss: !1
+        })
+
+    <?php elseif ($this->session->flashdata('obat_null')) : ?>
+        toastr.warning("Belum memilih obat", "Catatan!", {
+            positionClass: "toast-top-right",
+            timeOut: 4000,
+            closeButton: !0,
+            debug: !1,
+            newestOnTop: !0,
+            progressBar: !0,
+            preventDuplicates: !0,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+            tapToDismiss: !1
+        })
+    <?php endif ?>
+</script>
+<script>
     let dataObat;
+    let dataPasien;
 
-
+    function getDataPasien(no_rm) {
+        $.ajax({
+            url: "<?php echo base_url() ?>Obat/get_data_pasien/" + no_rm,
+            method: 'POST',
+            dataType: 'JSON',
+            success: function(json) {
+                dataPasien = json.data_pasien;
+                // console.log(dataPasien);
+            }
+        })
+    }
 
     function detail_obat(id) {
         // getdataObat()
@@ -256,6 +310,8 @@
     });
 
     function BarisBaru() {
+        let no_rm = '<?= $view->no_rekmed ?>';
+        getDataPasien(no_rm)
         var nomor = $('#tabeltransaksi tbody tr').length + 1;
         //0
         var baris = "<tr>";
@@ -266,12 +322,6 @@
         baris += "<input readonly type='text' class='form-control nama_obat" + nomor + "' name='nama_obat[]' id='pencarian_nama'><button type='button' class='btn btn-success' onclick='detail_obat(" + nomor + ")' style='margin-left: 4px;'> <i class='ace-icon fa fa-search'></i></button>";
         baris += "<div id='hasil_pencarian' class='hasil_pencarian'></div>";
         baris += "</td>";
-
-        //4
-
-        //5
-
-        baris += "<td><input type='checkbox' name='umum[]' id='checkbox-umum' class='form-control checkbox-umum'></td>";
 
         baris += "<td><input type='number' name='harga[]' id='harga' value='0' class='form-control harga" + nomor + "' readonly></td>";
 
@@ -294,14 +344,13 @@
 
 
     function pencarian_nama(id, nama_obat, harga, nomor) {
+        let no_rm = '<?= $view->no_rekmed ?>';
+        getDataPasien(no_rm)
         $('.id_obat' + nomor).val(id);
         $('.nama_obat' + nomor).val(nama_obat);
-        $(".checkbox-umum").on("click", function() {
-            console.log('test');
-            if ($('#checkbox-umum:checked')) {
-                $('.harga' + nomor).val(harga);
-            }
-        });
+        if (dataPasien == 'umum') {
+            $('.harga' + nomor).val(harga);
+        }
         $('#list_obat').modal('hide');
         // console.log('checkbox', chekbox1);
     }
@@ -312,7 +361,6 @@
             method: 'POST',
             dataType: 'JSON',
             success: function(json) {
-                console.log(json);
                 dataObat = json.datanya;
             }
         })
@@ -574,8 +622,8 @@
 
     $(document).on('keyup', '#qty', function() {
         var Indexnya = $(this).parent().parent().index();
-        var Qty = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#qty').val();
-        var Harga = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4) input#harga').val();
+        var Qty = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4) input#qty').val();
+        var Harga = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(3) input#harga').val();
 
 
         var SubTotal = parseInt(Harga) * parseInt(Qty);
@@ -595,8 +643,8 @@
             SubTotal2 = '';
             var SubTotalVal2 = 0;
         }
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#subtotal').val(SubTotalVal);
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) span').html(SubTotal2);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#subtotal').val(SubTotalVal);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) span').html(SubTotal2);
         // console.log(SubTotal);
         // console.log(SubTotal2);
         HitungTotalBayar();
@@ -604,8 +652,8 @@
 
     $(document).on('each', '#harga', function() {
         var Indexnya = $(this).parent().parent().index();
-        var Qty = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#qty').val();
-        var Harga = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4) input#harga').val();
+        var Qty = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4) input#qty').val();
+        var Harga = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(3) input#harga').val();
 
         var SubTotal = parseInt(Harga) * parseInt(Qty);
         if (SubTotal > 0) {
@@ -624,8 +672,8 @@
             SubTotal2 = '';
             var SubTotalVal2 = 0;
         }
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#subtotal').val(SubTotalVal);
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) span').html(SubTotal2);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#subtotal').val(SubTotalVal);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) span').html(SubTotal2);
         // console.log(SubTotal);
         // console.log(SubTotal2);
         HitungTotalBayar();
@@ -638,8 +686,8 @@
         var TotalPotongan = 0;
         //var TotalDiskon = 0;
         $('#tabeltransaksi tbody tr').each(function() {
-            if ($(this).find('td:nth-child(6) input#subtotal').val() > 0) {
-                var SubTotal = $(this).find('td:nth-child(6) input#subtotal').val();
+            if ($(this).find('td:nth-child(5) input#subtotal').val() > 0) {
+                var SubTotal = $(this).find('td:nth-child(5) input#subtotal').val();
                 Total = parseInt(Total) + parseInt(SubTotal);
             }
         });

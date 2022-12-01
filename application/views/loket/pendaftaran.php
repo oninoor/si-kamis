@@ -57,6 +57,7 @@
                                     <td>
                                         <a href="#gejala<?= $view->kd_kunjungan ?>" data-toggle="modal" title="lihat detail" class="badge bg-success" style="color: white;"><i class="fa fa-eye"></i></a>
                                         <a href="<?= base_url('Loket/masuk_pemeriksaan/' . $view->kd_kunjungan) ?>" title="Masuk Pemeriksaan" class="badge bg-primary masuk-pemeriksaan" style="color: white;"><i class="fa fa-stethoscope"></i></a>
+                                        <a href="<?= base_url('Loket/edit_pendaftaran/' . $view->kd_kunjungan) ?>" title="Edit" class="badge bg-primary" style="color: white;"><i class="fa fa-edit"></i></a>
                                         <a href="<?= base_url('Loket/hapus_pendaftaran/' . $view->kd_kunjungan) ?>" title="Hapus" class="badge bg-danger hapus-data" style="color: white;"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>

@@ -214,6 +214,36 @@ class Loket extends CI_Controller
         }
     }
 
+    public function edit_pendaftaran($id)
+    {
+        $var['title'] = 'Loket | Edit Pendaftaran';
+        $var['pasien'] = $this->db->get('pasien')->result();
+        $var['dokter'] = $this->db->get_where('users', ['role' => 3])->result();
+        $var['edit'] = $this->db->get_where('kunjungan', ['kd_kunjungan' => $id])->row();
+        $this->load->view('loket/edit_pendaftaran', $var);
+    }
+
+    public function update_pendaftaran()
+    {
+        $id = $this->input->post('kd_kunjungan');
+        $this->form_validation->set_rules('no_rekmed', 'no rekam medis', 'required|trim', ['required' => 'pasien harus diisi']);
+        $this->form_validation->set_rules('dokter', 'dokter', 'required|trim', ['required' => 'dokter harus diisi']);
+        $this->form_validation->set_rules('tinggi_badan', 'tinggi badan', 'required|trim', ['required' => 'tinggi badan harus diisi']);
+        $this->form_validation->set_rules('berat_badan', 'berat badan', 'required|trim', ['required' => 'berat badan harus diisi']);
+        $this->form_validation->set_rules('suhu', 'suhu', 'required|trim', ['required' => 'suhu harus diisi']);
+        $this->form_validation->set_rules('tekanan_darah_sistole', 'tekanan darah sistole', 'required|trim', ['required' => 'tekanan darah sistole harus diisi']);
+        $this->form_validation->set_rules('tekanan_darah_diastole', 'tekanan darah diastole', 'required|trim', ['required' => 'tekanan darah diastole harus diisi']);
+        $this->form_validation->set_rules('nadi', 'nadi', 'required|trim', ['required' => 'nadi harus diisi']);
+        $this->form_validation->set_rules('gejala', 'gejala', 'required|trim', ['required' => 'gejala harus diisi']);
+        if ($this->form_validation->run() == false) {
+            $this->edit_pendaftaran($id);
+        } else {
+            $this->model->update_pendaftaran();
+            $this->session->set_flashdata('success_update', true);
+            redirect('Loket/pendaftaran');
+        }
+    }
+
     public function hapus_pendaftaran($id)
     {
         $this->db->delete('kunjungan', ['kd_kunjungan' => $id]);
@@ -241,4 +271,73 @@ class Loket extends CI_Controller
         $var['view'] = $this->model->detail_kunjungan($id);
         $this->load->view('loket/detail_kunjungan', $var);
     }
+
+    public function pembayaran()
+    {
+        $var['title'] = 'Petugas Loket | Pembayaran';
+        $var['pembayaran'] = $this->model->get_pembayaran();
+        $this->load->view('loket/pembayaran', $var);
+    }
+
+    public function transaksi_pembayaran($id)
+    {
+        $var['title'] = 'Petugas Loket | Transaksi Pembayaran';
+        $var['view'] = $this->model->get_transaksi($id);
+        $this->load->view('loket/transaksi_pembayaran', $var);
+    }
+
+    public function save_pembayaran()
+    {
+        date_default_timezone_set("Asia/Jakarta");
+        $id_trans = $this->input->post('id_trans');
+        $tgl_payment = date('Y-m-d');
+        $nominal_bayar = $this->input->post('nominal_bayar');
+        $total_trans = $this->input->post('total_trans');
+        $kembalian = $this->input->post('kembalian');
+
+        $payment = [
+            'id_trans' => $id_trans,
+            'tgl_payment' => $tgl_payment,
+            'nominal_bayar' => $nominal_bayar,
+            'total_biaya' => $total_trans,
+            'nominal_kembalian' => $kembalian
+        ];
+        
+        $this->db->insert('payment', $payment);
+        $last_idpayment = $this->model->last_idpayment();
+        foreach($_POST['keterangan'] as $key => $value) {
+            $detail_payment = [
+                'id_payment' => $last_idpayment[0]->id,
+                'keterangan' => $this->input->post('keterangan')[$key],
+                'biaya' => $this->input->post('biaya')[$key],
+            ];
+            $this->db->insert('detail_payment', $detail_payment);
+        }
+
+        $kd_kunjungan = $this->input->post('kd_kunjungan');
+
+        $this->db->set('status', 4);
+        $this->db->where('kd_kunjungan', $kd_kunjungan);
+        $this->db->update('kunjungan');
+
+        $this->session->set_flashdata('pembayaran_tersimpan', true);
+        redirect('Loket/riwayat_pembayaran');
+        
+    }
+
+    public function riwayat_pembayaran()
+    {
+        $var['title'] = 'Petugas Loket | Riwayat Pembayaran';
+        $var['riwayat'] = $this->model->riwayat_pembayaran();
+        // var_dump($var['riwayat']);
+        $this->load->view('loket/riwayat_pembayaran', $var);
+    }
+
+    public function detail_riwayat_pembayaran()
+    {
+        $var['title'] = 'Petugas Obat | Detail Riwayat Pembayaran';
+        $var['view'] = $this->model->get_detail_pembayaran();
+        $this->load->view('loket/detail_riwayat_pembayaran', $var);
+    }
+
 }

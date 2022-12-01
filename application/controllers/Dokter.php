@@ -38,6 +38,8 @@ class Dokter extends CI_Controller
     {
         $var['title'] = 'Dokter | Detail Pemeriksaan';
         $var['view'] = $this->model->detail_kunjungan($id);
+        $var['view2'] = $this->model->get_diagnosa2($id);
+        $var['diagnosis'] = $this->model->get_tindakan_kunjungan($id);
         $this->load->view('dokter/detail_kunjungan', $var);
     }
 
@@ -94,6 +96,15 @@ class Dokter extends CI_Controller
             $this->pemeriksaan($id);
         } else {
             $this->model->save_pemeriksaan();
+            if (!empty($this->input->post('id_tindakan'))) {
+                foreach ($_POST['id_tindakan'] as $key => $value) {
+                    $tindakan = [
+                        'kode_kunjungan' => $id,
+                        'kode_tindakan' => $this->input->post('id_tindakan')[$key],
+                    ];
+                    $this->db->insert('det_kunjungan_tindakan', $tindakan);
+                }
+            }
             $this->session->set_flashdata('success_save', true);
             redirect('Dokter/kunjungan');
         }
@@ -104,6 +115,7 @@ class Dokter extends CI_Controller
         $var['title'] = 'Dokter | Resume Medis';
         $var['view'] =  $this->model->resume_medis($id);
         $var['view2'] =  $this->model->resume_medis_2($id);
+        $var['diagnosis'] = $this->model->get_tindakan_kunjungan($id);
         $this->load->view('dokter/resume_medis', $var);
     }
 
@@ -119,5 +131,33 @@ class Dokter extends CI_Controller
         $var['title'] = 'Dokter | Data Tindakan';
         $var['tindakan'] = $this->model->get_tindakan();
         $this->load->view('dokter/tindakan', $var);
+    }
+
+    public function list_data_tindakan($params)
+    {
+        $list = $this->model->get_data_tindakan();
+        // print_r($this->db->last_query());
+        $data = array();
+        $no = $_REQUEST['start'];
+        foreach ($list as $tindakan) {
+            // $kode_barang = preg_replace ('/[^\p{L}\p{N}]/u', '', $tindakan->kode_barang);
+            // $nama_barang = preg_replace ('/[^\p{L}\p{N}]/u', '', $tindakan->nama_barang);
+
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $tindakan->tindakan;
+            $row[] = $tindakan->tindakan_icd_9cm;
+            $row[] = $tindakan->kode_tindakan_icd_9cm;
+            $row[] = '<button type="button" class="btn btn-primary "onclick="pencarian_tindakan(\'' . $tindakan->id . '\',\'' . $tindakan->tindakan . '\',\'' . $tindakan->tindakan_icd_9cm . '\',\'' . $tindakan->kode_tindakan_icd_9cm . '\',\'' . $params . '\')">Pilih</button>';
+            $data[] = $row;
+        }
+        $output = array(
+            "draw" => $_REQUEST['draw'],
+            "recordsTotal" => $this->model->jml_allid_tindakan(),
+            "recordsFiltered" => $this->model->jml_filteredid_tindakan(),
+            "data" => $data,
+        );
+        echo json_encode($output);
     }
 }

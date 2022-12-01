@@ -156,62 +156,107 @@ class Obat extends CI_Controller
         echo json_encode($json);
     }
 
+    public function get_data_pasien($params)
+    {
+        $data = $this->model->get_pasien_json($params);
+        $json['data_pasien'] = @$data->jenis_pasien;
+        echo json_encode($json);
+    }
+
     public function save_transaksi()
     {
-        $total_qty = 0;
-        foreach ($_POST['qty'] as $value) {
-            $total_qty += $value;
-        }
         $kd_kunjungan = $this->input->post('kd_kunjungan');
         $tgl_trans = $this->input->post('tgl_trans');
         $petugas_obat = $this->input->post('petugas_obat');
-        $jml_qty = $total_qty;
         $total_biaya = $this->input->post('total_trans');
 
-        $transaksi = array(
-            'kd_kunjungan' => $kd_kunjungan,
-            'tgl_trans' => $tgl_trans,
-            'petugas_obat' => $petugas_obat,
-            'total_qty' => $jml_qty,
-            'total_biaya' => $total_biaya,
-        );
-        $this->db->insert('transaksi_obat', $transaksi);
-
-        $last_idtrans = $this->model->last_idtrans();
-        foreach ($_POST['id_obat'] as $key => $value) {
-            $detail_transaksi = array(
-                'kode_trans' => $last_idtrans[0]->id,
-                'id_obat' => $this->input->post('id_obat')[$key],
-                'qty' => $this->input->post('qty')[$key],
-                'harga' => $this->input->post('harga')[$key],
-                'subtotal' => $this->input->post('subtotal')[$key]
+        if (empty($total_biaya)) {
+            $this->session->set_flashdata('obat_null', true);
+            redirect('Obat/transaksi_obat/' . $kd_kunjungan);
+        } else {
+            $total_qty = 0;
+            foreach ($_POST['qty'] as $value) {
+                $total_qty += $value;
+            }
+            $jml_qty = $total_qty;
+            $transaksi = array(
+                'kode_kunjungan' => $kd_kunjungan,
+                'tgl_trans' => $tgl_trans,
+                'petugas_obat' => $petugas_obat,
+                'total_qty' => $jml_qty,
+                'total_biaya' => $total_biaya,
             );
-            $this->db->insert('detail_transaksi_obat', $detail_transaksi);
+            $this->db->insert('transaksi_obat', $transaksi);
+
+            $last_idtrans = $this->model->last_idtrans();
+            foreach ($_POST['id_obat'] as $key => $value) {
+                $detail_transaksi = array(
+                    'kode_trans' => $last_idtrans[0]->id,
+                    'id_obat' => $this->input->post('id_obat')[$key],
+                    'qty' => $this->input->post('qty')[$key],
+                    'harga' => $this->input->post('harga')[$key],
+                    'subtotal' => $this->input->post('subtotal')[$key]
+                );
+                $this->db->insert('detail_transaksi_obat', $detail_transaksi);
+            }
+
+
+            foreach ($_POST['id_obat'] as $key => $value) {
+                $id_obat = $this->input->post('id_obat')[$key];
+                $qty = $this->input->post('qty')[$key];
+                $dataobat = $this->db->get_where('obat', ['id' => $id_obat])->row();
+                if ($dataobat->stok == 0) {
+                    $this->session->set_flashdata('stok_habis', true);
+                    redirect('Obat/transaksi_obat/' . $kd_kunjungan);
+                } else {
+                    $this->db->query("UPDATE `obat` SET `stok`=stok-'$qty' WHERE id='$id_obat'");
+                }
+            }
+
+            $this->db->set('status', 3);
+            $this->db->where('kd_kunjungan', $kd_kunjungan);
+            $this->db->update('kunjungan');
+
+            $this->session->set_flashdata('transaksi_berhasil', true);
+            redirect('Obat/riwayat_layanan_obat');
         }
-
-        foreach ($_POST['id_obat'] as $key => $value) {
-            $id_obat = $this->input->post('id_obat')[$key];
-			$qty = $this->input->post('qty')[$key];
-			$this->db->query("UPDATE `obat` SET `stok`=stok-'$qty' WHERE id='$id_obat'");
-        }
-
-        $this->db->set('status', 3);
-        $this->db->where('kd_kunjungan', $kd_kunjungan);
-        $this->db->update('kunjungan');
-
-        $this->session->set_flashdata('transaksi_berhasil', true);
-		redirect('Obat/riwayat_layanan_obat');
     }
 
     public function riwayat_layanan_obat()
     {
         $var['title'] = 'Petugas Obat | Riwayat Layanan Obat';
-        $var['riwayat'] = $this->model->get_riwayat_layanan_obat();
+        $var['riwayat'] = $this->model->riwayat_transaksi_obat();
         $this->load->view('petugas_obat/riwayat_layanan', $var);
     }
 
-    // public function detail_layanan()
-    // {
-    //     $var['title'] = 'Petugas Obat | '
-    // }
+    public function non_transaksi()
+    {
+        $kd_kunjungan = $this->input->get('kd_kunjungan');
+        $tgl_trans = $this->input->get('tgl_trans');
+        $petugas_obat = $this->input->get('petugas_obat');
+        $non_transaksi = array(
+            'kode_kunjungan' => $kd_kunjungan,
+            'tgl_trans' => $tgl_trans,
+            'petugas_obat' => $petugas_obat,
+            'total_qty' => 0,
+            'total_biaya' => 0,
+        );
+        $this->db->insert('transaksi_obat', $non_transaksi);
+
+        //update status kunjungan
+        $this->db->set('status', 3);
+        $this->db->where('kd_kunjungan', $kd_kunjungan);
+        $this->db->update('kunjungan');
+        $this->session->set_flashdata('berhasil_kepembayaran', true);
+        redirect('Obat/riwayat_layanan_obat');
+    }
+
+    public function detail_riwayat_transaksi($id)
+    {
+        $var['title'] = 'Petugas Obat | Detail Riwayat Transaksi Obat';
+        $var['view'] = $this->model->detail_riwayat_transaksi($id);
+        $var['view2'] = $this->model->detail_riwayat_transaksi2($id);
+        $var['detail'] = $this->model->detail_transaksi_obat($id);
+        $this->load->view('petugas_obat/detail_riwayat_obat', $var);
+    }
 }

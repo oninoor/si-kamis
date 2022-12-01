@@ -1,5 +1,6 @@
 <?php $this->load->view('partials/header') ?>
-
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"></script>
 <div class="main-container">
     <div class="pd-ltr-20 xs-pd-20-10">
         <div class="min-height-200px">
@@ -135,9 +136,6 @@
                         <input class="form-control" readonly type="text" name="kode_diagnosis1_icd_10" id="kode_diagnosis1_icd_10" placeholder="">
                         <?= form_error('kode_diagnosis1_icd_10', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
-                    <div class="form-group">
-                        <button type="button" class="btn btn-sm btn-primary tampilkan-diagnosa-2">Form diagnosis 2</button>
-                    </div>
                     <div class="form-diagnosis-2">
                         <div class="form-group">
                             <label>Diagnosis 2 </label>
@@ -160,6 +158,22 @@
                             <?= form_error('kode_diagnosis2_icd_10', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                     </div>
+                    <table class="table text-center" id="tabeltindakan">
+                        <thead>
+                            <tr>
+                                <th scope="col">Tindakan</th>
+                                <th scope="col">Tindakan ICD 9cm</th>
+                                <th scope="col">Kode Tindakan ICD 9cm</th>
+                                <th scope="col">Hapus</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-sm btn-primary tampilkan-diagnosa-2">Form diagnosis 2</button>
+                        <button type="button" class="btn btn-sm btn-primary tambah-tindakan"><i class="fa fa-plus-circle"></i> Tindakan</button>
+                    </div>
                     <div class="form-group">
                         <label>Tindak Lanjut Pasien <span style="color: red;">*</span></label>
                         <textarea class="form-control" name="tindak_lanjut" rows="5" cols="50"></textarea>
@@ -177,6 +191,36 @@
                     </div>
                 </form>
                 </code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="list_tindakan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">List Tindakan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table id="tabel_tindakan" class="tabel_tindakan">
+                    <thead>
+                        <tr>
+                            <td>No</td>
+                            <td>Tindakan</td>
+                            <td>Tindakan ICD 9CM</td>
+                            <td>Kode Tindakan ICD 9CM</td>
+                            <td>opsi</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -221,7 +265,102 @@
             $('.form-diagnosis-2').show();
             $('.tampilkan-diagnosa-2').hide();
         });
+
+        $(document).on('click', '#HapusColom', function(e) {
+            e.preventDefault();
+            $(this).remove();
+            var nomor = 1;
+            $('#form-tindakan form').each(function() {
+                $(this).find('label').html(nomor);
+                nomor++;
+            })
+        });
+
+
+
     });
+
+    
+    $('.tambah-tindakan').on("click", function() {
+            $('#tabeltindakan').show();
+            form_tindakan();
+        })
+
+    $('#tabeltindakan').hide();
+
+    function get_tindakan(id) {
+        $('#list_tindakan').modal('show');
+        table2 = $('#tabel_tindakan').DataTable({
+            "processing": true, //Feature control the processing indicator.
+            "serverSide": true,
+            "bDestroy": true,
+            "order": [], //Initial no order.
+
+            // Load data for the table's content from an Ajax source
+            "ajax": {
+                "url": "<?php echo base_url() ?>Dokter/list_data_tindakan/" + id,
+                "type": "POST"
+            },
+
+            order: [1, 'asc']
+
+        });
+        table2.ajax.reload();
+    }
+
+    $(document).on('click', '#Hapuselement', function(e) {
+        e.preventDefault();
+        if ($(this).parent().parent().find("#cari_tindakan").val() == "") {
+            $(this).parent().parent().remove();
+            var nomor = 1;
+            $('#tabeltindakan tbody tr').each(function() {
+                $(this).find('td:nth-child(1)').html(nomor);
+                nomor++;
+            })
+        } else {
+            $(this).parent().parent().remove();
+            var nomor = 1;
+            $('#tabeltindakan tbody tr').each(function() {
+                $(this).find('td:nth-child(1)').html(nomor);
+                nomor++;
+            })
+        }
+    });
+
+
+    function form_tindakan() {
+        let nomor = $('#tabeltindakan tbody tr').length + 1;
+        console.log(nomor);
+        let element = "<tr>";
+
+        //1
+        element += "<td style='display: flex;height: 78px;'><input readonly type='hidden' class='form-control id_tindakan" + nomor + "' name='id_tindakan[]' id='cari_tindakan'>";
+        element += "<input readonly type='text' class='form-control tindakan" + nomor + "' name='tindakan[]' id='cari_tindakan'><button type='button' class='btn btn-success' onclick='get_tindakan(" + nomor + ")' style='margin-left: 4px;'> <i class='ace-icon fa fa-search'></i></button>";
+        element += "</td>";
+
+
+        element += "<td><input type='text' readonly name='tindakan_icd_9cm[]' id='tindakan_icd_9cm' class='form-control tindakan_icd_9cm" + nomor + "'></td>";
+
+
+        //6
+        element += "<td><input type='text' readonly name='kode_tindakan_icd_9cm[]' id='kode_tindakan_icd_9cm' class='form-control kode_tindakan_icd_9cm" + nomor + "'></td>";
+
+        //hapus
+        element += "<td><button  class='btn btn-danger' id='Hapuselement'><i class='fa fa-times' style='color:white;'></i></button></td>";
+        element += "</tr>";
+
+
+        $('#tabeltindakan').append(element);
+    }
+
+    function pencarian_tindakan(id, tindakan, tindakan_icd_9cm, kode_tindakan_icd_9cm, nomor) {
+        $('.id_tindakan' + nomor).val(id);
+        $('.tindakan' + nomor).val(tindakan);
+        $('.tindakan_icd_9cm' + nomor).val(tindakan_icd_9cm);
+        $('.kode_tindakan_icd_9cm' + nomor).val(kode_tindakan_icd_9cm);
+        $('#list_tindakan').modal('hide');
+        // console.log('checkbox', chekbox1);
+    }
 
     $("#diagnosis").change(function() {
         $("img#load1").show();

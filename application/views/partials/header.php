@@ -155,7 +155,7 @@
                 <img src="<?= base_url() ?>assets/image/rme.png" alt="" class="dark-logo">
                 <img src="<?= base_url() ?>assets/image/rme.png" alt="" class="light-logo">
             </a>
-            <div class="close-sidebar" data-toggle="left-sidebar-close">
+            <div class="close-sidebar" data-toggle="left-sidebar-close">blank
                 <i class="ion-close-round"></i>
             </div>
         </div>
@@ -228,8 +228,13 @@
                             </a>
                         </li>
                         <li>
-                            <a href="calendar.html" class="dropdown-toggle no-arrow">
+                            <a href="<?= base_url('Loket/pembayaran') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-dollar"></span><span class="mtext">Pembayaran</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url('Loket/riwayat_pembayaran') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-history"></span><span class="mtext">Riwayat Pembayaran</span>
                             </a>
                         </li>
                     <?php } ?>

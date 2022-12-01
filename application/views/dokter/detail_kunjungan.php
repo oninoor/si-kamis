@@ -29,7 +29,10 @@
                         <div class="tab">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active text-blue" data-toggle="tab" href="#home" role="tab" aria-selected="true">Profile Medis</a>
+                                    <a class="nav-link active text-blue" data-toggle="tab" href="#home" role="tab" aria-selected="true">Detail Medis</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-blue" data-toggle="tab" href="#detail_medis" role="tab" aria-selected="false">Detail Diagnosa dan Tindakan</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
@@ -66,25 +69,48 @@
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <?= $view->gejala ?>
                                         </p>
                                         <p>
-                                            Kode Diagnosa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?= $view->kd_diagnosa ?>
-                                        </p>
-                                        <p>
                                             Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php
                                                                                         if ($view->status == 0) {
-                                                                                            echo "<span class='badge badge-secondary' style='color: white;'>Pendaftaran</span>";
+                                                                                            echo "<span class='badge badge-pill badge-secondary' style='color: white;'>Pendaftaran</span>";
                                                                                         } else if ($view->status == 1) {
-                                                                                            echo "<span class='badge badge-warning' style='color: white;'>Pemeriksaan Dokter</span>";
+                                                                                            echo "<span class='badge badge-pill badge-warning' style='color: white;'>Pemeriksaan Dokter</span>";
                                                                                         } else if ($view->status == 2) {
-                                                                                            echo "<span class='badge badge-info' style='color: white;'>Pengambilan Obat</span>";
+                                                                                            echo "<span class='badge badge-pill badge-info' style='color: white;'>Pengambilan Obat</span>";
                                                                                         } else if ($view->status == 3) {
-                                                                                            echo "<span class='badge badge-primary' style='color: white;'>Pembayaran</span>";
+                                                                                            echo "<span class='badge badge-pill badge-primary' style='color: white;'>Pembayaran</span>";
                                                                                         } else if ($view->status == 4) {
-                                                                                            echo "<span class='badge badge-success' style='color: white;'>Selesai</span>";
+                                                                                            echo "<span class='badge badge-pill badge-success' style='color: white;'>Selesai</span>";
                                                                                         }
 
                                                                                         ?>
                                         </p>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="detail_medis" role="tabpanel">
+                                    <div class="pd-20">
+                                        <div class="row">
+                                            <div class="col-md-3"><span>Diagnosis 1</span></div>
+                                            <div class="col-md-9"><span>: <?= $view->nama_diagnosis ?></span></div>
+                                            <div class="col-md-3 mt-3"><span>Diagnosis ICD 10</span></div>
+                                            <div class="col-md-9 mt-3"><span>: <?= $view->diagnosis_icd_10 ?></span></div>
+                                            <div class="col-md-3 mt-3"><span>Kode Diagnosis ICD 10</span></div>
+                                            <div class="col-md-9 mt-3"><span>: <?= $view->kode_diagnosis_icd_10 ?></span></div>
+                                            <div class="col-md-3 mt-3"><span>Diagnosis 2</span></div>
+                                            <div class="col-md-9 mt-3"><span>: <?= $view2->nama_diagnosis ?></span></div>
+                                            <div class="col-md-3 mt-3"><span>Diagnosis ICD 10</span></div>
+                                            <div class="col-md-9 mt-3"><span>: <?= $view2->diagnosis_icd_10 ?></span></div>
+                                            <div class="col-md-3 mt-3"><span>Kode Diagnosis ICD 10</span></div>
+                                            <div class="col-md-9 mt-3"><span>: <?= $view2->kode_diagnosis_icd_10 ?></span></div>
+                                            <?php $no = 1; foreach ($diagnosis as $tampil) { ?>
+                                                <div class="col-md-3 mt-3"><span>Tindakan <?= $no++ ?></span></div>
+                                                <div class="col-md-9 mt-3"><span>: <?= $tampil->tindakan ?></span></div>
+                                                <div class="col-md-3 mt-3"><span>Tindakan ICD 9cm</span></div>
+                                                <div class="col-md-9 mt-3"><span>: <?= $tampil->tindakan_icd_9cm ?></span></div>
+                                                <div class="col-md-3 mt-3"><span>Kode Tindakan ICD 9cm</span></div>
+                                                <div class="col-md-9 mt-3"><span>: <?= $tampil->kode_tindakan_icd_9cm ?></span></div>
+                                            <?php } ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

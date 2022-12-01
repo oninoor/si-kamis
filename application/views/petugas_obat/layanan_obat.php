@@ -33,7 +33,7 @@
                             <tr>
                                 <th class="table-plus datatable-nosort">No</th>
                                 <th>Kode</th>
-                                <th>No Rekam Medis</th>
+                                <th>No RM</th>
                                 <th>Nama Pasien</th>
                                 <th>Tanggal</th>
                                 <th>Dokter</th>

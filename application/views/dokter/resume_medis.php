@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 
-<html>
-
 <head>
+    
     <title> <?= $title ?></title>
 </head>
 
 <!-- onload="window.print();" -->
 
-<body onload="window.print();">
+<body>
 
     <div bgcolor="white">
         <!-- <td><img src="<?= base_url('assets/img/lumajang.png') ?>" height="100" width="100" /></td> -->
@@ -68,6 +67,13 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;Diagnosa 2 ICD 10 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;: <?= $view2->diagnosis_icd_10 ?><br><br>
                     &nbsp;&nbsp;&nbsp;&nbsp;Kode Diagnosa 2 ICD 10 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $view2->kode_diagnosis_icd_10 ?><br><br>
+                    <?php $no = 1; foreach ($diagnosis as $tampil) { ?>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Tindakan <?= $no++ ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?= $tampil->tindakan ?><br><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Tindakan ICD 9cm &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        : <?= $tampil->tindakan_icd_9cm ?><br><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Kode Tindakan ICD 9cm &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $tampil->kode_tindakan_icd_9cm ?><br><br>
+                    <?php } ?>
                     &nbsp;&nbsp;&nbsp;&nbsp;Terapi Obat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?= $view->terapi_obat ?><br><br>
                     &nbsp;&nbsp;&nbsp;&nbsp;Dokter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -105,5 +111,9 @@
         </font>
 
     </div>
+
+    <script>
+        window.print();
+    </script>
 
 </html>
