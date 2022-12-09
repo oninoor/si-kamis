@@ -1,4 +1,4 @@
-<?php $this->load->view('partials/header') ?>
+<?php $this->load->view('partials/header_pasien') ?>
 
 <div class="main-container">
     <div class="pd-ltr-20 xs-pd-20-10">
@@ -18,21 +18,27 @@
                     </div>
                     <br>
                     <div class="col-md-12 col-sm-12 mt-3">
-                        <a href="<?= base_url('Dokter/kunjungan') ?>" class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i> Kembali</a>
+                        <a href="<?= base_url('Pasien/pemeriksaan') ?>" class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i> Kembali</a>
                     </div>
                 </div>
             </div>
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 mb-30">
                     <div class="pd-20 card-box">
-                        <h5 class="h4 text-blue mb-20">Detail Kunjungan</h5>
+                        <h5 class="h4 text-blue mb-20">Detail Pemeriksaan</h5>
                         <div class="tab">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active text-blue" data-toggle="tab" href="#home" role="tab" aria-selected="true">Detail Medis</a>
+                                    <a class="nav-link active text-blue" data-toggle="tab" href="#home" role="tab" aria-selected="true">Kunjungan</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-blue" data-toggle="tab" href="#detail_medis" role="tab" aria-selected="false">Detail Diagnosa dan Tindakan</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-blue" data-toggle="tab" href="#transaksi_obat" role="tab" aria-selected="true">Transaksi Obat</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-blue" data-toggle="tab" href="#pembayaran" role="tab" aria-selected="true">Pembayaran</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
@@ -129,6 +135,80 @@
                                                 <div class="col-md-3 mt-3"><span>Kode Tindakan ICD 9cm</span></div>
                                                 <div class="col-md-9 mt-3"><span>: <?= $tampil->kode_tindakan_icd_9cm ?></span></div>
                                             <?php } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="transaksi_obat" role="tabpanel">
+                                    <div class="pd-20">
+                                        <div class="row">
+                                            <div class="col-md-3 mt-3"><span>Tanggal Transaksi</span></div>
+                                            <div class="col-md-9 mt-3"><span>: <?= date('d-m-Y', strtotime($trans->tgl_trans)) ?></span></div>
+                                            <div class="col-md-3 mt-3"><span>Petugas Obat</span></div>
+                                            <div class="col-md-9 mt-3"><span>: <?= $trans->nama_petugas ?></span></div>
+                                            <div class="col-md-3 mt-3"><span>Total Biaya Obat</span></div>
+                                            <div class="col-md-9 mt-3"><span>: <?= 'Rp. ' . number_format($trans->total_biaya) ?></span></div>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <h6>List obat pada transaksi</h6>
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">No</th>
+                                                        <th scope="col">Nama Obat</th>
+                                                        <th scope="col">Qty</th>
+                                                        <th scope="col">Sub Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $no = 1; foreach ($detail_trans as $tampil) { ?>
+                                                        <tr>
+                                                            <td><?= $no++ ?></td>
+                                                            <td><?= $tampil->nama_obat ?></td>
+                                                            <td><?= $tampil->qty ?></td>
+                                                            <td><?= 'Rp. ' . number_format($tampil->subtotal) ?></td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="pembayaran" role="tabpanel">
+                                    <div class="pd-20">
+                                        <div class="row">
+                                            <div class="col-md-3 mt-3"><span>Total Pembayaran</span></div>
+                                            <div class="col-md-9 mt-3"><span>: <?= 'Rp. ' . number_format($payment->total_biaya) ?></span></div>
+                                            <div class="col-md-3 mt-3"><span>Nominal Dibayar</span></div>
+                                            <div class="col-md-9 mt-3"><span>: <?= 'Rp. ' . number_format($payment->nominal_bayar) ?></span></div>
+                                            <div class="col-md-3 mt-3"><span>Nominal Kembalian</span></div>
+                                            <div class="col-md-9 mt-3"><span>: <?= 'Rp. ' . number_format($payment->nominal_kembalian) ?></span></div>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <h6>List Detail Pembayaran</h6>
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">No</th>
+                                                        <th scope="col">Keterangan</th>
+                                                        <th scope="col">Biaya</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><?= '1' ?></td>
+                                                        <td>Pelayanan Obat</td>
+                                                        <td><?= $obat->total_biaya ?></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $no = 2;
+                                                    foreach ($detail_payment as $tampil) { ?>
+                                                        <tr>
+                                                            <td><?= $no++ ?></td>
+                                                            <td><?= $tampil->keterangan ?></td>
+                                                            <td><?= $tampil->biaya ?></td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>

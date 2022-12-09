@@ -76,62 +76,6 @@
             <div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
         </div>
         <div class="header-right">
-            <div class="user-notification">
-                <div class="dropdown">
-                    <a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
-                        <i class="icon-copy dw dw-notification"></i>
-                        <span class="badge notification-active"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <div class="notification-list mx-h-350 customscroll">
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        <img src="vendors/images/img.jpg" alt="">
-                                        <h3>John Doe</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="vendors/images/photo1.jpg" alt="">
-                                        <h3>Lea R. Frith</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="vendors/images/photo2.jpg" alt="">
-                                        <h3>Erik L. Richards</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="vendors/images/photo3.jpg" alt="">
-                                        <h3>John Doe</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="vendors/images/photo4.jpg" alt="">
-                                        <h3>Renee I. Hansen</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="vendors/images/img.jpg" alt="">
-                                        <h3>Vicki M. Coleman</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="user-info-dropdown">
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -141,7 +85,6 @@
                         <span class="user-name"><?= $this->session->userdata('nama_lengkap') ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                        <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
                         <a class="dropdown-item" href="<?= base_url('Auth/logout') ?>"><i class="dw dw-logout"></i> Log Out</a>
                     </div>
                 </div>
@@ -203,6 +146,26 @@
                         <li class="dropdown">
                             <a href="<?= base_url('Admin/tindakan') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-list"></span><span class="mtext">Data Tindakan</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="<?= base_url('Admin/data_pemeriksaan') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-user-md"></span><span class="mtext">Data Pemeriksaan</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="<?= base_url('Admin/data_transaksi_obat') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-medkit"></span><span class="mtext">Data Transaksi Obat</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="<?= base_url('Admin/data_pembayaran') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-dollar"></span><span class="mtext">Data Pembayaran</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="<?= base_url('Admin/riwayat_kunjungan') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-history"></span><span class="mtext">Riwayat Kunjungan</span>
                             </a>
                         </li>
                     <?php } ?>
@@ -292,11 +255,24 @@
                             <span class="micon fa fa-folder"></span><span class="mtext">Laporan</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="form-basic.html">Laporan Kunjungan</a></li>
-                            <li><a href="advanced-components.html">Laporan Pembayaran</a></li>
-                            <li><a href="form-wizard.html">Laporan Transaksi Obat</a></li>
-                            <li><a href="html5-editor.html">Laporan Obat</a></li>
-                            <li><a href="form-pickers.html">Laporan Diagnosa</a></li>
+                            <?php if ($this->session->userdata('role') == '0') { ?>
+                                <li><a href="<?= base_url('Laporan/laporan_kunjungan_owner') ?>">Laporan Kunjungan Pasien</a></li>
+                                <li><a href="form-wizard.html">Laporan 10 Besar Penyakit</a></li>
+                                <li><a href="html5-editor.html">Laporan 10 Besar Obat</a></li>
+                                <li><a href="form-pickers.html">Laporan Penggunaan Obat</a></li>
+                                <li><a href="advanced-components.html">Laporan Pembayaran</a></li>
+                            <?php } ?>
+                            <?php if ($this->session->userdata('role') == '1') { ?>
+                                <li><a href="<?= base_url('Laporan/laporan_kunjungan_admin') ?>">Laporan Kunjungan Pasien</a></li>
+                                <li><a href="form-wizard.html">Laporan 10 Besar Penyakit</a></li>
+                                <li><a href="html5-editor.html">Laporan 10 Besar Obat</a></li>
+                                <li><a href="form-pickers.html">Laporan Penggunaan Obat</a></li>
+                                <li><a href="advanced-components.html">Laporan Pembayaran</a></li>
+                            <?php } ?>
+                            <?php if ($this->session->userdata('role') == '2') { ?>
+                                <li><a href="<?= base_url('Laporan/laporan_kunjungan_loket') ?>">Laporan Kunjungan Pasien</a></li>
+                                <li><a href="advanced-components.html">Laporan Pembayaran</a></li>
+                            <?php } ?>
                         </ul>
                     </li>
                 </ul>

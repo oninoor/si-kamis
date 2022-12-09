@@ -18,7 +18,7 @@
                     </div>
                     <br>
                     <div class="col-md-12 col-sm-12 mt-3">
-                        <a href="<?= base_url('Obat/riwayat_layanan_obat') ?>" class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i> Kembali</a>
+                        <a href="<?= base_url('Admin/data_transaksi_obat') ?>" class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i> Kembali</a>
                     </div>
                 </div>
             </div>
@@ -65,8 +65,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php $no = 1;
-                                                    foreach ($detail as $tampil) { ?>
+                                                    <?php $no = 1; foreach ($detail as $tampil) { ?>
                                                         <tr>
                                                             <td><?= $no++ ?></td>
                                                             <td><?= $tampil->nama_obat ?></td>

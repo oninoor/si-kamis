@@ -12,8 +12,9 @@ class Dokter extends CI_Controller
         $this->load->model('M_all', 'model');
         if (empty($this->session->userdata('role') == 3)) {
             $this->session->unset_userdata('id');
-            $this->session->unset_userdata('no_rm');
+            $this->session->unset_userdata('username');
             $this->session->unset_userdata('nama_lengkap');
+            $this->session->unset_userdata('role');
             $this->session->set_flashdata('login_dulu', true);
             redirect('Auth');
         }
@@ -38,6 +39,7 @@ class Dokter extends CI_Controller
     {
         $var['title'] = 'Dokter | Detail Pemeriksaan';
         $var['view'] = $this->model->detail_kunjungan($id);
+        $var['view1'] = $this->model->detail_kunjungan2($id);
         $var['view2'] = $this->model->get_diagnosa2($id);
         $var['diagnosis'] = $this->model->get_tindakan_kunjungan($id);
         $this->load->view('dokter/detail_kunjungan', $var);
@@ -47,7 +49,7 @@ class Dokter extends CI_Controller
     {
         $var['title'] = 'Dokter | Pemeriksaan';
         $var['data'] = $this->model->detail_kunjungan($id);
-        $var['diagnosis'] = $this->model->get_diagnosis();
+        $var['diagnosis'] = $this->model->get_diagnosis($id);
         $this->load->view('dokter/pemeriksaan', $var);
     }
 

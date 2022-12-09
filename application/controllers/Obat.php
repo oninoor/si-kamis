@@ -12,8 +12,9 @@ class Obat extends CI_Controller
         $this->load->model('M_all', 'model');
         if (empty($this->session->userdata('role') == 4)) {
             $this->session->unset_userdata('id');
-            $this->session->unset_userdata('no_rm');
+            $this->session->unset_userdata('username');
             $this->session->unset_userdata('nama_lengkap');
+            $this->session->unset_userdata('role');
             $this->session->set_flashdata('login_dulu', true);
             redirect('Auth');
         }
@@ -170,10 +171,10 @@ class Obat extends CI_Controller
         $petugas_obat = $this->input->post('petugas_obat');
         $total_biaya = $this->input->post('total_trans');
 
-        if (empty($total_biaya)) {
-            $this->session->set_flashdata('obat_null', true);
-            redirect('Obat/transaksi_obat/' . $kd_kunjungan);
-        } else {
+        // if ($total_biaya != NULL) {
+        //     $this->session->set_flashdata('obat_null', true);
+        //     redirect('Obat/transaksi_obat/' . $kd_kunjungan);
+        // } else {
             $total_qty = 0;
             foreach ($_POST['qty'] as $value) {
                 $total_qty += $value;
@@ -211,7 +212,7 @@ class Obat extends CI_Controller
                 } else {
                     $this->db->query("UPDATE `obat` SET `stok`=stok-'$qty' WHERE id='$id_obat'");
                 }
-            }
+            //}
 
             $this->db->set('status', 3);
             $this->db->where('kd_kunjungan', $kd_kunjungan);

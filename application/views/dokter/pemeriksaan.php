@@ -333,6 +333,8 @@
         console.log(nomor);
         let element = "<tr>";
 
+        element += "<td>" + nomor +"</td>"
+
         //1
         element += "<td style='display: flex;height: 78px;'><input readonly type='hidden' class='form-control id_tindakan" + nomor + "' name='id_tindakan[]' id='cari_tindakan'>";
         element += "<input readonly type='text' class='form-control tindakan" + nomor + "' name='tindakan[]' id='cari_tindakan'><button type='button' class='btn btn-success' onclick='get_tindakan(" + nomor + ")' style='margin-left: 4px;'> <i class='ace-icon fa fa-search'></i></button>";

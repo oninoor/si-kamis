@@ -7,12 +7,12 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="title">
-                            <h4>Riwayat Pembayaran</h4>
+                            <h4>Data Pembayaran</h4>
                         </div>
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">Data Riwayat Pembayaran</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Tabel List Riwayat Pembayaran</li>
+                                <li class="breadcrumb-item"><a href="">Data Pembayaran</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Tabel List Data Pembayaran</li>
                             </ol>
                         </nav>
                     </div>
@@ -22,7 +22,7 @@
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <h4 class="text-blue h4">List Data Riwayat Pembayaran</h4>
+                    <h4 class="text-blue h4">List Data Pembayaran</h4>
                 </div>
                 <div class="pb-20">
                     <table class="data-table table stripe hover nowrap">
@@ -51,7 +51,7 @@
                                     <td><?= $view->nama_petugas ?></td>
                                     <td><?= 'Rp. ' . number_format($view->total_biaya) ?></td>
                                     <td>
-                                        <a href="<?= base_url('Loket/detail_riwayat_pembayaran/' . $view->id) ?>" title="Detail Pembayaran" class="badge bg-success" style="color: white;"><i class="fa fa-eye"></i></a>
+                                        <a href="<?= base_url('Admin/detail_pembayaran/' . $view->id) ?>" title="Detail Pembayaran" class="badge bg-success" style="color: white;"><i class="fa fa-eye"></i></a>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -62,47 +62,5 @@
         </div>
     </div>
 </div>
-<script>
-    <?php if ($this->session->flashdata('pembayaran_tersimpan')) : ?>
-        toastr.success("Pembayaran berhasil disimpan", "Berhasil!", {
-            positionClass: "toast-top-right",
-            timeOut: 4000,
-            closeButton: !0,
-            debug: !1,
-            newestOnTop: !0,
-            progressBar: !0,
-            preventDuplicates: !0,
-            onclick: null,
-            showDuration: "300",
-            hideDuration: "1000",
-            extendedTimeOut: "1000",
-            showEasing: "swing",
-            hideEasing: "linear",
-            showMethod: "fadeIn",
-            hideMethod: "fadeOut",
-            tapToDismiss: !1
-        })
-
-        <?php elseif ($this->session->flashdata('berhasil_kepembayaran')) : ?>
-        toastr.success("berhasil lanjut ke pembayaran", "Berhasil!", {
-            positionClass: "toast-top-right",
-            timeOut: 4000,
-            closeButton: !0,
-            debug: !1,
-            newestOnTop: !0,
-            progressBar: !0,
-            preventDuplicates: !0,
-            onclick: null,
-            showDuration: "300",
-            hideDuration: "1000",
-            extendedTimeOut: "1000",
-            showEasing: "swing",
-            hideEasing: "linear",
-            showMethod: "fadeIn",
-            hideMethod: "fadeOut",
-            tapToDismiss: !1
-        })
-    <?php endif ?>
-</script>
 
 <?php $this->load->view('partials/footer') ?>

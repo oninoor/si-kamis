@@ -12,8 +12,9 @@ class Admin extends CI_Controller
         $this->load->model('M_all', 'model');
         if (empty($this->session->userdata('role') == 1)) {
             $this->session->unset_userdata('id');
-            $this->session->unset_userdata('no_rm');
+            $this->session->unset_userdata('username');
             $this->session->unset_userdata('nama_lengkap');
+            $this->session->unset_userdata('role');
             $this->session->set_flashdata('login_dulu', true);
             redirect('Auth');
         }
@@ -163,5 +164,79 @@ class Admin extends CI_Controller
         $this->db->delete('tindakan', ['id' => $id]);
         $this->session->set_flashdata('success_delete', true);
         redirect('Admin/tindakan');
+    }
+
+    public function data_pemeriksaan()
+    {
+        $var['title'] = 'Admin | Data Pemeriksaan';
+        $var['pemeriksaan'] = $this->model->get_data_pemeriksaan();
+        $this->load->view('admin/data_pemeriksaan', $var);
+    }
+
+    public function detail_pemeriksaan($id)
+    {
+        $var['title'] = 'Admin | Detail Pemeriksaan';
+        $var['view'] = $this->model->detail_kunjungan($id);
+        $var['view1'] = $this->model->detail_kunjungan2($id);
+        $var['view2'] = $this->model->get_diagnosa2($id);
+        $var['diagnosis'] = $this->model->get_tindakan_kunjungan($id);
+        $this->load->view('admin/detail_pemeriksaan', $var);
+    }
+
+    public function data_transaksi_obat()
+    {
+        $var['title'] = 'Admin | Data Transaksi Obat';
+        $var['riwayat'] = $this->model->riwayat_transaksi_obat();
+        $this->load->view('admin/data_transaksi_obat', $var);
+    }
+
+    public function detail_transaksi_obat($id)
+    {
+        $var['title'] = 'Admin | Detail Transaksi Obat';
+        $var['view'] = $this->model->detail_riwayat_transaksi($id);
+        $var['view2'] = $this->model->detail_riwayat_transaksi2($id);
+        $var['detail'] = $this->model->detail_transaksi_obat($id);
+        $this->load->view('admin/detail_transaksi_obat', $var);
+    }
+
+    public function data_pembayaran()
+    {
+        $var['title'] = 'Admin | Data Pembayaran';
+        $var['riwayat'] = $this->loket->riwayat_pembayaran();
+        $this->load->view('admin/data_pembayaran', $var);
+    }
+
+    public function detail_pembayaran($id) 
+    {
+        $var['title'] = 'Admin | Detail Pembayaran';
+        $var['view'] = $this->loket->get_detail_pembayaran($id);
+        $var['view2'] = $this->loket->get_detail_pembayaran2($id);
+        $id_trans = $this->db->select('id_trans')->get_where('payment', ['id' => $id])->row();
+        $var['obat'] = $this->db->get_where('transaksi_obat', ['id' => $id_trans->id_trans])->row();
+        $var['detail'] = $this->db->get_where('detail_payment', ['id_payment' => $id])->result();
+        $this->load->view('admin/detail_pembayaran', $var);
+    }
+
+    public function riwayat_kunjungan()
+    {
+        $var['title'] = 'Admin | Riwayat Kunjungan';
+        $var['riwayat'] = $this->model->get_riwayat_kunjungan_admin();
+        $this->load->view('admin/riwayat_kunjungan', $var);
+    }
+
+    public function detail_riwayat_kunjungan($id)
+    {
+        $var['title'] = 'Admin | Detail Riwayat Kunjungan';
+        $var['view'] = $this->model->detail_kunjungan($id);
+        $var['view1'] = $this->model->detail_kunjungan2($id);
+        $var['view2'] = $this->model->get_diagnosa2($id);
+        $var['diagnosis'] = $this->model->get_tindakan_kunjungan($id);
+        $var['trans'] = $this->model->get_riwayat_transaksi_pasien($id);
+        $var['detail_trans'] = $this->model->detail_transaksi_obat($var['trans']->id);
+        $payment = $this->db->get_where('payment', ['id_trans' => $var['trans']->id])->row();
+        $var['payment'] = $this->loket->get_detail_pembayaran($payment->id);
+        $var['obat'] = $this->db->get_where('transaksi_obat', ['id' => $var['trans']->id])->row();
+        $var['detail_payment'] =$this->db->get_where('detail_payment', ['id_payment' => $payment->id])->result();
+        $this->load->view('admin/detail_riwayat_kunjungan', $var);
     }
 }

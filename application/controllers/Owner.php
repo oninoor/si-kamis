@@ -11,8 +11,9 @@ class Owner extends CI_Controller
         $this->load->library('form_validation');
         if (empty($this->session->userdata('role') == 0)) {
             $this->session->unset_userdata('id');
-            $this->session->unset_userdata('no_rm');
+            $this->session->unset_userdata('username');
             $this->session->unset_userdata('nama_lengkap');
+            $this->session->unset_userdata('role');
             $this->session->set_flashdata('login_dulu', true);
             redirect('Auth');
         }

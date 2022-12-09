@@ -140,8 +140,8 @@ class Auth extends CI_Controller
                                 'nama_lengkap' => $pasien->nama_lengkap,
                             ];
                             $this->session->set_userdata($data);
-                            // $this->session->set_flashdata('berhasil_login', true);
-                            // redirect('Owner');
+                            $this->session->set_flashdata('berhasil_login', true);
+                            redirect('Pasien');
                         }
                     //kondisi jika username salah
                     else {

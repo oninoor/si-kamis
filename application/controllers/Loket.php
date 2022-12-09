@@ -11,8 +11,9 @@ class Loket extends CI_Controller
         $this->load->library('form_validation');
         if (empty($this->session->userdata('role') == 2)) {
             $this->session->unset_userdata('id');
-            $this->session->unset_userdata('no_rm');
+            $this->session->unset_userdata('username');
             $this->session->unset_userdata('nama_lengkap');
+            $this->session->unset_userdata('role');
             $this->session->set_flashdata('login_dulu', true);
             redirect('Auth');
         }
@@ -302,10 +303,10 @@ class Loket extends CI_Controller
             'total_biaya' => $total_trans,
             'nominal_kembalian' => $kembalian
         ];
-        
+
         $this->db->insert('payment', $payment);
         $last_idpayment = $this->model->last_idpayment();
-        foreach($_POST['keterangan'] as $key => $value) {
+        foreach ($_POST['keterangan'] as $key => $value) {
             $detail_payment = [
                 'id_payment' => $last_idpayment[0]->id,
                 'keterangan' => $this->input->post('keterangan')[$key],
@@ -322,7 +323,6 @@ class Loket extends CI_Controller
 
         $this->session->set_flashdata('pembayaran_tersimpan', true);
         redirect('Loket/riwayat_pembayaran');
-        
     }
 
     public function riwayat_pembayaran()
@@ -333,11 +333,14 @@ class Loket extends CI_Controller
         $this->load->view('loket/riwayat_pembayaran', $var);
     }
 
-    public function detail_riwayat_pembayaran()
+    public function detail_riwayat_pembayaran($id)
     {
         $var['title'] = 'Petugas Obat | Detail Riwayat Pembayaran';
-        $var['view'] = $this->model->get_detail_pembayaran();
+        $var['view'] = $this->model->get_detail_pembayaran($id);
+        $var['view2'] = $this->model->get_detail_pembayaran2($id);
+        $id_trans = $this->db->select('id_trans')->get_where('payment', ['id' => $id])->row();
+        $var['obat'] = $this->db->get_where('transaksi_obat', ['id' => $id_trans->id_trans])->row();
+        $var['detail'] = $this->db->get_where('detail_payment', ['id_payment' => $id])->result();
         $this->load->view('loket/detail_riwayat_pembayaran', $var);
     }
-
 }

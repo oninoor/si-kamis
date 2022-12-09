@@ -266,8 +266,39 @@ class M_loket extends CI_Model
         return $this->db->get()->result();
     }
 
-    public function get_detail_pembayaran()
+    public function get_detail_pembayaran($id)
     {
-        
+        $this->db->select('payment.*,
+                            trans.kode_kunjungan,
+                            kunjungan.no_rekmed,
+                            kunjungan.petugas_loket,
+                            pasien.nama_lengkap as nama_pasien,
+                            users.nama_lengkap as nama_petugas');
+        $this->db->from('payment');
+        $this->db->join('transaksi_obat trans', 'payment.id_trans = trans.id');
+        $this->db->join('kunjungan', 'trans.kode_kunjungan = kunjungan.kd_kunjungan');
+        $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
+        $this->db->join('users', 'kunjungan.petugas_loket = users.id');
+        $this->db->where('payment.id', $id);
+        return $this->db->get()->row();
     }
+
+    public function get_detail_pembayaran2($id)
+    {
+        $this->db->select('payment.*,
+        trans.kode_kunjungan,
+        kunjungan.no_rekmed,
+        kunjungan.petugas_loket,
+        pasien.nama_lengkap as nama_pasien,
+        users.nama_lengkap as nama_dokter');
+        $this->db->from('payment');
+        $this->db->join('transaksi_obat trans', 'payment.id_trans = trans.id');
+        $this->db->join('kunjungan', 'trans.kode_kunjungan = kunjungan.kd_kunjungan');
+        $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
+        $this->db->join('users', 'kunjungan.dokter = users.id');
+        $this->db->where('payment.id', $id);
+        return $this->db->get()->row();
+    }
+
+   
 }

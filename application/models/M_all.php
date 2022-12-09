@@ -51,13 +51,22 @@ class M_all extends CI_Model
                             pasien.tgl_lahir,
                             pasien.jenis_kelamin,
                             users.nama_lengkap as nama_dokter,
-                            diagnosis.nama_diagnosis,
-                            diagnosis.diagnosis_icd_10,
-                            diagnosis.kode_diagnosis_icd_10
                             ');
         $this->db->from('kunjungan');
         $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
         $this->db->join('users', 'kunjungan.dokter = users.id');
+        $this->db->where('kd_kunjungan', $id);
+        return $this->db->get()->row();
+    }
+
+    public function detail_kunjungan2($id)
+    {
+        $this->db->select('kunjungan.*,
+        diagnosis.nama_diagnosis,
+        diagnosis.diagnosis_icd_10,
+        diagnosis.kode_diagnosis_icd_10
+        ');
+        $this->db->from('kunjungan');
         $this->db->join('diagnosis', 'kunjungan.kd_diagnosa = diagnosis.id');
         $this->db->where('kd_kunjungan', $id);
         return $this->db->get()->row();
@@ -460,12 +469,13 @@ class M_all extends CI_Model
                             kunjungan.dokter,
                             kunjungan.status,
                             pasien.nama_lengkap as nama_pasien,
+                            pasien.jenis_pasien,
                             users.nama_lengkap as nama_petugas,
                             ');
         $this->db->from('transaksi_obat trans');
         $this->db->join('kunjungan', 'trans.kode_kunjungan = kunjungan.kd_kunjungan');
-        $this->db->join('users', 'trans.petugas_obat = users.id');
         $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
+        $this->db->join('users', 'trans.petugas_obat = users.id');
         $this->db->where('trans.id', $id);
         return $this->db->get()->row();
     }
@@ -494,5 +504,123 @@ class M_all extends CI_Model
         $this->db->where('detail.kode_trans', $id);
         return $this->db->get()->result();
     }
-}
 
+    public function riwayat_rekmed_pasien()
+    {
+        $no_rm = $this->session->userdata('no_rm');
+        $this->db->select('kunjungan.*,
+                            pasien.nama_lengkap as nama_pasien,
+                            users.nama_lengkap as nama_dokter,
+                            diagnosis.nama_diagnosis');
+        $this->db->from('kunjungan');
+        $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
+        $this->db->join('users', 'kunjungan.dokter = users.id');
+        $this->db->join('diagnosis', 'kunjungan.kd_diagnosa = diagnosis.id');
+        $this->db->where('kunjungan.no_rekmed', $no_rm);
+        $this->db->where('kunjungan.status', 4);
+        return $this->db->get()->result();
+    }
+
+    public function get_riwayat_transaksi_pasien($id)
+    {
+        $this->db->select('trans.*,
+        users.nama_lengkap as nama_petugas,
+        ');
+        $this->db->from('transaksi_obat trans');
+        $this->db->join('users', 'trans.petugas_obat = users.id');
+        $this->db->where('trans.kode_kunjungan', $id);
+        return $this->db->get()->row();
+    }
+
+    public function detail_transaksi_obat_pasien($id)
+    {
+        $this->db->select('detail.*, obat.nama_obat');
+        $this->db->from('detail_transaksi_obat detail');
+        $this->db->join('obat', 'detail.id_obat = obat.id');
+        $this->db->where('detail.kode_trans', $id);
+        return $this->db->get()->result();
+    }
+
+    public function jumlah_pemeriksaan_pasien()
+    {
+        $no_rm = $this->session->userdata('no_rm');
+        $this->db->where('no_rekmed', $no_rm);
+        return $this->db->count_all_results('kunjungan');
+    }
+
+    public function get_data_pemeriksaan()
+    {
+        $this->db->select('kunjungan.*, 
+        pasien.no_rm, 
+        pasien.nama_lengkap, 
+        users.nama_lengkap AS nama_dokter
+        ');
+        $this->db->from('kunjungan');
+        $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
+        $this->db->join('users', 'kunjungan.dokter = users.id');
+        $this->db->where('kunjungan.status >=', 1);
+        $this->db->order_by('kunjungan.kd_kunjungan', 'asc');
+        return $this->db->get()->result();
+    }
+    
+    public function get_riwayat_kunjungan_admin() 
+    {
+        $this->db->select('kunjungan.*, 
+        pasien.no_rm, 
+        pasien.nama_lengkap, 
+        users.nama_lengkap AS nama_dokter
+        ');
+        $this->db->from('kunjungan');
+        $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
+        $this->db->join('users', 'kunjungan.dokter = users.id');
+        $this->db->where('kunjungan.status', 4);
+        $this->db->order_by('kunjungan.kd_kunjungan', 'desc');
+        return $this->db->get()->result();
+    }
+
+    public function laporan_kunjungan()
+    {
+    
+        $this->db->select('kunjungan.*,
+                            pasien.nama_lengkap,
+                            pasien.jenis_kelamin,
+                            pasien.alamat,
+                            pasien.jenis_pasien');
+        $this->db->from('kunjungan');
+        $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
+        $this->db->where('kunjungan.status', 4);
+        return $this->db->get()->result();
+    }
+
+    public function count_laporan_kunjungan()
+    {
+        $this->db->from("kunjungan");
+        $this->db->where('kunjungan.status', 4);
+        return $this->db->count_all_results();
+    }
+
+    public function filter_laporan_kunjungan($tgl_awal, $tgl_akhir)
+    {
+    
+        $this->db->select('kunjungan.*,
+                            pasien.nama_lengkap,
+                            pasien.jenis_kelamin,
+                            pasien.alamat,
+                            pasien.jenis_pasien');
+        $this->db->from('kunjungan');
+        $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
+        $this->db->where('kunjungan.status', 4);
+        $this->db->where('kunjungan.tanggal >=', $tgl_awal);
+        $this->db->where('kunjungan.tanggal <=', $tgl_akhir);
+        return $this->db->get()->result();
+    }
+
+    public function count_filter_laporan_kunjungan($tgl_awal, $tgl_akhir)
+    {
+        $this->db->from("kunjungan");
+        $this->db->where('kunjungan.status', 4);
+        $this->db->where('kunjungan.tanggal >=', $tgl_awal);
+        $this->db->where('kunjungan.tanggal <=', $tgl_akhir);
+        return $this->db->count_all_results();
+    }
+}

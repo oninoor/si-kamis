@@ -18,14 +18,14 @@
                     </div>
                     <br>
                     <div class="col-md-12 col-sm-12 mt-3">
-                        <a href="<?= base_url('Dokter/kunjungan') ?>" class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i> Kembali</a>
+                        <a href="<?= base_url('Admin/data_pemeriksaan') ?>" class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i> Kembali</a>
                     </div>
                 </div>
             </div>
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 mb-30">
                     <div class="pd-20 card-box">
-                        <h5 class="h4 text-blue mb-20">Detail Kunjungan</h5>
+                        <h5 class="h4 text-blue mb-20">Detail Pemeriksaan</h5>
                         <div class="tab">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">

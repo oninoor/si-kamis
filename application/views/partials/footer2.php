@@ -1,6 +1,6 @@
-<div class="footer-wrap pd-20 mb-20 card-box">
-    Copyright by <a href="https://github.com/dropways" target="_blank">RME (Rekam Medis Elektronik)</a>
-</div>
+<!-- <div class="footer-wrap pd-20 mb-20 card-box">
+    Copyright by <a href="https://github.com/dropways" target="_blank">SI-KAMIS (Sistem Informasi Rekam Medis)</a>
+</div> -->
 </div>
 </div>
 <!-- js -->
