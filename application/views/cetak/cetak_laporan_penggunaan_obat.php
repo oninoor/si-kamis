@@ -46,42 +46,46 @@
         <hr color="black" style="size: 3px;">
 
         <font face="Times New Roman" color="black" size="4">
-            <p align="center"> <u> <b> LAPORAN KUNJUNGAN PASIEN </b></u>
+            <p align="center"> <u> <b> LAPORAN PENGGUNAAN OBAT </b></u>
         </font>
 
         <font face="Times New Roman" color="black" size="4">
-            <p>Periode : <?php if (empty($tgl_awal) && empty($tgl_akhir)) {
-                echo 'Semua Kunjungan';
-            } else {
-                echo date("d-m-Y", strtotime($_GET['tgl_awal'])) ." - " . date("d-m-Y", strtotime($_GET['tgl_akhir']));
-            } ?></p>
+            <p>Periode : <?php if (empty($tgl_awal) && empty($tgl_akhir) && empty($jenis_pasien)) {
+                                echo 'Semua Kunjungan';
+                            } else {
+                                echo date("d-m-Y", strtotime($_GET['tgl_awal'])) . " - " . date("d-m-Y", strtotime($_GET['tgl_akhir']));
+                            } ?></p>
             <p>Jumlah Kunjungan : <?= $jumlah ?></p>
+            <p>Jenis Pasien : <?php if (empty($tgl_awal) && empty($tgl_akhir) && empty($jenis_pasien)) {
+                                echo 'Semua';
+                            } else {
+                                echo $_GET['jenis_pasien'];
+                            } ?></p>
         </font>
 
         <div class="table-laporan-kunjungan">
             <table>
                 <thead>
                     <tr>
-                        <th>No</th>
+                        <th class="table-plus datatable-nosort">No</th>
                         <th>Tanggal Kunjungan</th>
-                        <th>No RM</th>
-                        <th>Nama Pasien</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Alamat</th>
+                        <th>No Rekam Medis</th>
+                        <th>Nama Obat</th>
                         <th>Jenis Pasien</th>
+                        <th>Jumlah Obat</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no = 1;
+                    <?php
+                    $no = 1;
                     foreach ($laporan as $view) { ?>
                         <tr>
-                            <td><?= $no++ ?></td>
+                            <td class="table-plus"><?= $no++ ?></td>
                             <td><?= date('d-m-Y', strtotime($view->tanggal)) ?></td>
-                            <td><?= $view->no_rekmed ?></td>
-                            <td><?= $view->nama_lengkap ?></td>
-                            <td><?= $view->jenis_kelamin ?></td>
-                            <td><?= $view->alamat ?></td>
+                            <td><?= $view->no_rm ?></td>
+                            <td><?= $view->nama_obat ?></td>
                             <td><?= $view->jenis_pasien ?></td>
+                            <td><?= $view->qty ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>

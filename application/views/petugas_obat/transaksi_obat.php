@@ -61,24 +61,6 @@
                                 <input type="text" name="dokter" value="<?= $view->nama_dokter ?>" readonly class="form-control dokter">
                             </div>
                         </div>
-                        <div class="col-md-8">
-                            <label for="">Terapi Obat</label>
-                            <div class="input-group mb-3">
-                                <!-- <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><span class="fa fa-receipt"></span> </span>
-                            </div> -->
-                                <textarea class="form-control mb-3 resep" name="resep" readonly rows="3"><?= $view->terapi_obat ?></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <label for="">Alergi</label>
-                            <div class="input-group mb-3">
-                                <!-- <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><span class="fa fa-receipt"></span> </span>
-                            </div> -->
-                                <textarea class="form-control mb-3 resep" name="resep" readonly rows="3"><?= $view->alergi ?></textarea>
-                            </div>
-                        </div>
                     </div>
                     <hr>
                     <div class="row">
@@ -112,6 +94,27 @@
                                 </div>
                                 <input type="hidden" name="petugas_obat" value="<?= $this->session->userdata('id') ?>" class="form-control">
                                 <input type="text" name="kasir" readonly value="<?= $this->session->userdata('nama_lengkap') ?>" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label for="">Alergi Obat</label>
+                            <div class="input-group mb-3">
+                                <!-- <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><span class="fa fa-receipt"></span> </span>
+                            </div> -->
+                                <input type="text" class="form-control mb-3 resep" value="<?= $view->alergi ?>" name="resep" readonly rows="2">
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <label for="">Terapi Obat</label>
+                            <div class="input-group mb-3">
+                                <!-- <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><span class="fa fa-receipt"></span> </span>
+                            </div> -->
+                                <input type="text" class="form-control mb-3 resep" name="resep" value="<?= $view->terapi_obat ?>" readonly rows="3">
                             </div>
                         </div>
                     </div>
@@ -162,7 +165,7 @@
 
                     <div class="mt-3">
                         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Simpan Transaksi</button>
-                        <a href="" class="btn btn-success"><i class="fa fa-print"></i> Cetak Resep</a>
+                        <!-- <a href="" class="btn btn-success"><i class="fa fa-print"></i> Cetak Resep</a> -->
                         <a href="<?= base_url("Obat/non_transaksi?kd_kunjungan=" . $view->kd_kunjungan . "&tgl_trans=" . $tgl_trans . "&petugas_obat=" . $this->session->userdata('nama_lengkap')) ?>" class="btn btn-success"><i class="fa fa-arrow-circle-o-right"></i> Lanjutkan Ke Pembayaran</a>
                     </div>
                     <!-- <span id="datanya"></span> -->

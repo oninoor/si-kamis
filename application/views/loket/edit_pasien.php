@@ -37,6 +37,12 @@
                         <?= form_error('nik', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
+                        <label>Jenis Pasien <span style="color: red;">*</span></label><br>
+                        <input type="radio" class="jenis-pasien-umum" <?php echo ($edit->jenis_pasien == 'umum') ? 'checked' : '' ?> name="jenis_pasien" value="umum"> Umum
+                        <input type="radio" class="jenis-pasien-bpjs" <?php echo ($edit->jenis_pasien == 'bpjs') ? 'checked' : '' ?> name="jenis_pasien" value="bpjs"> BPJS <br>
+                        <?= form_error('jenis_pasien', '<small class="text-danger pl-3">', '</small>'); ?>
+                    </div>
+                    <div class="form-group nomor-bpjs">
                         <label>No BPJS</label>
                         <input class="form-control" type="text" name="no_bpjs" value="<?= $edit->no_bpjs ?>" placeholder="No BPJS">
                         <?= form_error('no_bpjs', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -207,6 +213,23 @@
 </div>
 <?php $this->load->view('partials/footer') ?>
 <script>
+    // $('.nomor-bpjs').hide();
+
+    let radio_bpjs = $("input[type=radio].jenis-pasien-bpjs");
+
+
+    $('.jenis-pasien-bpjs').click(function() {
+        if ($(this).is(':checked')) {
+            $('.nomor-bpjs').show();
+        }
+    })
+
+    $('.jenis-pasien-umum').click(function() {
+        if ($(this).is(':checked')) {
+            $('.nomor-bpjs').hide();
+        }
+    })
+
     $(document).ready(function() {
         //untuk memanggil plugin select2
         $('#role').select2({

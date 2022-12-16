@@ -38,59 +38,80 @@
                     </div>
                     <div class="form-group">
                         <label>NIK <span style="color: red;">*</span></label>
-                        <input class="form-control" type="text" name="nik" placeholder="NIK">
+                        <input class="form-control" type="text" name="nik" value="<?= set_value('nik') ?>" placeholder="NIK">
                         <?= form_error('nik', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label>Jenis Pasien <span style="color: red;">*</span></label><br>
-                        <input type="radio" class="jenis-pasien-umum" name="jenis_pasien" value="umum"> Umum
-                        <input type="radio" class="jenis-pasien-bpjs" name="jenis_pasien" value="bpjs"> BPJS <br>
+                        <input type="radio" class="jenis-pasien-umum" <?= (set_value('jenis_pasien') == 'umum') ? 'checked' : '' ?> name="jenis_pasien" value="umum"> Umum
+                        <input type="radio" class="jenis-pasien-bpjs" <?= (set_value('jenis_pasien') == 'bpjs') ? 'checked' : '' ?> name="jenis_pasien" value="bpjs"> BPJS <br>
                         <?= form_error('jenis_pasien', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group nomor-bpjs">
                         <label>No BPJS <span style="color: red;">*</span></label>
-                        <input class="form-control" type="text" name="no_bpjs" placeholder="No BPJS">
+                        <input class="form-control" type="text" value="<?= set_value('no_bpjs') ?>" name="no_bpjs" placeholder="No BPJS">
                         <?= form_error('no_bpjs', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label>Nama Lengkap <span style="color: red;">*</span></label>
-                        <input class="form-control" type="text" name="nama_lengkap" placeholder="Nama Lengkap">
+                        <input class="form-control" type="text" value="<?= set_value('nama_lengkap') ?>" name="nama_lengkap" placeholder="Nama Lengkap">
                         <?= form_error('nama_lengkap', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label for="job-description">Jenis Kelamin <span class="text-danger">*</span></label><br>
-                        <input type="radio" name="jenis_kelamin" value="Laki-laki"> Laki laki
-                        <input type="radio" name="jenis_kelamin" value="Perempuan"> Perempuan <br>
+                        <input type="radio" name="jenis_kelamin" <?= (set_value('jenis_kelamin') == 'Laki-laki') ? 'checked' : '' ?> value="Laki-laki"> Laki laki
+                        <input type="radio" name="jenis_kelamin" <?= (set_value('jenis_kelamin') == 'Perempuan') ? 'checked' : '' ?> value="Perempuan"> Perempuan <br>
                         <?= form_error('jenis_kelamin', '<small class="text-danger pl-3">', '</small>'); ?>
-                    </div>
-                    <div class="form-group">
-                        <label>Alergi Obat</label>
-                        <textarea class="form-control" name="alergi_obat" rows="5" cols="50"></textarea>
-                        <?= form_error('alergi_obat', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label>Tanggal Lahir <span style="color: red;">*</span></label>
                         <div class="row">
                             &nbsp;&nbsp;&nbsp;&nbsp;<select class="col-lg-3" id="tgl" name="tgl" title="Tanggal">
                                 <?php for ($a = 1; $a <= 31; $a++) { ?>
-                                    <option value="<?= $a ?>"><?= $a ?></option>
+                                    <option <?php if (set_value('tgl') == $a) {
+                                                echo "selected=\"selected\"";
+                                            } ?>value="<?= $a ?>"><?= $a ?></option>
                                 <?php  } ?>
                             </select> &nbsp;&nbsp;&nbsp;&nbsp;
                             <select class="col-lg-5" id="bln" name="bln" title="Pilih Bulan">
-                                <option value="01">Januari</option>
-                                <option value="02">Februari</option>
-                                <option value="03">Maret</option>
-                                <option value="04">April</option>
-                                <option value="05">Mei</option>
-                                <option value="06">Juni</option>
-                                <option value="07">Juli</option>
-                                <option value="08">Agustus</option>
-                                <option value="09">September</option>
-                                <option value="10">Oktober</option>
-                                <option value="11">November</option>
-                                <option value="12">Desember</option>
+                                <option <?php if (set_value('bln') == "01") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="01">Januari</option>
+                                <option <?php if (set_value('bln') == "02") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="02">Februari</option>
+                                <option <?php if (set_value('bln') == "03") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="03">Maret</option>
+                                <option <?php if (set_value('bln') == "04") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="04">April</option>
+                                <option <?php if (set_value('bln') == "05") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="05">Mei</option>
+                                <option <?php if (set_value('bln') == "06") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="06">Juni</option>
+                                <option <?php if (set_value('bln') == "07") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="07">Juli</option>
+                                <option <?php if (set_value('bln') == "08") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="08">Agustus</option>
+                                <option <?php if (set_value('bln') == "09") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="09">September</option>
+                                <option <?php if (set_value('bln') == "10") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="10">Oktober</option>
+                                <option <?php if (set_value('bln') == "11") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="11">November</option>
+                                <option <?php if (set_value('bln') == "12") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="12">Desember</option>
                             </select> &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="number" name="thn" class="form-control col-lg-3">
+                            <input type="number" value="<?= set_value('thn') ?>" name="thn" class="form-control col-lg-3">
                             <?= form_error('tgl', '<small class="text-danger pl-3">', '</small>'); ?>
                             <?= form_error('bln', '<small class="text-danger pl-3">', '</small>'); ?>
                             <?= form_error('thn', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -98,12 +119,12 @@
                     </div>
                     <div class="form-group">
                         <label>Tempat Lahir <span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="tempat_lahir" placeholder="Tempat Lahir">
+                        <input type="text" class="form-control" value="<?= set_value('tempat_lahir') ?>" name="tempat_lahir" placeholder="Tempat Lahir">
                         <?= form_error('tempat_lahir', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label>Alamat <span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="alamat" placeholder="Alamat">
+                        <input type="text" class="form-control" value="<?= set_value('alamat') ?>" name="alamat" placeholder="Alamat">
                         <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
@@ -129,36 +150,50 @@
                     </div>
                     <div class="form-group">
                         <label>No Telepon <span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="no_telp" placeholder="No Telepon">
+                        <input type="text" class="form-control" value="<?= set_value('no_telp') ?>" name="no_telp" placeholder="No Telepon">
                         <?= form_error('no_telp', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label>Pekerjaan</label>
-                        <input type="text" class="form-control" name="pekerjaan" placeholder="Pekerjaan">
+                        <input type="text" class="form-control" value="<?= set_value('pekerjaan') ?>" name="pekerjaan" placeholder="Pekerjaan">
                         <?= form_error('pekerjaan', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label>Pendidikan Terakhir <span style="color: red;">*</span></label>
                         <select name="pendidikan_terakhir" id="role" class="form-control">
                             <option></option>
-                            <option value="SD/MI">SD/MI</option>
-                            <option value="SMP/MTS">SMP/MTS</option>
-                            <option value="SMA/SMK/MA">SMA/SMK/MA</option>
-                            <option value="D3 (Diploma)">Diploma</option>
-                            <option value="Sarjana (S1/D4)">Sarjana (S1/D4)</option>
-                            <option value="Magister (S2)">Magister (S2)</option>
-                            <option value="Doktor (S3)">Doktor (S3)</option>
+                            <option <?php if (set_value('pendidikan_terakhir') == "SD/MI") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="SD/MI">SD/MI</option>
+                            <option <?php if (set_value('pendidikan_terakhir') == "SMP/MTS") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="SMP/MTS">SMP/MTS</option>
+                            <option <?php if (set_value('pendidikan_terakhir') == "SMA/SMK/MA") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="SMA/SMK/MA">SMA/SMK/MA</option>
+                            <option <?php if (set_value('pendidikan_terakhir') == "D3 (Diploma)") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="D3 (Diploma)">Diploma</option>
+                            <option <?php if (set_value('pendidikan_terakhir') == "Sarjana (S1/D4)") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="Sarjana (S1/D4)">Sarjana (S1/D4)</option>
+                            <option <?php if (set_value('pendidikan_terakhir') == "Magister (S2)") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="Magister (S2)">Magister (S2)</option>
+                            <option <?php if (set_value('pendidikan_terakhir') == "Doktor (S3)") {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="Doktor (S3)">Doktor (S3)</option>
                         </select>
                         <?= form_error('pendidikan_terakhir', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label>Nama Wali <span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="nama_wali" placeholder="Nama Wali">
+                        <input type="text" class="form-control" value="<?= set_value('nama_wali') ?>" name="nama_wali" placeholder="Nama Wali">
                         <?= form_error('nama_wali', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label>Hubungan Dengan Pasien <span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="hubungan" placeholder="Hubungan Dengan Pasien">
+                        <input type="text" class="form-control" value="<?= set_value('hubungan') ?>" name="hubungan" placeholder="Hubungan Dengan Pasien">
                         <?= form_error('hubungan', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <hr>
@@ -180,7 +215,7 @@
 
         let radio_bpjs = $("input[type=radio].jenis-pasien-bpjs");
 
-        
+
         $('.jenis-pasien-bpjs').click(function() {
             if ($(this).is(':checked')) {
                 $('.nomor-bpjs').show();

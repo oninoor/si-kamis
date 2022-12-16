@@ -128,8 +128,8 @@
                         <?= form_error('gejala', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
-                        <label>Alergi </label>
-                        <textarea class="form-control" name="alergi" rows="5" cols="50"></textarea>
+                        <label>Alergi Obat</label>
+                        <input type="text" class="form-control" name="alergi">
                     </div>
                     <hr>
                     <div class="form-group">

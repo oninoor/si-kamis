@@ -23,6 +23,42 @@ class Admin extends CI_Controller
     public function index()
     {
         $var['title'] = 'Admin | Dashboard';
+        $var['jml_kunjungan'] = $this->model->jml_seluruh_kunjungan();
+        $var['jml_pasien'] = $this->model->jml_seluruh_pasien();
+        $var['jml_transaksi_obat'] = $this->model->jml_seluruh_transaksi_obat();
+        $var['jml_diagnosis'] = $this->model->jml_diagnosis();
+        $tahun = $this->input->get('tahun');
+        if (empty($tahun)) {
+            foreach ($this->model->grafik_pengunjung()->result_array() as $row) {
+                $var['grafik_kunjungan'][] = (int) $row['Januari'];
+                $var['grafik_kunjungan'][] = (int) $row['Februari'];
+                $var['grafik_kunjungan'][] = (int) $row['Maret'];
+                $var['grafik_kunjungan'][] = (int) $row['April'];
+                $var['grafik_kunjungan'][] = (int) $row['Mei'];
+                $var['grafik_kunjungan'][] = (int) $row['Juni'];
+                $var['grafik_kunjungan'][] = (int) $row['Juli'];
+                $var['grafik_kunjungan'][] = (int) $row['Agustus'];
+                $var['grafik_kunjungan'][] = (int) $row['September'];
+                $var['grafik_kunjungan'][] = (int) $row['Oktober'];
+                $var['grafik_kunjungan'][] = (int) $row['November'];
+                $var['grafik_kunjungan'][] = (int) $row['Desember'];
+            }
+        } else {
+            foreach ($this->model->filter_grafik_pengunjung()->result_array() as $row) {
+                $var['grafik_kunjungan'][] = (int) $row['Januari'];
+                $var['grafik_kunjungan'][] = (int) $row['Februari'];
+                $var['grafik_kunjungan'][] = (int) $row['Maret'];
+                $var['grafik_kunjungan'][] = (int) $row['April'];
+                $var['grafik_kunjungan'][] = (int) $row['Mei'];
+                $var['grafik_kunjungan'][] = (int) $row['Juni'];
+                $var['grafik_kunjungan'][] = (int) $row['Juli'];
+                $var['grafik_kunjungan'][] = (int) $row['Agustus'];
+                $var['grafik_kunjungan'][] = (int) $row['September'];
+                $var['grafik_kunjungan'][] = (int) $row['Oktober'];
+                $var['grafik_kunjungan'][] = (int) $row['November'];
+                $var['grafik_kunjungan'][] = (int) $row['Desember'];
+            }
+        }
         $this->load->view('admin/dashboard', $var);
     }
 
@@ -206,7 +242,7 @@ class Admin extends CI_Controller
         $this->load->view('admin/data_pembayaran', $var);
     }
 
-    public function detail_pembayaran($id) 
+    public function detail_pembayaran($id)
     {
         $var['title'] = 'Admin | Detail Pembayaran';
         $var['view'] = $this->loket->get_detail_pembayaran($id);
@@ -236,7 +272,7 @@ class Admin extends CI_Controller
         $payment = $this->db->get_where('payment', ['id_trans' => $var['trans']->id])->row();
         $var['payment'] = $this->loket->get_detail_pembayaran($payment->id);
         $var['obat'] = $this->db->get_where('transaksi_obat', ['id' => $var['trans']->id])->row();
-        $var['detail_payment'] =$this->db->get_where('detail_payment', ['id_payment' => $payment->id])->result();
+        $var['detail_payment'] = $this->db->get_where('detail_payment', ['id_payment' => $payment->id])->result();
         $this->load->view('admin/detail_riwayat_kunjungan', $var);
     }
 }

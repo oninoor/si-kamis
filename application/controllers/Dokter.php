@@ -162,4 +162,25 @@ class Dokter extends CI_Controller
         );
         echo json_encode($output);
     }
+
+    public function riwayat_rekam_medis()
+    {
+        $var['title'] = 'Dokter | Riwayat Rekam Medis';
+        $this->load->view('dokter/riwayat_rekam_medis', $var);
+    }
+
+    public function action_rekam_medis()
+    {
+        $this->form_validation->set_rules('no_rm', 'no rm', 'required|trim', ['required' => 'no rekam medis harus diisi']);
+        if ($this->form_validation->run() == false) {
+            $this->riwayat_rekam_medis();
+        } else {
+        $var['title'] = 'Dokter | Data Riwayat Rekam Medis';
+        $no_rm = $this->input->post('no_rm');
+        $var['data_rekmed'] = $this->model->detail_rekmed($no_rm);
+        $var['diagnosis'] = $this->model->get_diagnosis_1();
+        $var['diagnosis2'] = $this->model->get_diagnosis_2();
+        $this->load->view('dokter/data_rekam_medis', $var);
+        }
+    }
 }

@@ -161,6 +161,7 @@
                     <table class="table text-center" id="tabeltindakan">
                         <thead>
                             <tr>
+                                <th scope="col">No</th>
                                 <th scope="col">Tindakan</th>
                                 <th scope="col">Tindakan ICD 9cm</th>
                                 <th scope="col">Kode Tindakan ICD 9cm</th>

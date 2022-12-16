@@ -219,11 +219,11 @@
                         </li>
                         <li class="dropdown">
                             <a href="<?= base_url('Dokter/kunjungan') ?>" class="dropdown-toggle no-arrow">
-                                <span class="micon fa fa-stethoscope"></span><span class="mtext">Kunjungan Pengobatan</span>
+                                <span class="micon fa fa-stethoscope"></span><span class="mtext">Rekam Medis</span>
                             </a>
                         </li>
                         <li class="dropdown">
-                            <a href="<?= base_url('Dokter/kunjungan') ?>" class="dropdown-toggle no-arrow">
+                            <a href="<?= base_url('Dokter/riwayat_rekam_medis') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-history"></span><span class="mtext">Riwayat Rekam Medis</span>
                             </a>
                         </li>
@@ -259,19 +259,26 @@
                                 <li><a href="<?= base_url('Laporan/laporan_kunjungan_owner') ?>">Laporan Kunjungan Pasien</a></li>
                                 <li><a href="form-wizard.html">Laporan 10 Besar Penyakit</a></li>
                                 <li><a href="html5-editor.html">Laporan 10 Besar Obat</a></li>
-                                <li><a href="form-pickers.html">Laporan Penggunaan Obat</a></li>
-                                <li><a href="advanced-components.html">Laporan Pembayaran</a></li>
+                                <li><a href="<?= base_url('Laporan/laporan_penggunaan_obat_owner') ?>">Laporan Penggunaan Obat</a></li>
+                                <li><a href="<?= base_url('Laporan/laporan_pembayaran_owner') ?>">Laporan Pembayaran</a></li>
                             <?php } ?>
                             <?php if ($this->session->userdata('role') == '1') { ?>
                                 <li><a href="<?= base_url('Laporan/laporan_kunjungan_admin') ?>">Laporan Kunjungan Pasien</a></li>
                                 <li><a href="form-wizard.html">Laporan 10 Besar Penyakit</a></li>
                                 <li><a href="html5-editor.html">Laporan 10 Besar Obat</a></li>
-                                <li><a href="form-pickers.html">Laporan Penggunaan Obat</a></li>
-                                <li><a href="advanced-components.html">Laporan Pembayaran</a></li>
+                                <li><a href="<?= base_url('Laporan/laporan_penggunaan_obat_admin') ?>">Laporan Penggunaan Obat</a></li>
+                                <li><a href="<?= base_url('Laporan/laporan_pembayaran_admin') ?>">Laporan Pembayaran</a></li>
                             <?php } ?>
                             <?php if ($this->session->userdata('role') == '2') { ?>
                                 <li><a href="<?= base_url('Laporan/laporan_kunjungan_loket') ?>">Laporan Kunjungan Pasien</a></li>
-                                <li><a href="advanced-components.html">Laporan Pembayaran</a></li>
+                                <li><a href="<?= base_url('Laporan/laporan_pembayaran_loket') ?>">Laporan Pembayaran</a></li>
+                            <?php } ?>
+                            <?php if ($this->session->userdata('role') == '3') { ?>
+                                <li><a href="<?= base_url('Laporan/') ?>">Laporan 10 Besar Penyakit</a></li>
+                            <?php } ?>
+                            <?php if ($this->session->userdata('role') == '4') { ?>
+                                <li><a href="<?= base_url('Laporan/laporan_kunjungan_loket') ?>">Laporan 10 Besar Obat</a></li>
+                                <li><a href="<?= base_url('Laporan/laporan_penggunaan_obat_petugas') ?>">Laporan Penggunaan Obat</a></li>
                             <?php } ?>
                         </ul>
                     </li>
