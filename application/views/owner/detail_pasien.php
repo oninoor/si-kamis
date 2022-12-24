@@ -18,7 +18,7 @@
                     </div>
                     <br>
                     <div class="col-md-12 col-sm-12 mt-3">
-                        <a href="<?= base_url('Admin/data_pasien') ?>" class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i> Kembali</a>
+                        <a href="<?= base_url('Owner/data_pasien') ?>" class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i> Kembali</a>
                     </div>
                 </div>
             </div>

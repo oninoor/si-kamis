@@ -25,6 +25,8 @@ class Dokter extends CI_Controller
         $var['title'] = 'Dokter | Home';
         $id = $this->session->userdata('id');
         $var['dokter'] = $this->db->get_where('users', ['id' => $id])->row();
+        $var['total_kunjungan'] = $this->model->jml_seluruh_kunjungan();
+        $var['total_perhari'] = $this->model->jml_kunjungan_perhari();
         $this->load->view('dokter/home', $var);
     }
 

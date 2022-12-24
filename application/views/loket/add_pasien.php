@@ -33,7 +33,7 @@
                 <form method="POST" action="<?= base_url('Loket/save_pasien') ?>">
                     <div class="form-group">
                         <label>No Rekam Medis <span style="color: red;">*</span></label>
-                        <input class="form-control" value="<?= $no_rm ?>" readonly type="text" name="no_rm" placeholder="No Rekam Medis">
+                        <input class="form-control" readonly type="text" name="no_rm" id="no_rm" placeholder="No Rekam Medis">
                         <?= form_error('no_rm', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
@@ -163,26 +163,29 @@
                         <select name="pendidikan_terakhir" id="role" class="form-control">
                             <option></option>
                             <option <?php if (set_value('pendidikan_terakhir') == "SD/MI") {
-                                            echo "selected=\"selected\"";
-                                        } ?> value="SD/MI">SD/MI</option>
+                                        echo "selected=\"selected\"";
+                                    } ?> value="SD/MI">SD/MI</option>
                             <option <?php if (set_value('pendidikan_terakhir') == "SMP/MTS") {
-                                            echo "selected=\"selected\"";
-                                        } ?> value="SMP/MTS">SMP/MTS</option>
+                                        echo "selected=\"selected\"";
+                                    } ?> value="SMP/MTS">SMP/MTS</option>
                             <option <?php if (set_value('pendidikan_terakhir') == "SMA/SMK/MA") {
-                                            echo "selected=\"selected\"";
-                                        } ?> value="SMA/SMK/MA">SMA/SMK/MA</option>
+                                        echo "selected=\"selected\"";
+                                    } ?> value="SMA/SMK/MA">SMA/SMK/MA</option>
                             <option <?php if (set_value('pendidikan_terakhir') == "D3 (Diploma)") {
-                                            echo "selected=\"selected\"";
-                                        } ?> value="D3 (Diploma)">Diploma</option>
+                                        echo "selected=\"selected\"";
+                                    } ?> value="D3 (Diploma)">Diploma</option>
                             <option <?php if (set_value('pendidikan_terakhir') == "Sarjana (S1/D4)") {
-                                            echo "selected=\"selected\"";
-                                        } ?> value="Sarjana (S1/D4)">Sarjana (S1/D4)</option>
+                                        echo "selected=\"selected\"";
+                                    } ?> value="Sarjana (S1/D4)">Sarjana (S1/D4)</option>
                             <option <?php if (set_value('pendidikan_terakhir') == "Magister (S2)") {
-                                            echo "selected=\"selected\"";
-                                        } ?> value="Magister (S2)">Magister (S2)</option>
+                                        echo "selected=\"selected\"";
+                                    } ?> value="Magister (S2)">Magister (S2)</option>
                             <option <?php if (set_value('pendidikan_terakhir') == "Doktor (S3)") {
-                                            echo "selected=\"selected\"";
-                                        } ?> value="Doktor (S3)">Doktor (S3)</option>
+                                        echo "selected=\"selected\"";
+                                    } ?> value="Doktor (S3)">Doktor (S3)</option>
+                            <option <?php if (set_value('pendidikan_terakhir') == "SD/MI") {
+                                        echo "selected=\"selected\"";
+                                    } ?> value="-">-</option>
                         </select>
                         <?= form_error('pendidikan_terakhir', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
@@ -294,6 +297,32 @@
             });
         });
 
+    });
+
+    $(document).ready(function() {
+        $('html, body').animate({
+            scrollTop: 0
+        }, 0);
+        $.ajax({
+            url: "<?php echo base_url('Loket/max_no_rm') ?>",
+            dataType: 'json',
+            method: 'POST',
+            success: function(json) {
+                if (json.maxs == null) {
+                    max = '0';
+                } else {
+                    max = json.maxs;
+                }
+
+
+                max++;
+                console.log(max);
+                var no_rm = sprintf("%05s", max);
+
+                console.log('no_rm', no_rm);
+                $('#no_rm').val(no_rm);
+            }
+        });
     });
 
     $(document).ready(function() {

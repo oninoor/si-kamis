@@ -253,6 +253,7 @@
         })
         let total_all = parseInt(value_biaya_obat) + parseInt(Total)
         $('#total_transaksi').val(total_all);
+        $('#total_transaksi2').html(total_all);
     }
 
     $(document).on('keyup', '#dibayarkan', function() {

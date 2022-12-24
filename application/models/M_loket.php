@@ -30,8 +30,7 @@ class M_loket extends CI_Model
 
     public function max_norm()
     {
-        $hasil = $this->db->query('SELECT MAX(no_rm) as no_rm from pasien')->row();
-        return $hasil->no_rm;
+        return $this->db->query('SELECT MAX(no_rm) as maxs from pasien')->row();
     }
 
     public function max_kode_kunjungan()

@@ -745,6 +745,14 @@ class M_all extends CI_Model
         return $this->db->count_all_results();
     }
 
+    public function jml_kunjungan_perhari()
+    {
+        $tgl = date('Y-m-d');
+        $this->db->from("kunjungan");
+        $this->db->where('tanggal', $tgl);
+        return $this->db->count_all_results();
+    }
+
     public function jml_seluruh_pasien()
     {
         $this->db->from("pasien");

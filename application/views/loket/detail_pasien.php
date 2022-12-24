@@ -29,10 +29,7 @@
                         <div class="tab">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active text-blue" data-toggle="tab" href="#home" role="tab" aria-selected="true">Profile Medis</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-blue" data-toggle="tab" href="#profile" role="tab" aria-selected="false">Profile Pasien</a>
+                                    <a class="nav-link active text-blue" data-toggle="tab" href="#home" role="tab" aria-selected="true">Profile</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
@@ -47,17 +44,6 @@
                                                     } else {
                                                         echo $view->no_bpjs;
                                                     } ?></p>
-                                        <p>Alergi Obat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-                                            <?php if (empty($view->alergi_obat)) {
-                                                echo 'Tidak memiliki alergi obat';
-                                            } else {
-                                                echo $view->alergi_obat;
-                                            } ?></p>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="profile" role="tabpanel">
-                                    <div class="pd-20">
                                         <p>Nama Lengkap &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?= $view->nama_lengkap ?></p>
                                         <p>Jenis Kelamin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?= $view->jenis_kelamin ?></p>
                                         <p>Tanggal Lahir &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?= date('d F Y', strtotime($view->tgl_lahir)) ?></p>
@@ -88,11 +74,11 @@
                                             <?= $view->no_telp ?>
                                         </p>
                                         <p>Pekerjaan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        &nbsp; : <?= $view->pekerjaan ?>
+                                            &nbsp; : <?= $view->pekerjaan ?>
                                         </p>
                                         <p>Pendidikan Terakhir &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?= $view->pendidikan_terakhir ?></p>
                                         <p>Nama Wali &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <?= $view->nama_wali ?></p>
-                                        <p>Hubungan Pasien  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?= $view->hubungan ?></p>
+                                        <p>Hubungan Pasien &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?= $view->hubungan ?></p>
                                     </div>
                                 </div>
                             </div>

@@ -36,12 +36,13 @@ class Loket extends CI_Controller
     {
         $var['title'] = 'Petugas Loket | Tambah Pasien /  User';
         $var['kota'] = $this->db->get('regencies')->result_array();
-        $last_norm = $this->model->max_norm();
-        $no_urut = substr($last_norm, 4, 5);
-        $no_rm = $no_urut + 1;
-        $no_rm_diurut = sprintf("%05s", $no_rm);
-        $var['no_rm'] = $no_rm_diurut;
         $this->load->view('loket/add_pasien', $var);
+    }
+
+    public function max_no_rm()
+    {
+        $data = $this->model->max_norm();
+        echo json_encode($data);
     }
 
     public function save_pasien()

@@ -58,11 +58,11 @@
                         <input type="radio" name="jenis_kelamin" <?php echo ($edit->jenis_kelamin == 'Perempuan') ? 'checked' : '' ?> value="Perempuan"> Perempuan
                         <?= form_error('jenis_kelamin', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>Alergi Obat</label>
                         <textarea class="form-control" name="alergi_obat" rows="5" cols="50"><?= $edit->alergi_obat ?></textarea>
                         <?= form_error('alergi_obat', '<small class="text-danger pl-3">', '</small>'); ?>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label>Tanggal Lahir <span style="color: red;">*</span></label>
                         <div class="row">
@@ -187,6 +187,9 @@
                             <option <?php if ($edit->pendidikan_terakhir == 'Doktor (S3)') {
                                         echo "selected=\"selected\"";
                                     } ?> value="Doktor (S3)">Doktor (S3)</option>
+                            <option <?php if ($edit->pendidikan_terakhir == '-') {
+                                        echo "selected=\"selected\"";
+                                    } ?> value="-">-</option>
                         </select>
                         <?= form_error('pendidikan_terakhir', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>

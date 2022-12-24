@@ -33,4 +33,10 @@ class M_owner extends CI_Model
         $this->role = $post['role'];
         $this->db->update($this->users, $this, ['id' => $post['id']]);
     }
+
+    public function jml_seluruh_user()
+    {
+        $this->db->from("users");
+        return $this->db->count_all_results();
+    }
 }
