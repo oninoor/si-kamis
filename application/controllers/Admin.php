@@ -275,4 +275,25 @@ class Admin extends CI_Controller
         $var['detail_payment'] = $this->db->get_where('detail_payment', ['id_payment' => $payment->id])->result();
         $this->load->view('admin/detail_riwayat_kunjungan', $var);
     }
+
+    public function riwayat_rekam_medis()
+    {
+        $var['title'] = 'Admin | Riwayat Rekam Medis';
+        $this->load->view('admin/riwayat_rekam_medis', $var);
+    }
+
+    public function action_rekam_medis()
+    {
+        $this->form_validation->set_rules('no_rm', 'no rm', 'required|trim', ['required' => 'no rekam medis harus diisi']);
+        if ($this->form_validation->run() == false) {
+            $this->riwayat_rekam_medis();
+        } else {
+        $var['title'] = 'Admin | Data Riwayat Rekam Medis';
+        $no_rm = $this->input->post('no_rm');
+        $var['data_rekmed'] = $this->model->detail_rekmed($no_rm);
+        $var['diagnosis'] = $this->model->get_diagnosis_1();
+        $var['diagnosis2'] = $this->model->get_diagnosis_2();
+        $this->load->view('admin/data_rekam_medis', $var);
+        }
+    }
 }

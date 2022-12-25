@@ -37,7 +37,7 @@
                                 <th>Nama Pasien</th>
                                 <th>Tanggal</th>
                                 <th>Dokter</th>
-                                <th>diagnosa</th>
+                                <th>Tanggal Lahir</th>
                                 <th>Status</th>
                                 <th class="datatable-nosort">Action</th>
                             </tr>
@@ -53,7 +53,7 @@
                                     <td><?= $view->nama_lengkap ?></td>
                                     <td><?= date('d F Y', strtotime($view->tanggal)) ?></td>
                                     <td><?= $view->nama_dokter ?></td>
-                                    <td><?= $view->nama_diagnosis ?> / <?= $view->diagnosis_icd_10 ?></td>
+                                    <td><?= date('d-m-Y', strtotime($view->tgl_lahir)) ?></td>
                                     <td>
                                         <?php
                                         if ($view->status == 0) {

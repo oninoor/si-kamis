@@ -23,8 +23,8 @@
                             <div id="chart"></div>
                         </div> -->
                         <div class="widget-data">
-                            <div class="h4 mb-0">2020</div>
-                            <div class="weight-600 font-14">Jumlah User / Pasien</div>
+                            <div class="h4 mb-0"><?= $jml_pasien ?></div>
+                            <div class="weight-600 font-14">Jumlah Pasien</div>
                         </div>
                     </div>
                 </div>
@@ -36,8 +36,8 @@
                             <div id="chart2"></div>
                         </div> -->
                         <div class="widget-data">
-                            <div class="h4 mb-0">400</div>
-                            <div class="weight-600 font-14"></div>
+                            <div class="h4 mb-0"><?= $jml_pembayaran ?></div>
+                            <div class="weight-600 font-14">Jumlah Kunjungan</div>
                         </div>
                     </div>
                 </div>
@@ -49,27 +49,23 @@
                             <div id="chart3"></div>
                         </div> -->
                         <div class="widget-data">
-                            <div class="h4 mb-0">350</div>
-                            <div class="weight-600 font-14">Campaign</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 mb-30">
-                <div class="card-box height-100-p widget-style1">
-                    <div class="d-flex flex-wrap align-items-center">
-                        <!-- <div class="progress-data">
-                            <div id="chart4"></div>
-                        </div> -->
-                        <div class="widget-data">
-                            <div class="h4 mb-0">$6060</div>
-                            <div class="weight-600 font-14">Worth</div>
+                            <div class="h4 mb-0"><?= $jml_pembayaran ?></div>
+                            <div class="weight-600 font-14">Jumlah Pembayaran</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="pd-ltr-20 ml-3">
+    <div class="row">
+        <?php foreach ($alert_payment as $get) { ?>
+            <div class="alert alert-primary" role="alert">
+                <i class="fa fa-info-circle"></i>&nbsp; Kunjungan dengan kode <?= $get->kd_kunjungan ?> sedang menunggu untuk konfirmasi pembayaran
+            </div>
+        <?php } ?>
+    </div>
+</div>
 </div>
 
 <?php $this->load->view('partials/footer') ?>

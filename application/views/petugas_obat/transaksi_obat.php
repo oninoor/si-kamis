@@ -99,15 +99,15 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-8">
+                        <!-- <div class="col-md-8">
                             <label for="">Alergi Obat</label>
                             <div class="input-group mb-3">
-                                <!-- <div class="input-group-prepend">
+                                <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><span class="fa fa-receipt"></span> </span>
-                            </div> -->
+                            </div>
                                 <input type="text" class="form-control mb-3 resep" value="<?= $view->alergi ?>" name="resep" readonly rows="2">
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-8">
                             <label for="">Terapi Obat</label>
                             <div class="input-group mb-3">
@@ -115,6 +115,15 @@
                                 <span class="input-group-text" id="basic-addon1"><span class="fa fa-receipt"></span> </span>
                             </div> -->
                                 <input type="text" class="form-control mb-3 resep" name="resep" value="<?= $view->terapi_obat ?>" readonly rows="3">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Jenis Pasien</label>
+                            <div class="input-group mb-3">
+                                <!-- <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><span class="fa fa-receipt"></span> </span>
+                            </div> -->
+                                <input type="text" class="form-control mb-3 resep" name="resep" value="<?= $view->jenis_pasien ?>" readonly rows="3">
                             </div>
                         </div>
                     </div>

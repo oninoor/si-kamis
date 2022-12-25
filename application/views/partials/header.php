@@ -208,7 +208,7 @@
                             </a>
                             <ul class="submenu">
                                 <li><a href="<?= base_url('Admin/riwayat_kunjungan') ?>">Riwayat Kunjungan</a></li>
-                                <li><a href="<?= base_url('Admin/riwayat_kunjungan') ?>">Riwayat Rekam Medis</a></li>
+                                <li><a href="<?= base_url('Admin/riwayat_rekam_medis') ?>">Riwayat Rekam Medis</a></li>
                             </ul>
                         </li>
                         <?php } ?>

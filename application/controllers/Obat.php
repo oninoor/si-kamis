@@ -23,6 +23,9 @@ class Obat extends CI_Controller
     public function index()
     {
         $var['title'] = 'Petugas Obat | Dashboard';
+        $var['jml_obat'] = $this->model->jumlah_obat();
+        $var['jml_transaksi'] = $this->model->jml_seluruh_transaksi_obat();
+        $var['alert_stok'] = $this->model->alert_stok();
         $this->load->view('petugas_obat/dashboard', $var);
     }
 
@@ -260,4 +263,6 @@ class Obat extends CI_Controller
         $var['detail'] = $this->model->detail_transaksi_obat($id);
         $this->load->view('petugas_obat/detail_riwayat_obat', $var);
     }
+
+    
 }

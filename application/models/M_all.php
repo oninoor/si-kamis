@@ -153,6 +153,7 @@ class M_all extends CI_Model
                             pasien.nik,
                             pasien.tgl_lahir,
                             pasien.jenis_kelamin,
+                            pasien.jenis_pasien,
                             pasien.alamat,
                             villages.name AS desa,
                             districts.name AS kecamatan,
@@ -224,6 +225,7 @@ class M_all extends CI_Model
         $this->db->select('kunjungan.*, 
                                 pasien.no_rm, 
                                 pasien.nama_lengkap, 
+                                pasien.tgl_lahir,
                                 users.nama_lengkap AS nama_dokter,
                                 diagnosis.nama_diagnosis,
                                 diagnosis.diagnosis_icd_10
@@ -876,6 +878,34 @@ class M_all extends CI_Model
         $this->db->select('dkt.kode_tindakan, tindakan.*');
         $this->db->from('det_kunjungan_tindakan dkt');
         $this->db->join('tindakan', 'dkt.kode_tindakan = tindakan.id');
+        return $this->db->get()->result();
+    }
+
+    public function jumlah_obat()
+    {
+        $this->db->from("obat");
+        return $this->db->count_all_results();
+    }
+
+    public function jml_pembayaran()
+    {
+        $this->db->from("payment");
+        return $this->db->count_all_results();
+    }
+
+    public function alert_stok()
+    {
+        $this->db->select('*')
+            ->from('obat')
+            ->where('stok <', 5);
+        return $this->db->get()->result();
+    }
+
+    public function alert_pembayaran()
+    {
+        $this->db->select('*')
+            ->from('kunjungan')
+            ->where('status', 3);
         return $this->db->get()->result();
     }
 }

@@ -8,6 +8,7 @@ class Loket extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_loket', 'model');
+        $this->load->model('M_all', 'all');
         $this->load->library('form_validation');
         if (empty($this->session->userdata('role') == 2)) {
             $this->session->unset_userdata('id');
@@ -22,6 +23,10 @@ class Loket extends CI_Controller
     public function index()
     {
         $var['title'] = 'Petugas Loket | Dashboard';
+        $var['jml_pasien'] = $this->all->jml_seluruh_pasien();
+        $var['jml_kunjungan'] = $this->all->jml_seluruh_kunjungan();
+        $var['jml_pembayaran'] = $this->all->jml_pembayaran();
+        $var['alert_payment'] = $this->all->alert_pembayaran();
         $this->load->view('loket/dashboard', $var);
     }
 

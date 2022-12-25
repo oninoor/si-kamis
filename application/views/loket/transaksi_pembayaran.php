@@ -19,7 +19,7 @@
                     </div>
                     <br>
                     <div class="col-md-12 col-sm-12 mt-3">
-                        <a href="<?= base_url('Obat/layanan_obat') ?>" class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i> Kembali</a>
+                        <a href="<?= base_url('Loket/pembayaran') ?>" class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i> Kembali</a>
                     </div>
                 </div>
             </div>

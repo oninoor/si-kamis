@@ -40,7 +40,9 @@
                         <select name="no_rekmed" id="pasien" class="form-control">
                             <option></option>
                             <?php foreach ($pasien as $get) { ?>
-                                <option value="<?= $get->no_rm ?>"><?= $get->nama_lengkap ?> (<?= $get->no_rm ?>)</option>
+                                <option <?php if (set_value('no_rekmed') == $get->no_rm) {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="<?= $get->no_rm ?>"><?= $get->nama_lengkap ?> (<?= $get->no_rm ?>)</option>
                             <?php } ?>
                         </select>
                         <?= form_error('no_rekmed', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -50,7 +52,9 @@
                         <select name="dokter" id="dokter" class="form-control">
                             <option></option>
                             <?php foreach ($dokter as $get) { ?>
-                                <option value="<?= $get->id ?>"><?= $get->nama_lengkap ?></option>
+                                <option <?php if (set_value('dokter') == $get->id) {
+                                            echo "selected=\"selected\"";
+                                        } ?> value="<?= $get->id ?>"><?= $get->nama_lengkap ?></option>
                             <?php } ?>
                         </select>
                         <?= form_error('dokter', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -80,21 +84,21 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label>Tinggi Badan / CM <span style="color: red;">*</span></label>
-                                <input class="form-control" type="text" name="tinggi_badan" value="" placeholder="Tinggi Badan">
+                                <input class="form-control" type="text" name="tinggi_badan" value="<?= set_value('tinggi_badan') ?>" placeholder="Tinggi Badan">
                                 <?= form_error('tinggi_badan', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label>Berat Badan / KG <span style="color: red;">*</span></label>
-                                <input class="form-control" type="text" name="berat_badan" value="" placeholder="Berat Badan">
+                                <input class="form-control" type="text" name="berat_badan" value="<?= set_value('berat_badan') ?>" placeholder="Berat Badan">
                                 <?= form_error('berat_badan', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label>Suhu / Celcius <span style="color: red;">*</span></label>
-                                <input class="form-control" type="text" name="suhu" value="" placeholder="Suhu">
+                                <input class="form-control" type="text" name="suhu" value="<?= set_value('suhu') ?>" placeholder="Suhu">
                                 <?= form_error('suhu', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                         </div>
@@ -103,33 +107,33 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label>Tekanan Darah Sistole / mmHg <span style="color: red;">*</span></label>
-                                <input class="form-control" type="text" name="tekanan_darah_sistole" value="" placeholder="Tekanan Darah Sistole">
+                                <input class="form-control" type="text" name="tekanan_darah_sistole" value="<?= set_value('tekanan_darah_sistole') ?>" placeholder="Tekanan Darah Sistole">
                                 <?= form_error('tekanan_darah_sistole', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label>Tekanan Darah Diastole / mmHg <span style="color: red;">*</span></label>
-                                <input class="form-control" type="text" name="tekanan_darah_diastole" value="" placeholder="Tekanan Darah Diastole">
+                                <input class="form-control" type="text" name="tekanan_darah_diastole" value="<?= set_value('tekanan_darah_diastole') ?>" placeholder="Tekanan Darah Diastole">
                                 <?= form_error('tekanan_darah_diastole', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label>Nadi / minute <span style="color: red;">*</span></label>
-                                <input class="form-control" type="text" name="nadi" value="" placeholder="Nadi">
+                                <input class="form-control" type="text" name="nadi" value="<?= set_value('nadi') ?>" placeholder="Nadi">
                                 <?= form_error('nadi', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Keluhan <span style="color: red;">*</span></label>
-                        <textarea class="form-control" name="gejala" rows="5" cols="50"></textarea>
+                        <textarea class="form-control" name="gejala" rows="5" cols="50"><?= set_value('gejala') ?></textarea>
                         <?= form_error('gejala', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label>Alergi Obat</label>
-                        <input type="text" class="form-control" name="alergi">
+                        <input type="text" class="form-control" value="<?= set_value('alergi') ?>" name="alergi">
                     </div>
                     <hr>
                     <div class="form-group">
