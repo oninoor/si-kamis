@@ -302,33 +302,42 @@ class Loket extends CI_Controller
         $total_trans = $this->input->post('total_trans');
         $kembalian = $this->input->post('kembalian');
 
-        $payment = [
-            'id_trans' => $id_trans,
-            'tgl_payment' => $tgl_payment,
-            'nominal_bayar' => $nominal_bayar,
-            'total_biaya' => $total_trans,
-            'nominal_kembalian' => $kembalian
-        ];
+        if(empty($total_trans)) {
 
-        $this->db->insert('payment', $payment);
-        $last_idpayment = $this->model->last_idpayment();
-        foreach ($_POST['keterangan'] as $key => $value) {
-            $detail_payment = [
-                'id_payment' => $last_idpayment[0]->id,
-                'keterangan' => $this->input->post('keterangan')[$key],
-                'biaya' => $this->input->post('biaya')[$key],
+            $this->session->set_flashdata('keterangan_lain', true);
+            redirect('Loket/transaksi_pembayaran/' . $id_trans);
+
+        } else {
+
+            $payment = [
+                'id_trans' => $id_trans,
+                'tgl_payment' => $tgl_payment,
+                'nominal_bayar' => $nominal_bayar,
+                'total_biaya' => $total_trans,
+                'nominal_kembalian' => $kembalian
             ];
-            $this->db->insert('detail_payment', $detail_payment);
+    
+            $this->db->insert('payment', $payment);
+            $last_idpayment = $this->model->last_idpayment();
+            foreach ($_POST['keterangan'] as $key => $value) {
+                $detail_payment = [
+                    'id_payment' => $last_idpayment[0]->id,
+                    'keterangan' => $this->input->post('keterangan')[$key],
+                    'biaya' => $this->input->post('biaya')[$key],
+                ];
+                $this->db->insert('detail_payment', $detail_payment);
+            }
+    
+            $kd_kunjungan = $this->input->post('kd_kunjungan');
+    
+            $this->db->set('status', 4);
+            $this->db->where('kd_kunjungan', $kd_kunjungan);
+            $this->db->update('kunjungan');
+            $this->session->set_flashdata('pembayaran_tersimpan', true);
+            redirect('Loket/riwayat_pembayaran');
         }
 
-        $kd_kunjungan = $this->input->post('kd_kunjungan');
 
-        $this->db->set('status', 4);
-        $this->db->where('kd_kunjungan', $kd_kunjungan);
-        $this->db->update('kunjungan');
-
-        $this->session->set_flashdata('pembayaran_tersimpan', true);
-        redirect('Loket/riwayat_pembayaran');
     }
 
     public function riwayat_pembayaran()

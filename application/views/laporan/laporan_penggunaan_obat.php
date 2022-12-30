@@ -45,7 +45,7 @@
                             </div>
                             <div class="form-group col-md-4" style="margin-top: 35px;">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</button>
-                                <a href="<?= base_url('Laporan/cetak_laporan_penggunaan_obat') ?>" type="submit" class="btn btn-primary"><i class="fa fa-print"></i> Cetak</a>
+                                <a href="<?= base_url('Laporan/cetak_laporan_penggunaan_obat') ?>" target="_blank" type="submit" class="btn btn-primary"><i class="fa fa-print"></i> Cetak</a>
                                 <?php if ($this->session->userdata('role') == 0) { ?>
                                     <a href="<?= base_url('Laporan/laporan_penggunaan_obat_owner') ?>" class="btn btn-primary"><i class="fa fa-refresh"></i> Refresh</a>
                                 <?php } else if ($this->session->userdata('role') == 1) { ?>

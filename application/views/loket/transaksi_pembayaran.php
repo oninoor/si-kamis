@@ -159,7 +159,7 @@
                         <div class="col-md-3">
                             <label for="">Dibayarkan</label>
                             <div class="input-group mb-3">
-                                <input type="number" name="nominal_bayar" id="dibayarkan" class="form-control">
+                                <input type="number" name="nominal_bayar" id="dibayarkan" required class="form-control">
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -263,6 +263,48 @@
         $('#kembalian').val(kembalian);
     })
 
+
+    <?php if ($this->session->flashdata('keterangan_lain')) : ?>
+        toastr.warning("Keterangan lainnya belum diisi", "Catatan!", {
+            positionClass: "toast-top-right",
+            timeOut: 4000,
+            closeButton: !0,
+            debug: !1,
+            newestOnTop: !0,
+            progressBar: !0,
+            preventDuplicates: !0,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+            tapToDismiss: !1
+        })
+
+        <?php elseif ($this->session->flashdata('keterangan_lain')) : ?>
+        toastr.warning("Keterangan lainnya belum diisi", "Catatan!", {
+            positionClass: "toast-top-right",
+            timeOut: 4000,
+            closeButton: !0,
+            debug: !1,
+            newestOnTop: !0,
+            progressBar: !0,
+            preventDuplicates: !0,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+            tapToDismiss: !1
+        })
+
+    <?php endif ?>
 
 </script>
 <?php $this->load->view('partials/footer') ?>

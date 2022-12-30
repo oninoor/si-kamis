@@ -300,15 +300,15 @@
                         <ul class="submenu">
                             <?php if ($this->session->userdata('role') == '0') { ?>
                                 <li><a href="<?= base_url('Laporan/laporan_kunjungan_owner') ?>">Laporan Kunjungan Pasien</a></li>
-                                <li><a href="form-wizard.html">Laporan 10 Besar Penyakit</a></li>
-                                <li><a href="html5-editor.html">Laporan 10 Besar Obat</a></li>
+                                <li><a href="<?= base_url('Laporan/laporan_10_penyakit_owner') ?>">Laporan 10 Besar Penyakit</a></li>
+                                <li><a href="<?= base_url('Laporan/laporan_10_obat_owner') ?>">Laporan 10 Besar Obat</a></li>
                                 <li><a href="<?= base_url('Laporan/laporan_penggunaan_obat_owner') ?>">Laporan Penggunaan Obat</a></li>
                                 <li><a href="<?= base_url('Laporan/laporan_pembayaran_owner') ?>">Laporan Pembayaran</a></li>
                             <?php } ?>
                             <?php if ($this->session->userdata('role') == '1') { ?>
                                 <li><a href="<?= base_url('Laporan/laporan_kunjungan_admin') ?>">Laporan Kunjungan Pasien</a></li>
-                                <li><a href="form-wizard.html">Laporan 10 Besar Penyakit</a></li>
-                                <li><a href="html5-editor.html">Laporan 10 Besar Obat</a></li>
+                                <li><a href="<?= base_url('Laporan/laporan_10_penyakit_admin') ?>">Laporan 10 Besar Penyakit</a></li>
+                                <li><a href="<?= base_url('Laporan/laporan_10_obat_admin') ?>">Laporan 10 Besar Obat</a></li>
                                 <li><a href="<?= base_url('Laporan/laporan_penggunaan_obat_admin') ?>">Laporan Penggunaan Obat</a></li>
                                 <li><a href="<?= base_url('Laporan/laporan_pembayaran_admin') ?>">Laporan Pembayaran</a></li>
                             <?php } ?>
@@ -317,10 +317,10 @@
                                 <li><a href="<?= base_url('Laporan/laporan_pembayaran_loket') ?>">Laporan Pembayaran</a></li>
                             <?php } ?>
                             <?php if ($this->session->userdata('role') == '3') { ?>
-                                <li><a href="<?= base_url('Laporan/') ?>">Laporan 10 Besar Penyakit</a></li>
+                                <li><a href="<?= base_url('Laporan/laporan_10_penyakit_dokter') ?>">Laporan 10 Besar Penyakit</a></li>
                             <?php } ?>
                             <?php if ($this->session->userdata('role') == '4') { ?>
-                                <li><a href="<?= base_url('Laporan/laporan_kunjungan_loket') ?>">Laporan 10 Besar Obat</a></li>
+                                <li><a href="<?= base_url('Laporan/laporan_10_obat_petugas_obat') ?>">Laporan 10 Besar Obat</a></li>
                                 <li><a href="<?= base_url('Laporan/laporan_penggunaan_obat_petugas') ?>">Laporan Penggunaan Obat</a></li>
                             <?php } ?>
                         </ul>
