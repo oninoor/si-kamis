@@ -175,7 +175,7 @@
                     <div class="mt-3">
                         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Simpan Transaksi</button>
                         <!-- <a href="" class="btn btn-success"><i class="fa fa-print"></i> Cetak Resep</a> -->
-                        <a href="<?= base_url("Obat/non_transaksi?kd_kunjungan=" . $view->kd_kunjungan . "&tgl_trans=" . $tgl_trans . "&petugas_obat=" . $this->session->userdata('nama_lengkap')) ?>" class="btn btn-success"><i class="fa fa-arrow-circle-o-right"></i> Lanjutkan Ke Pembayaran</a>
+                        <a href="<?= base_url("Obat/non_transaksi?kd_kunjungan=" . $view->kd_kunjungan . "&tgl_trans=" . $tgl_trans . "&petugas_obat=" . $this->session->userdata('id')) ?>" class="btn btn-success"><i class="fa fa-arrow-circle-o-right"></i> Lanjutkan Ke Pembayaran</a>
                     </div>
                     <!-- <span id="datanya"></span> -->
                 </form>
