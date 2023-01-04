@@ -253,6 +253,7 @@ class M_loket extends CI_Model
                             trans.kode_kunjungan,
                             kunjungan.no_rekmed,
                             kunjungan.petugas_loket,
+                            kunjungan.status,
                             pasien.nama_lengkap as nama_pasien,
                             users.nama_lengkap as nama_petugas');
         $this->db->from('payment');
