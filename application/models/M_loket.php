@@ -253,7 +253,6 @@ class M_loket extends CI_Model
                             trans.kode_kunjungan,
                             kunjungan.no_rekmed,
                             kunjungan.petugas_loket,
-                            kunjungan.status,
                             pasien.nama_lengkap as nama_pasien,
                             users.nama_lengkap as nama_petugas');
         $this->db->from('payment');
@@ -261,7 +260,8 @@ class M_loket extends CI_Model
         $this->db->join('kunjungan', 'trans.kode_kunjungan = kunjungan.kd_kunjungan');
         $this->db->join('pasien', 'kunjungan.no_rekmed = pasien.no_rm');
         $this->db->join('users', 'kunjungan.petugas_loket = users.id');
-        $this->db->join('kunjungan.status', 4);
+        $this->db->where('kunjungan.status', 4);
+        $this->db->order_by('trans.id', 'desc');
         return $this->db->get()->result();
     }
 
