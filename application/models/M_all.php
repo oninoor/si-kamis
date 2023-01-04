@@ -915,18 +915,32 @@ class M_all extends CI_Model
         foreach ($query as $gjl) {
             $count[] = $gjl;
         }
+
         
-        foreach($count as $key => $value) {
-            if($value == NULL) {
+        $query2 = $this->db->query("SELECT kunjungan.*, diagnosis.diagnosis_icd_10, diagnosis.kode_diagnosis_icd_10, count(cast(kd_diagnosa2 as unsigned)) as jml_gejala2 FROM kunjungan JOIN diagnosis ON kunjungan.kd_diagnosa2 = diagnosis.id WHERE kd_diagnosa2 !=4 GROUP BY kd_diagnosa2 ORDER BY jml_gejala2 DESC limit 10")->result();
+        foreach ($query2 as $gjl) {
+            $count3[] = $gjl;
+        }
+        
+        foreach ($count as $key => $value) {
+            if ($value == NULL) {
                 unset($count[$key]);
             }
         }
-        
+
+        // foreach($count as $gejala) {
+        //     foreach($count3 as $gejala2) {
+        //         if($gejala->kd_diagnosa == $gejala2->kd_diagnosa2) {
+        //             $penyakit_10[] = $gejala->jml_gejala + $gejala2->jml_gejala2;
+        //         }
+        //     }
+        // }
+
         $query_obat = $this->db->query("SELECT detail_transaksi_obat.*, obat.nama_obat, obat.jenis_obat, count(cast(id_obat as unsigned)) as jml_obat FROM detail_transaksi_obat JOIN obat ON detail_transaksi_obat.id_obat = obat.id GROUP BY id_obat ORDER BY jml_obat DESC limit 10")->result();
         foreach ($query_obat as $obat) {
             $count2[] = $obat;
         }
-        
+
         $data = [
             '10_penyakit' => $count,
             '10_obat' => $count2
@@ -934,5 +948,4 @@ class M_all extends CI_Model
 
         return $data;
     }
-
 }
