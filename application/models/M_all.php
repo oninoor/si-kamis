@@ -936,7 +936,7 @@ class M_all extends CI_Model
         //     }
         // }
 
-        $query_obat = $this->db->query("SELECT detail_transaksi_obat.*, obat.nama_obat, obat.jenis_obat, count(cast(id_obat as unsigned)) as jml_obat FROM detail_transaksi_obat JOIN obat ON detail_transaksi_obat.id_obat = obat.id GROUP BY id_obat ORDER BY jml_obat DESC limit 10")->result();
+        $query_obat = $this->db->query("SELECT detail_transaksi_obat.*, obat.nama_obat, obat.jenis_obat, sum(cast(qty as unsigned)) as jml_obat FROM detail_transaksi_obat JOIN obat ON detail_transaksi_obat.id_obat = obat.id GROUP BY id_obat ORDER BY jml_obat DESC limit 10")->result();
         foreach ($query_obat as $obat) {
             $count2[] = $obat;
         }

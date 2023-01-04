@@ -36,7 +36,7 @@
                                 <th class="table-plus datatable-nosort">No</th>
                                 <th>Nama Obat</th>
                                 <th>Jenis Obat</th>
-                                <th>Jumlah Pasien</th>
+                                <th>Jumlah Obat</th>
                             </tr>
                         </thead>
                         <tbody>

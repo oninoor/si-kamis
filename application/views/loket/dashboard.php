@@ -58,13 +58,13 @@
         </div>
     </div>
     <div class="pd-ltr-20 ml-3">
-    <div class="row">
+    <!-- <div class="row">
         <?php foreach ($alert_payment as $get) { ?>
             <div class="alert alert-primary" role="alert">
                 <i class="fa fa-info-circle"></i>&nbsp; Kunjungan dengan kode <?= $get->kd_kunjungan ?> sedang menunggu untuk konfirmasi pembayaran
             </div>
         <?php } ?>
-    </div>
+    </div> -->
 </div>
 </div>
 
