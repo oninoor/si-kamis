@@ -143,7 +143,7 @@
                         </li>
                         <li class="dropdown">
                             <a href="<?= base_url('Owner/data_transaksi_obat') ?>" class="dropdown-toggle no-arrow">
-                                <span class="micon fa fa-medkit"></span><span class="mtext">Data Transaksi Obat</span>
+                                <span class="micon fa fa-medkit"></span><span class="mtext">Data Layanan Obat</span>
                             </a>
                         </li>
                         <li class="dropdown">
@@ -173,11 +173,6 @@
                             </a>
                         </li>
                         <li class="dropdown">
-                            <a href="<?= base_url('Admin/data_kunjungan') ?>" class="dropdown-toggle no-arrow">
-                                <span class="micon fa fa-stethoscope"></span><span class="mtext">Data Kunjungan</span>
-                            </a>
-                        </li>
-                        <li class="dropdown">
                             <a href="<?= base_url('Admin/diagnosis') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-list"></span><span class="mtext">Data Diagnosis</span>
                             </a>
@@ -189,17 +184,22 @@
                         </li>
                         <li class="dropdown">
                             <a href="<?= base_url('Admin/data_pemeriksaan') ?>" class="dropdown-toggle no-arrow">
-                                <span class="micon fa fa-user-md"></span><span class="mtext">Data Pemeriksaan</span>
+                                <span class="micon fa fa-user-md"></span><span class="mtext">Data Medis</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="<?= base_url('Admin/data_obat') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-pills"></span><span class="mtext">Data Obat</span>
                             </a>
                         </li>
                         <li class="dropdown">
                             <a href="<?= base_url('Admin/data_transaksi_obat') ?>" class="dropdown-toggle no-arrow">
-                                <span class="micon fa fa-medkit"></span><span class="mtext">Data Transaksi Obat</span>
+                                <span class="micon fa fa-medkit"></span><span class="mtext">Riwayat Layanan Obat</span>
                             </a>
                         </li>
                         <li class="dropdown">
                             <a href="<?= base_url('Admin/data_pembayaran') ?>" class="dropdown-toggle no-arrow">
-                                <span class="micon fa fa-dollar"></span><span class="mtext">Data Pembayaran</span>
+                                <span class="micon fa fa-dollar"></span><span class="mtext">Riwayat Pembayaran</span>
                             </a>
                         </li>
                         <li class="dropdown">
@@ -208,6 +208,7 @@
                             </a>
                             <ul class="submenu">
                                 <li><a href="<?= base_url('Admin/riwayat_kunjungan') ?>">Riwayat Kunjungan</a></li>
+                                <li><a href="<?= base_url('Admin/data_kunjungan') ?>">Riwayat Pendaftaran</a></li>
                                 <li><a href="<?= base_url('Admin/riwayat_rekam_medis') ?>">Riwayat Rekam Medis</a></li>
                             </ul>
                         </li>
@@ -225,12 +226,12 @@
                         </li>
                         <li>
                             <a href="<?= base_url('Loket/pendaftaran') ?>" class="dropdown-toggle no-arrow">
-                                <span class="micon fa fa-edit"></span><span class="mtext">Pendaftaran</span>
+                                <span class="micon fa fa-edit"></span><span class="mtext">Pendaftaran Kunjungan</span>
                             </a>
                         </li>
                         <li class="dropdown">
                             <a href="<?= base_url('Loket/kunjungan') ?>" class="dropdown-toggle no-arrow">
-                                <span class="micon fa fa-stethoscope"></span><span class="mtext">Kunjungan</span>
+                                <span class="micon fa fa-stethoscope"></span><span class="mtext">Riwayat Pendaftaran</span>
                             </a>
                         </li>
                         <li>

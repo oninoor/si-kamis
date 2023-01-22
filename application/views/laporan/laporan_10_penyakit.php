@@ -36,7 +36,7 @@
                                 <th class="table-plus datatable-nosort">No</th>
                                 <th>Diagnosis ICD 10</th>
                                 <th>Kode ICD 10</th>
-                                <th>Jumlah Pasien</th>
+                                <th>Jumlah</th>
                             </tr>
                         </thead>
                         <tbody>

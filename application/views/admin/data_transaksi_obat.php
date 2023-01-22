@@ -7,12 +7,12 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="title">
-                            <h4>Data Transaksi Obat</h4>
+                            <h4>Data Layanan Obat</h4>
                         </div>
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">Data Transaksi Obat</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Tabel List Transaksi Obat</li>
+                                <li class="breadcrumb-item"><a href="">Data Layanan Obat</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Tabel List Layanan Obat</li>
                             </ol>
                         </nav>
                     </div>
@@ -25,7 +25,7 @@
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <h4 class="text-blue h4">List Data Transaksi Obat</h4>
+                    <h4 class="text-blue h4">List Data Layanan Obat</h4>
                 </div>
                 <div class="pb-20">
                     <table class="data-table table stripe hover nowrap">

@@ -236,6 +236,15 @@ class M_loket extends CI_Model
         return $this->db->get()->row();
     }
 
+    public function get_tindakan($id)
+    {
+        $this->db->select('dkt.*, tindakan.tindakan');
+        $this->db->from('det_kunjungan_tindakan dkt');
+        $this->db->join('tindakan', 'dkt.kode_tindakan = tindakan.id');
+        $this->db->where('kode_kunjungan', $id);
+        return $this->db->get()->result();
+    }
+
     public function last_idpayment()
     {
         $sql = $this->db->select('id');

@@ -50,6 +50,7 @@ class M_all extends CI_Model
                             pasien.nik,
                             pasien.tgl_lahir,
                             pasien.jenis_kelamin,
+                            pasien.jenis_pasien,
                             users.nama_lengkap as nama_dokter,
                             ');
         $this->db->from('kunjungan');
@@ -648,8 +649,8 @@ class M_all extends CI_Model
 
     public function count_laporan_pembayaran()
     {
-        $this->db->from("payment");
-        return $this->db->count_all_results();
+        $this->db->select_sum("total_biaya");
+        return $this->db->get('payment')->result();
     }
 
     public function filter_laporan_pembayaran($tgl_awal, $tgl_akhir)
@@ -673,6 +674,7 @@ class M_all extends CI_Model
 
     public function count_filter_laporan_pembayaran($tgl_awal, $tgl_akhir)
     {
+        $this->db->select_sum("payment.total_biaya");
         $this->db->from('payment');
         $this->db->join('transaksi_obat trans', 'payment.id_trans = trans.id');
         $this->db->join('kunjungan', 'trans.kode_kunjungan = kunjungan.kd_kunjungan');
@@ -680,7 +682,7 @@ class M_all extends CI_Model
         $this->db->join('users', 'kunjungan.petugas_loket = users.id');
         $this->db->where('kunjungan.tanggal >=', $tgl_awal);
         $this->db->where('kunjungan.tanggal <=', $tgl_akhir);
-        return $this->db->count_all_results();
+        return $this->db->get()->result();
     }
 
     public function laporan_penggunaan_obat()
@@ -703,8 +705,8 @@ class M_all extends CI_Model
 
     public function count_laporan_penggunaan_obat()
     {
-        $this->db->from("detail_transaksi_obat");
-        return $this->db->count_all_results();
+        $this->db->select_sum("qty");
+        return $this->db->get('detail_transaksi_obat')->result();
     }
 
     public function filter_laporan_penggunaan_obat($tgl_awal, $tgl_akhir, $jenis_pasien)
@@ -730,6 +732,7 @@ class M_all extends CI_Model
 
     public function count_filter_laporan_penggunaan_obat($tgl_awal, $tgl_akhir, $jenis_pasien)
     {
+        $this->db->select_sum("qty");
         $this->db->from('detail_transaksi_obat dto');
         $this->db->join('transaksi_obat', 'dto.kode_trans = transaksi_obat.id');
         $this->db->join('kunjungan', 'transaksi_obat.kode_kunjungan = kunjungan.kd_kunjungan');
@@ -738,7 +741,7 @@ class M_all extends CI_Model
         $this->db->where('kunjungan.tanggal >=', $tgl_awal);
         $this->db->where('kunjungan.tanggal <=', $tgl_akhir);
         $this->db->where('pasien.jenis_pasien', $jenis_pasien);
-        return $this->db->count_all_results();
+        return $this->db->get()->result();
     }
 
     public function jml_seluruh_kunjungan()
@@ -775,18 +778,19 @@ class M_all extends CI_Model
 
     public function grafik_pengunjung()
     {
+        date_default_timezone_set('Asia/Jakarta');
         $tahun = date('Y');
         $bc = $this->db->query("
         SELECT
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=1)AND (YEAR(tanggal)='$tahun'))),0) AS `Januari`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=2)AND (YEAR(tanggal)='$tahun'))),0) AS `Februari`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=3)AND (YEAR(tanggal)='$tahun'))),0) AS `Maret`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=4)AND (YEAR(tanggal)='$tahun'))),0) AS `April`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=5)AND (YEAR(tanggal)='$tahun'))),0) AS `Mei`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=6)AND (YEAR(tanggal)='$tahun'))),0) AS `Juni`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=7)AND (YEAR(tanggal)='$tahun'))),0) AS `Juli`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=8)AND (YEAR(tanggal)='$tahun'))),0) AS `Agustus`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=9)AND (YEAR(tanggal)='$tahun'))),0) AS `September`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=01)AND (YEAR(tanggal)='$tahun'))),0) AS `Januari`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=02)AND (YEAR(tanggal)='$tahun'))),0) AS `Februari`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=03)AND (YEAR(tanggal)='$tahun'))),0) AS `Maret`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=04)AND (YEAR(tanggal)='$tahun'))),0) AS `April`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=05)AND (YEAR(tanggal)='$tahun'))),0) AS `Mei`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=06)AND (YEAR(tanggal)='$tahun'))),0) AS `Juni`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=07)AND (YEAR(tanggal)='$tahun'))),0) AS `Juli`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=08)AND (YEAR(tanggal)='$tahun'))),0) AS `Agustus`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=09)AND (YEAR(tanggal)='$tahun'))),0) AS `September`,
             ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=10)AND (YEAR(tanggal)='$tahun'))),0) AS `Oktober`,
             ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=11)AND (YEAR(tanggal)='$tahun'))),0) AS `November`,
             ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=12)AND (YEAR(tanggal)='$tahun'))),0) AS `Desember`
@@ -797,18 +801,19 @@ class M_all extends CI_Model
 
     public function filter_grafik_pengunjung()
     {
+        date_default_timezone_set('Asia/Jakarta');
         $tahun = $this->input->get('tahun');
         $bc = $this->db->query("
         SELECT
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=1)AND (YEAR(tanggal)='$tahun'))),0) AS `Januari`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=2)AND (YEAR(tanggal)='$tahun'))),0) AS `Februari`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=3)AND (YEAR(tanggal)='$tahun'))),0) AS `Maret`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=4)AND (YEAR(tanggal)='$tahun'))),0) AS `April`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=5)AND (YEAR(tanggal)='$tahun'))),0) AS `Mei`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=6)AND (YEAR(tanggal)='$tahun'))),0) AS `Juni`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=7)AND (YEAR(tanggal)='$tahun'))),0) AS `Juli`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=8)AND (YEAR(tanggal)='$tahun'))),0) AS `Agustus`,
-            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=9)AND (YEAR(tanggal)='$tahun'))),0) AS `September`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=01)AND (YEAR(tanggal)='$tahun'))),0) AS `Januari`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=02)AND (YEAR(tanggal)='$tahun'))),0) AS `Februari`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=03)AND (YEAR(tanggal)='$tahun'))),0) AS `Maret`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=04)AND (YEAR(tanggal)='$tahun'))),0) AS `April`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=05)AND (YEAR(tanggal)='$tahun'))),0) AS `Mei`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=06)AND (YEAR(tanggal)='$tahun'))),0) AS `Juni`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=07)AND (YEAR(tanggal)='$tahun'))),0) AS `Juli`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=08)AND (YEAR(tanggal)='$tahun'))),0) AS `Agustus`,
+            ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=09)AND (YEAR(tanggal)='$tahun'))),0) AS `September`,
             ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=10)AND (YEAR(tanggal)='$tahun'))),0) AS `Oktober`,
             ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=11)AND (YEAR(tanggal)='$tahun'))),0) AS `November`,
             ifnull((SELECT count(kd_kunjungan) FROM (kunjungan)WHERE((Month(tanggal)=12)AND (YEAR(tanggal)='$tahun'))),0) AS `Desember`

@@ -182,6 +182,7 @@ class Dokter extends CI_Controller
         $var['data_rekmed'] = $this->model->detail_rekmed($no_rm);
         $var['diagnosis'] = $this->model->get_diagnosis_1();
         $var['diagnosis2'] = $this->model->get_diagnosis_2();
+        $var['profile'] = $this->db->get('pasien')->result();
         $this->load->view('dokter/data_rekam_medis', $var);
         }
     }

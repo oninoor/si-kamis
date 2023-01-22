@@ -87,7 +87,7 @@
                     </form>
                 <?php } ?>
                 <div class="pd-20">
-                    <p>Jumlah Kunjungan : <?= $jumlah ?></p>
+                    <p>Total Obat : <?= $jumlah[0]->qty ?></p>
                 </div>
                 <hr>
                 <div class="pb-20 mt-4">

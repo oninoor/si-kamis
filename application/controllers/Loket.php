@@ -290,6 +290,7 @@ class Loket extends CI_Controller
     {
         $var['title'] = 'Petugas Loket | Transaksi Pembayaran';
         $var['view'] = $this->model->get_transaksi($id);
+        $var['tindakan'] = $this->model->get_tindakan($var['view']->kd_kunjungan);
         $this->load->view('loket/transaksi_pembayaran', $var);
     }
 

@@ -52,8 +52,28 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label>Dokter <span style="color: red;">*</span></label>
-                                <input class="form-control" readonly value="<?= $data->nama_dokter ?>" type="text" name="" placeholder="">
+                                <label>Nama Pasien <span style="color: red;">*</span></label>
+                                <input class="form-control" type="text" readonly name="nama_pasien" value="<?= $data->nama_lengkap ?>" placeholder="Tinggi Badan">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label>Tanggal Lahir <span style="color: red;">*</span></label>
+                                <input class="form-control" readonly type="date" name="tgl_lahir" value="<?= $data->tgl_lahir ?>" placeholder="Berat Badan">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label>Jenis Kelamin <span style="color: red;">*</span></label>
+                                <input class="form-control" readonly type="text" name="jenis_kelamin" value="<?= $data->jenis_kelamin ?>" placeholder="Berat Badan">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label>Jenis Pasien <span style="color: red;">*</span></label>
+                                <input class="form-control" readonly type="text" name="jenis_pasien" value="<?= $data->jenis_pasien ?>" placeholder="Berat Badan">
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -68,6 +88,10 @@
                                 <input class="form-control" readonly type="text" name="berat_badan" value="<?= $data->berat_badan ?>" placeholder="Berat Badan">
                             </div>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Dokter <span style="color: red;">*</span></label>
+                        <input class="form-control" readonly value="<?= $data->nama_dokter ?>" type="text" name="" placeholder="">
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
@@ -113,7 +137,7 @@
                     </div>
                     <div class="form-group">
                         <label>Anamnesis <span style="color: red;">*</span></label>
-                        <textarea class="form-control" name="anamnesis" rows="5" cols="30"></textarea>
+                        <textarea class="form-control" name="anamnesis" rows="5" cols="30"><?= set_value('anamnesis') ?></textarea>
                         <?= form_error('anamnesis', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
@@ -121,19 +145,21 @@
                         <select name="kd_diagnosa" id="diagnosis" class="form-control">
                             <option></option>
                             <?php foreach ($diagnosis as $view) { ?>
-                                <option value="<?= $view->id ?>"><?= $view->nama_diagnosis ?></option>
+                                <option <?php if(set_value('kd_diagnosa') == $view->id) {
+                                    echo "selected=\"selected\"";
+                                }  ?> value="<?= $view->id ?>"><?= $view->nama_diagnosis ?></option>
                             <?php } ?>
                         </select>
                         <?= form_error('kd_diagnosa', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label>Diagnosis 1 ICD 10 <span style="color: red;">*</span></label>
-                        <input class="form-control" readonly type="text" name="diagnosis1_icd_10" id="diagnosis1_icd_10" placeholder="">
+                        <input class="form-control" readonly type="text" name="diagnosis1_icd_10" value="<?= set_value('diagnosis1_icd_10') ?>" id="diagnosis1_icd_10" placeholder="">
                         <?= form_error('diagnosis1_icd_10', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label>Kode Diagnosis 1 ICD 10 <span style="color: red;">*</span></label>
-                        <input class="form-control" readonly type="text" name="kode_diagnosis1_icd_10" id="kode_diagnosis1_icd_10" placeholder="">
+                        <input class="form-control" readonly type="text" name="kode_diagnosis1_icd_10" value="<?= set_value('kode_diagnosis1_icd_10') ?>" id="kode_diagnosis1_icd_10" placeholder="">
                         <?= form_error('kode_diagnosis1_icd_10', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-diagnosis-2">
@@ -177,12 +203,12 @@
                     </div>
                     <div class="form-group">
                         <label>Tindak Lanjut Pasien <span style="color: red;">*</span></label>
-                        <textarea class="form-control" name="tindak_lanjut" rows="5" cols="50"></textarea>
+                        <textarea class="form-control" name="tindak_lanjut" rows="5" cols="50"><?= set_value('tindak_lanjut') ?></textarea>
                         <?= form_error('tindak_lanjut', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label>Terapi Obat <span style="color: red;">*</span></label>
-                        <textarea class="form-control" name="terapi_obat" rows="5" cols="50"></textarea>
+                        <textarea class="form-control" name="terapi_obat" rows="5" cols="50"><?= set_value('terapi_obat') ?></textarea>
                         <?= form_error('terapi_obat', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <hr>

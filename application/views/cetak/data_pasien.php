@@ -12,18 +12,27 @@
             display: none !important;
         }
     }
+
+    h1 {
+        font-family: Times New Roman;
+        font-weight: bold;
+    }
+    
+    h5, p {
+        font-family: Times New Roman;
+    }
 </style>
 <div id="printable" class="container">
     <div class="container">
         <div class="header" style="margin-top: 40px;">
-            <h5 class="text-center">Praktik Umum dr. Alfi Yudisianto</h5>
-            <p class="text-center">No.SIP. 440/243.DU/414/2016 <br>Jl. Srikaya no.88 Jember
+            <h1 class="text-center">Praktik Umum dr. Alfi Yudisianto</h1>
+            <h5 class="text-center">No.SIP. 503/A.1/0190 DU/35.09.325/2022  <br>Jl. Srikaya no.88 Jember
                 <br> Pagi 07.00-10.00 <br> Sore 17.00-20.00
-            </p>
+            </h5>
         </div>
         <div class="row" style="margin-top: 40px;">
             <div class="col">
-                <p style="font-weight: bold; margin-left: 25%;">Kartu Identitas Berobat</p>
+                <p style="font-weight: bold; margin-left: 25%;">KARTU IDENTITAS BEROBAT</p>
             </div>
         </div>
         <div class="row">
@@ -59,8 +68,23 @@
     //     w.print();
     //     w.close();
     // }
-    const $btnPrint = document.querySelector("#btnPrint");
-    $btnPrint.addEventListener("click", () => {
-        window.print();
-    });
+
+    var css = '@page { size: landscape; }',
+    head = document.head || document.getElementsByTagName('head')[0],
+    style = document.createElement('style');
+
+    style.type = 'text/css';
+    style.media = 'print';
+
+    if (style.styleSheet){
+    style.styleSheet.cssText = css;
+    } else {
+    style.appendChild(document.createTextNode(css));
+    }
+
+    head.appendChild(style);
+        const $btnPrint = document.querySelector("#btnPrint");
+        $btnPrint.addEventListener("click", () => {
+            window.print();
+        });
 </script>

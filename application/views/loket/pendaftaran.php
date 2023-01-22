@@ -7,25 +7,25 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="title">
-                            <h4>Data Pendaftaran</h4>
+                            <h4>Data Pendaftaran Kunjungan</h4>
                         </div>
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">Data Pendaftaran</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Tabel List Pendaftaran</li>
+                                <li class="breadcrumb-item"><a href="">Data Pendaftaran Kunjungan</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Tabel List Pendaftaran Kunjungan</li>
                             </ol>
                         </nav>
                     </div>
                     <br>
                     <div class="col-md-12 col-sm-12 mt-3">
-                        <a href="<?= base_url('Loket/tambah_pendaftaran') ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Tambah Pendaftaran</a>
+                        <a href="<?= base_url('Loket/tambah_pendaftaran') ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Tambah Pendaftaran Kunjungan</a>
                     </div>
                 </div>
             </div>
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <h4 class="text-blue h4">List Data Pendaftaran</h4>
+                    <h4 class="text-blue h4">List Data Pendaftaran Kunjungan</h4>
                 </div>
                 <div class="pb-20">
                     <table class="data-table table stripe hover nowrap">

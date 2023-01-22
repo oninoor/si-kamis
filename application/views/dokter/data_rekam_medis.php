@@ -27,6 +27,7 @@
                 <div class="card-box mb-30">
                     <div class="pd-20">
                         <h4 class="text-blue h4">Kunjungan ke <?= $no++ ?></h4>
+                        <a href="<?= base_url('Dokter/resume_medis/' . $rekmed->kd_kunjungan) ?>" title="Resume Medis" class="badge bg-primary" style="color: white;"><i class="fa fa-file"></i> Resume Medis</a>
                     </div>
                     <div class="pd-20">
                         <div class="row">
@@ -50,7 +51,7 @@
                             </div>
                             <div class="col-md-9">
                                 <p>: <?= $rekmed->no_rekmed ?></p>
-                                <p>: <?= $rekmed->nama_lengkap ?></p>
+                                <p>: <?= $rekmed->nama_lengkap ?> <a href="#profile<?= $rekmed->no_rekmed ?>" data-toggle="modal" class="text-primary">(Detail Profile)</a></p>
                                 <p>: <?= $rekmed->nama_dokter ?></p>
                                 <p>: <?= date('d-m-Y', strtotime($rekmed->tanggal)) ?></p>
                                 <p>: <?= date('H:i', strtotime($rekmed->waktu)) . ' WIB' ?></p>
@@ -61,7 +62,20 @@
                                 <p>: <?= $rekmed->tekanan_darah_diastole ?></p>
                                 <p>: <?= $rekmed->nadi ?></p>
                                 <p>: <?= $rekmed->gejala ?></p>
-                                <p>: <?= $rekmed->status ?></p>
+                                <p>: <?php
+                                                                                        if ($rekmed->status == 0) {
+                                                                                            echo "<span class='badge badge-pill badge-secondary' style='color: white;'>Pendaftaran</span>";
+                                                                                        } else if ($rekmed->status == 1) {
+                                                                                            echo "<span class='badge badge-pill badge-warning' style='color: white;'>Pemeriksaan Dokter</span>";
+                                                                                        } else if ($rekmed->status == 2) {
+                                                                                            echo "<span class='badge badge-pill badge-info' style='color: white;'>Pengambilan Obat</span>";
+                                                                                        } else if ($rekmed->status == 3) {
+                                                                                            echo "<span class='badge badge-pill badge-primary' style='color: white;'>Pembayaran</span>";
+                                                                                        } else if ($rekmed->status == 4) {
+                                                                                            echo "<span class='badge badge-pill badge-success' style='color: white;'>Selesai</span>";
+                                                                                        }
+
+                                                                                        ?></p>
                                 <p>: <a href="#data_diagnosa<?= $rekmed->kd_kunjungan ?>" data-toggle="modal" class="text-primary">Diagnosa</a></p>
                                 <p>: <a href="#tindakan<?= $rekmed->kd_kunjungan ?>" data-toggle="modal" class="text-primary">Tindakan</a></p>
                                 <p>: <?= $rekmed->terapi_obat ?></p>
@@ -86,11 +100,13 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">
+                            <p>Anamnesis<p>
                             <p>Diagnosis 1</p>
                             <p>Diagnosis ICD 10</p>
                             <p>Kode Diagnosis ICD 10</p>
                         </div>
                         <div class="col-md-8">
+                            <p>: <?= $view->anamnesis ?></p>
                             <p>: <?= $view->nama_diagnosis ?></p>
                             <p>: <?= $view->diagnosis_icd_10 ?></p>
                             <p>: <?= $view->kode_diagnosis_icd_10 ?></p>
@@ -106,11 +122,13 @@
                             <p>Diagnosis 2</p>
                             <p>Diagnosis ICD 10</p>
                             <p>Kode Diagnosis ICD 10</p>
+                            <p>Tindak Lanjut</p>
                         </div>
                         <div class="col-md-8">
                             <p>: <?= $diagnosis2->nama_diagnosis ?></p>
                             <p>: <?= $diagnosis2->diagnosis_icd_10 ?></p>
                             <p>: <?= $diagnosis2->kode_diagnosis_icd_10 ?></p>
+                            <p>: <?= $view->tindak_lanjut ?></p>
                         </div>
                     </div>
                 </div>
@@ -158,6 +176,40 @@
                         <?php } ?>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
+<?php foreach($profile as $pasien) { ?>
+    <div class="modal fade" id="profile<?= $pasien->no_rm ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Profile Pasien</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>NIK</p>
+                            <p>Jenis Kelamin</p>
+                            <p>Jenis Pasien</p>
+                            <p>Tanggal Lahir</p>
+                        </div>
+                        <div class="col-md-9">
+                            <p>: <?= $pasien->nik ?></p>
+                            <p>: <?= $pasien->jenis_kelamin ?></p>
+                            <p>: <?= $pasien->jenis_pasien ?></p>
+                            <p>: <?= date('d-m-Y', strtotime($pasien->tgl_lahir)) ?></p>
+                        </div>
+                    </div>
+                </div> 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
                 </div>

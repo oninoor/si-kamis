@@ -55,7 +55,7 @@
                             } else {
                                 echo date("d-m-Y", strtotime($_GET['tgl_awal'])) . " - " . date("d-m-Y", strtotime($_GET['tgl_akhir']));
                             } ?></p>
-            <p>Jumlah Kunjungan : <?= $jumlah ?></p>
+            <p>Jumlah Kunjungan :  <?= $jumlah[0]->qty ?></p>
             <p>Jenis Pasien : <?php if (empty($tgl_awal) && empty($tgl_akhir) && empty($jenis_pasien)) {
                                 echo 'Semua';
                             } else {

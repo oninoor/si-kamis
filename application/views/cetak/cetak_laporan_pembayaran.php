@@ -55,7 +55,9 @@
                             } else {
                                 echo date("d-m-Y", strtotime($_GET['tgl_awal'])) . " - " . date("d-m-Y", strtotime($_GET['tgl_akhir']));
                             } ?></p>
-            <p>Jumlah Kunjungan : <?= $jumlah ?></p>
+            <div class="pd-20">
+                    <p>Jumlah Total Pembayaran : <?= 'Rp. ' . number_format($jumlah[0]->total_biaya) ?></p>
+            </div>
         </font>
 
         <div class="table-laporan-kunjungan">

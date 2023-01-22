@@ -167,6 +167,7 @@ class Laporan extends CI_Controller
             $var['title'] = 'Laporan | Laporan Pembayaran';
             $var['laporan'] = $this->model->laporan_pembayaran();
             $var['jumlah'] = $this->model->count_laporan_pembayaran();
+            // var_dump($var['jumlah']);
             $this->load->view('laporan/laporan_pembayaran', $var);
         }
     }

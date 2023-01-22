@@ -59,6 +59,7 @@ class Admin extends CI_Controller
                 $var['grafik_kunjungan'][] = (int) $row['Desember'];
             }
         }
+        // var_dump($var['grafik_kunjungan']);
         $this->load->view('admin/dashboard', $var);
     }
 
@@ -295,5 +296,12 @@ class Admin extends CI_Controller
         $var['diagnosis2'] = $this->model->get_diagnosis_2();
         $this->load->view('admin/data_rekam_medis', $var);
         }
+    }
+
+    public function data_obat()
+    {
+        $var['title'] = 'Admin | Data Obat';
+        $var['obat'] = $this->db->order_by('id', 'desc')->get('obat')->result();
+        $this->load->view('admin/data_obat', $var);
     }
 }

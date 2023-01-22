@@ -32,6 +32,37 @@
                 </div>
 
                 <form action="<?= base_url('Loket/save_pembayaran') ?>" method="POST">
+                <div class="row">
+                        <div class="col-md-4">
+                            <label for="">Kode Kunjungan</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><span class="fas fa-credit-card"></span> </span>
+                                </div>
+                                <input type="text" name="kd_kunjungan" value="<?= $view->kd_kunjungan ?>" id="no_trans" readonly class="form-control no_trans">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Tanggal Kunjungan</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><span class="fa fa-calendar"></span> </span>
+                                </div>
+                                <input type="date" value="<?= $view->tanggal ?>" readonly name="tgl_trans" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Petugas Loket</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><span class="fas fa-address-book"></span> </span>
+                                </div>
+                                <input type="hidden" name="petugas_obat" value="<?= $view->petugas_obat ?>" class="form-control">
+                                <input type="text" name="kasir" readonly value="<?= $view->nama_petugas ?>" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="row">
                         <div class="col-md-4">
                             <label for="">No Rekam Medis</label>
@@ -63,6 +94,20 @@
                             </div>
                         </div>
                         <div class="col-md-8">
+                            <?php if(empty($tindakan)) { ?>
+                                <label for="">Tindakan</label>
+                                    <div class="input-group mb-3">
+                                        <input class="form-control mb-3 resep" name="resep" readonly rows="3" value="-">
+                                    </div>
+                                <?php $no = 1; foreach($tindakan as $get) { ?>
+                                    <label for="">Tindakan <?= $no++ ?></label>
+                                    <div class="input-group mb-3">
+                                        <input class="form-control mb-3 resep" name="resep" readonly rows="3" value="<?= $get->tindakan ?>">
+                                    </div>
+                                <?php } ?>
+                            <?php } ?>
+                        </div>
+                        <div class="col-md-8">
                             <label for="">Tindak Lanjut</label>
                             <div class="input-group mb-3">
                                 <!-- <div class="input-group-prepend">
@@ -78,37 +123,6 @@
                                 <span class="input-group-text" id="basic-addon1"><span class="fa fa-receipt"></span> </span>
                             </div> -->
                                 <textarea class="form-control mb-3 resep" name="resep" readonly rows="3"><?= $view->terapi_obat ?></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="">Kode Kunjungan</label>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1"><span class="fas fa-credit-card"></span> </span>
-                                </div>
-                                <input type="text" name="kd_kunjungan" value="<?= $view->kd_kunjungan ?>" id="no_trans" readonly class="form-control no_trans">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="">Tanggal Kunjungan</label>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1"><span class="fa fa-calendar"></span> </span>
-                                </div>
-                                <input type="date" value="<?= $view->tanggal ?>" readonly name="tgl_trans" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="">Petugas Loket</label>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1"><span class="fas fa-address-book"></span> </span>
-                                </div>
-                                <input type="hidden" name="petugas_obat" value="<?= $view->petugas_obat ?>" class="form-control">
-                                <input type="text" name="kasir" readonly value="<?= $view->nama_petugas ?>" class="form-control">
                             </div>
                         </div>
                     </div>

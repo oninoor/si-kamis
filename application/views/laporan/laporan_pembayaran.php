@@ -77,7 +77,7 @@
                     </form>
                 <?php } ?>
                 <div class="pd-20">
-                    <p>Jumlah Kunjungan : <?= $jumlah ?></p>
+                    <p>Jumlah Total Pembayaran : <?= 'Rp. ' . number_format($jumlah[0]->total_biaya) ?></p>
                 </div>
                 <hr>
                 <div class="pb-20 mt-4">
