@@ -121,11 +121,11 @@
                                 <span class="micon fa fa-user"></span><span class="mtext">Data Pasien</span>
                             </a>
                         </li>
-                        <li class="dropdown">
+                        <!-- <li class="dropdown">
                             <a href="<?= base_url('Owner/data_kunjungan') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-stethoscope"></span><span class="mtext">Data Kunjungan</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="dropdown">
                             <a href="<?= base_url('Owner/data_diagnosis') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-list"></span><span class="mtext">Data Diagnosis</span>
@@ -137,20 +137,15 @@
                             </a>
                         </li>
                         <li class="dropdown">
+                            <a href="<?= base_url('Owner/data_obat') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-pills"></span><span class="mtext">Data Obat</span>
+                            </a>
+                        </li>
+                        <!-- <li class="dropdown">
                             <a href="<?= base_url('Owner/data_pemeriksaan') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-user-md"></span><span class="mtext">Data Pemeriksaan</span>
                             </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="<?= base_url('Owner/data_transaksi_obat') ?>" class="dropdown-toggle no-arrow">
-                                <span class="micon fa fa-medkit"></span><span class="mtext">Data Layanan Obat</span>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="<?= base_url('Owner/data_pembayaran') ?>" class="dropdown-toggle no-arrow">
-                                <span class="micon fa fa-dollar"></span><span class="mtext">Data Pembayaran</span>
-                            </a>
-                        </li>
+                        </li> -->
                         <li class="dropdown">
                             <a href="javascript:;" class="dropdown-toggle">
                                 <span class="micon fa fa-history"></span><span class="mtext">Riwayat</span>
@@ -158,6 +153,8 @@
                             <ul class="submenu">
                                 <li><a href="<?= base_url('Owner/riwayat_kunjungan') ?>">Riwayat Kunjungan</a></li>
                                 <li><a href="<?= base_url('Owner/riwayat_rekam_medis') ?>">Riwayat Rekam Medis</a></li>
+                                <li><a href="<?= base_url('Owner/data_transaksi_obat') ?>">Riwayat Layanan Obat</a></li>
+                                <li><a href="<?= base_url('Owner/data_pembayaran') ?>">Riwayat Pembayaran</a></li>
                             </ul>
                         </li>
                     <?php } ?>
@@ -183,33 +180,25 @@
                             </a>
                         </li>
                         <li class="dropdown">
-                            <a href="<?= base_url('Admin/data_pemeriksaan') ?>" class="dropdown-toggle no-arrow">
-                                <span class="micon fa fa-user-md"></span><span class="mtext">Data Medis</span>
-                            </a>
-                        </li>
-                        <li class="dropdown">
                             <a href="<?= base_url('Admin/data_obat') ?>" class="dropdown-toggle no-arrow">
                                 <span class="micon fa fa-pills"></span><span class="mtext">Data Obat</span>
                             </a>
                         </li>
-                        <li class="dropdown">
-                            <a href="<?= base_url('Admin/data_transaksi_obat') ?>" class="dropdown-toggle no-arrow">
-                                <span class="micon fa fa-medkit"></span><span class="mtext">Riwayat Layanan Obat</span>
+                        <!-- <li class="dropdown">
+                            <a href="<?= base_url('Admin/data_pemeriksaan') ?>" class="dropdown-toggle no-arrow">
+                                <span class="micon fa fa-user-md"></span><span class="mtext">Data Medis</span>
                             </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="<?= base_url('Admin/data_pembayaran') ?>" class="dropdown-toggle no-arrow">
-                                <span class="micon fa fa-dollar"></span><span class="mtext">Riwayat Pembayaran</span>
-                            </a>
-                        </li>
+                        </li> -->
                         <li class="dropdown">
                             <a href="javascript:;" class="dropdown-toggle">
                                 <span class="micon fa fa-history"></span><span class="mtext">Riwayat</span>
                             </a>
                             <ul class="submenu">
                                 <li><a href="<?= base_url('Admin/riwayat_kunjungan') ?>">Riwayat Kunjungan</a></li>
-                                <li><a href="<?= base_url('Admin/data_kunjungan') ?>">Riwayat Pendaftaran</a></li>
+                                <!-- <li><a href="<?= base_url('Admin/data_kunjungan') ?>">Riwayat Pendaftaran</a></li> -->
                                 <li><a href="<?= base_url('Admin/riwayat_rekam_medis') ?>">Riwayat Rekam Medis</a></li>
+                                <li><a href="<?= base_url('Admin/data_transaksi_obat') ?>">Riwayat Layanan Obat</a></li>
+                                <li><a href="<?= base_url('Admin/data_pembayaran') ?>">Riwayat Pembayaran</a></li>
                             </ul>
                         </li>
                         <?php } ?>

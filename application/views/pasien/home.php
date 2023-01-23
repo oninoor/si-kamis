@@ -33,7 +33,7 @@
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 mb-30">
                 <div class="pd-20 card-box">
-                    <h5 class="h4 text-blue mb-20">Detail Pemeriksaan</h5>
+                    <h5 class="h4 text-blue mb-20">Identitas Pasien</h5>
                     <div class="tab">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">

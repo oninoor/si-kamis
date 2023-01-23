@@ -268,4 +268,11 @@ class Owner extends CI_Controller
         $this->load->view('owner/data_rekam_medis', $var);
         }
     }
+
+    public function data_obat()
+    {
+        $var['title'] = 'Owner | Data Obat';
+        $var['obat'] =  $this->db->order_by('id', 'desc')->get('obat')->result();
+        $this->load->view('owner/data_obat', $var);
+    }
 }

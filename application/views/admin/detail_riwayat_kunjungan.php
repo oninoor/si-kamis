@@ -99,6 +99,10 @@
                                 <div class="tab-pane fade" id="detail_medis" role="tabpanel">
                                     <div class="pd-20">
                                         <div class="row">
+                                            <div class="col-md-3 mb-3"><span>Anamnesis</span></div>
+                                            <div class="col-md-9 mb-3"><span>: <?= $view->anamnesis ?></span></div>
+                                            <div class="col-md-3 mb-3"><span>Tindak Lanjut</span></div>
+                                            <div class="col-md-9 mb-3"><span>: <?= $view->tindak_lanjut ?></span></div>
                                             <?php if (empty($view1)) { ?>
                                                 <div class="col-md-3"><span>Diagnosis 1</span></div>
                                                 <div class="col-md-9"><span>: -</span></div>

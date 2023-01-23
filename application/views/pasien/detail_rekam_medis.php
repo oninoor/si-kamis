@@ -34,9 +34,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-blue" data-toggle="tab" href="#detail_medis" role="tab" aria-selected="false">Detail Diagnosa dan Tindakan</a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a class="nav-link text-blue" data-toggle="tab" href="#transaksi_obat" role="tab" aria-selected="true">Transaksi Obat</a>
-                                </li>
+                                </li> -->
                                 <li class="nav-item">
                                     <a class="nav-link text-blue" data-toggle="tab" href="#pembayaran" role="tab" aria-selected="true">Pembayaran</a>
                                 </li>
@@ -74,7 +74,7 @@
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?= $view->nadi ?> / menit
                                         </p>
                                         <p>
-                                            Gejala &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            Keluhan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <?= $view->gejala ?>
                                         </p>
                                         <p>
@@ -99,6 +99,10 @@
                                 <div class="tab-pane fade" id="detail_medis" role="tabpanel">
                                     <div class="pd-20">
                                         <div class="row">
+                                            <div class="col-md-3 mb-3"><span>Anamnesis</span></div>
+                                            <div class="col-md-9 mb-3"><span>: <?= $view->anamnesis ?></span></div>
+                                            <div class="col-md-3 mb-3"><span>Tindak Lanjut</span></div>
+                                            <div class="col-md-9 mb -3"><span>: <?= $view->tindak_lanjut ?></span></div>
                                             <?php if (empty($view1)) { ?>
                                                 <div class="col-md-3"><span>Diagnosis 1</span></div>
                                                 <div class="col-md-9"><span>: -</span></div>
